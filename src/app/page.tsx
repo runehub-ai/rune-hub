@@ -76,6 +76,13 @@ export default function Home() {
 
       {/* ── What is a Rune? ── */}
       <section style={{ maxWidth: '1100px', margin: '0 auto', padding: '5rem 2rem' }}>
+        {/* Floating orb image */}
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '2rem' }}>
+          <div style={{ position: 'relative', width: '160px', height: '160px', borderRadius: '50%', overflow: 'hidden', border: '2px solid rgba(187,154,247,0.25)', boxShadow: '0 0 40px rgba(187,154,247,0.15), 0 0 80px rgba(187,154,247,0.06)' }}>
+            <img src="/images/hero-hand-orb.jpg" alt="Rune Orb" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
+            <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle, transparent 40%, rgba(26,27,38,0.5) 100%)' }} />
+          </div>
+        </div>
         <p style={{ textAlign: 'center', fontSize: '0.7rem', color: '#bb9af7', letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '1rem', fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>The Core Concept</p>
         <h2 style={{ textAlign: 'center', fontSize: 'clamp(1.5rem, 3vw, 2rem)', fontWeight: 800, color: '#c0caf5', marginBottom: '0.75rem', fontFamily: "'Cinzel', serif", letterSpacing: '0.05em' }}>What is a Rune?</h2>
         <p style={{ textAlign: 'center', color: '#7982a9', fontSize: '0.9rem', maxWidth: '520px', margin: '0 auto 3rem', lineHeight: 1.7 }}>

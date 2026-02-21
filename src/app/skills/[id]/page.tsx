@@ -2,8 +2,13 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { SKILLS_REGISTRY } from '@/data/skills-registry'
 import { RUNES } from '@/data/runes'
+import { getSafetyScore, safetyColor, safetyLabel } from '@/lib/safety'
 
 type Params = Promise<{ id: string }>
+
+export async function generateStaticParams() {
+  return SKILLS_REGISTRY.map(s => ({ id: s.id }))
+}
 
 const CAT_COLORS: Record<string, string> = {
   input:  '#7aa2f7',
@@ -11,14 +16,9 @@ const CAT_COLORS: Record<string, string> = {
   llm:    '#bb9af7',
   output: '#ff9e64',
 }
-
 const CAT_LABELS: Record<string, string> = {
-  input:  '⬇ Input',
-  api:    '🔌 API',
-  llm:    '🧠 LLM',
-  output: '⬆ Output',
+  input: '⬇ Input', api: '🔌 API', llm: '🧠 LLM', output: '⬆ Output',
 }
-
 const CAT_DESC: Record<string, string> = {
   input:  'Fetches or ingests data as the starting point of a Rune pipeline.',
   api:    'Calls an external service or API to process, enrich, or transform data.',
@@ -26,7 +26,7 @@ const CAT_DESC: Record<string, string> = {
   output: 'Delivers the final result — sends a message, creates a record, or publishes content.',
 }
 
-function Corner({ pos, color }: { pos: 'tl'|'tr'|'bl'|'br', color: string }) {
+function Corner({ pos, color }: { pos: 'tl'|'tr'|'bl'|'br'; color: string }) {
   const s: React.CSSProperties = {
     position: 'absolute', width: 10, height: 10, opacity: 0.5,
     top:    pos.startsWith('t') ? 6 : undefined,
@@ -41,179 +41,198 @@ function Corner({ pos, color }: { pos: 'tl'|'tr'|'bl'|'br', color: string }) {
   return <div style={s} />
 }
 
+function StatBar({ label, score, max, color }: { label: string; score: number; max: number; color: string }) {
+  const pct = Math.round((score / max) * 100)
+  return (
+    <div style={{ marginBottom: '0.75rem' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.3rem' }}>
+        <span style={{ fontSize: '0.78rem', color: '#a9b1d6' }}>{label}</span>
+        <span style={{ fontSize: '0.78rem', color, fontFamily: "'JetBrains Mono', monospace", fontWeight: 600 }}>{score}/{max}</span>
+      </div>
+      <div style={{ height: '6px', background: '#1a1b26', borderRadius: '3px', overflow: 'hidden' }}>
+        <div style={{ height: '100%', width: `${pct}%`, background: `linear-gradient(90deg, ${color}88, ${color})`, borderRadius: '3px', boxShadow: `0 0 8px ${color}55`, transition: 'width 0.6s ease-out' }} />
+      </div>
+    </div>
+  )
+}
+
 export default async function SkillDetailPage({ params }: { params: Params }) {
   const { id } = await params
   const skill = SKILLS_REGISTRY.find(s => s.id === id)
   if (!skill) notFound()
 
   const color = CAT_COLORS[skill.category] || '#bb9af7'
-
-  // Runes that use this skill
+  const safety = getSafetyScore(skill)
+  const sColor = safetyColor(safety.total)
+  const sLabel = safetyLabel(safety.total)
   const usedInRunes = RUNES.filter(r => r.nodes.some(n => n.id === skill.id))
-
-  // Related skills (same category, different skill)
-  const related = SKILLS_REGISTRY
-    .filter(s => s.category === skill.category && s.id !== skill.id)
-    .slice(0, 6)
+  const related = SKILLS_REGISTRY.filter(s => s.category === skill.category && s.id !== skill.id).slice(0, 8)
 
   return (
     <div style={{ maxWidth: '1300px', margin: '0 auto', padding: '2rem 1.5rem 4rem' }}>
 
       {/* Breadcrumb */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1.75rem', fontSize: '0.85rem', color: '#414868', fontFamily: "'JetBrains Mono', monospace" }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1.75rem', fontSize: '0.82rem', color: '#414868', fontFamily: "'JetBrains Mono', monospace" }}>
         <Link href="/skills" style={{ color: '#bb9af7', textDecoration: 'none' }}>Skills</Link>
         <span>›</span>
-        <span style={{ color: color }}>{CAT_LABELS[skill.category]}</span>
+        <span style={{ color }}>{CAT_LABELS[skill.category]}</span>
         <span>›</span>
         <span style={{ color: '#7982a9' }}>{skill.id}</span>
       </div>
 
-      {/* Hero block */}
-      <div style={{ background: '#1e2030', border: `1px solid ${color}30`, borderRadius: '14px', padding: '2rem', marginBottom: '1.5rem', position: 'relative', overflow: 'hidden' }}>
-        <Corner pos="tl" color={color} />
-        <Corner pos="tr" color={color} />
-        <Corner pos="bl" color={color} />
-        <Corner pos="br" color={color} />
-
-        {/* bg glow */}
-        <div style={{ position: 'absolute', top: 0, right: 0, width: '300px', height: '300px', background: `radial-gradient(circle at top right, ${color}0A 0%, transparent 70%)`, pointerEvents: 'none' }} />
+      {/* Hero */}
+      <div style={{ background: '#1e2030', border: `1px solid ${color}30`, borderRadius: '14px', padding: '2rem', marginBottom: '1.25rem', position: 'relative', overflow: 'hidden' }}>
+        <Corner pos="tl" color={color} /><Corner pos="tr" color={color} />
+        <Corner pos="bl" color={color} /><Corner pos="br" color={color} />
+        <div style={{ position: 'absolute', top: 0, right: 0, width: '350px', height: '250px', background: `radial-gradient(circle at top right, ${color}0A 0%, transparent 70%)`, pointerEvents: 'none' }} />
 
         <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1.25rem', position: 'relative' }}>
-          {/* Icon */}
           <div style={{ width: 64, height: 64, borderRadius: '12px', background: `${color}15`, border: `1px solid ${color}30`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.8rem', flexShrink: 0 }}>
             {skill.icon}
           </div>
-
           <div style={{ flex: 1 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem', flexWrap: 'wrap' }}>
-              <span style={{ fontSize: '0.7rem', padding: '2px 10px', borderRadius: '4px', background: `${color}15`, color, border: `1px solid ${color}35`, fontFamily: "'JetBrains Mono', monospace", textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 600 }}>
-                {skill.category}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.5rem', flexWrap: 'wrap' }}>
+              <span style={{ fontSize: '0.68rem', padding: '2px 10px', borderRadius: '4px', background: `${color}15`, color, border: `1px solid ${color}35`, fontFamily: "'JetBrains Mono', monospace", textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 600 }}>{skill.category}</span>
+              <span style={{ fontSize: '0.68rem', color: '#414868', fontFamily: "'JetBrains Mono', monospace" }}>{skill.service}</span>
+              {/* Safety badge */}
+              <span style={{ fontSize: '0.68rem', padding: '2px 10px', borderRadius: '4px', background: `${sColor}15`, color: sColor, border: `1px solid ${sColor}35`, fontFamily: "'JetBrains Mono', monospace", fontWeight: 600 }}>
+                🛡 {sLabel} {safety.total}
               </span>
-              <span style={{ fontSize: '0.7rem', color: '#414868', fontFamily: "'JetBrains Mono', monospace" }}>{skill.service}</span>
             </div>
-            <h1 style={{ margin: '0 0 0.4rem', fontSize: '1.8rem', color: '#c0caf5', fontFamily: "'Cinzel', serif", letterSpacing: '0.03em', fontWeight: 700 }}>
-              {skill.label}
-            </h1>
+            <h1 style={{ margin: '0 0 0.4rem', fontSize: '1.75rem', color: '#c0caf5', fontFamily: "'Cinzel', serif", letterSpacing: '0.03em', fontWeight: 700 }}>{skill.label}</h1>
             <p style={{ margin: 0, fontSize: '0.65rem', color: '#414868', fontFamily: "'JetBrains Mono', monospace" }}>{skill.id}</p>
           </div>
         </div>
-
-        <p style={{ margin: '1.25rem 0 0', color: '#a9b1d6', fontSize: '1rem', lineHeight: 1.7, maxWidth: '700px' }}>
-          {skill.description}
-        </p>
+        <p style={{ margin: '1.25rem 0 0', color: '#a9b1d6', fontSize: '1rem', lineHeight: 1.7, maxWidth: '720px' }}>{skill.description}</p>
       </div>
 
-      {/* 3-col info grid */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1rem', marginBottom: '1.5rem' }}>
+      {/* Main 2-col layout */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 320px', gap: '1.25rem', marginBottom: '1.25rem' }}>
 
-        {/* Category info */}
-        <section style={{ background: '#1e2030', border: '1px solid #292e42', borderRadius: '10px', padding: '1.25rem', position: 'relative', overflow: 'hidden' }}>
-          <Corner pos="tl" color="#292e42" />
-          <Corner pos="br" color="#292e42" />
-          <h2 style={{ margin: '0 0 0.75rem', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.12em', color: '#565f89', fontWeight: 600 }}>Skill Type</h2>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.6rem' }}>
-            <span style={{ fontSize: '1.4rem' }}>
-              {skill.category === 'input' ? '⬇' : skill.category === 'api' ? '🔌' : skill.category === 'llm' ? '🧠' : '⬆'}
-            </span>
-            <span style={{ color, fontWeight: 700, fontSize: '1.1rem' }}>{CAT_LABELS[skill.category]}</span>
+        {/* Left col: Details */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+
+          {/* Type + Service */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+            <section style={{ background: '#1e2030', border: '1px solid #292e42', borderRadius: '10px', padding: '1.25rem', position: 'relative', overflow: 'hidden' }}>
+              <Corner pos="tl" color="#292e42" /><Corner pos="br" color="#292e42" />
+              <h2 style={{ margin: '0 0 0.75rem', fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.12em', color: '#565f89', fontWeight: 600 }}>Skill Type</h2>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
+                <span style={{ fontSize: '1.3rem' }}>{skill.category === 'input' ? '⬇' : skill.category === 'api' ? '🔌' : skill.category === 'llm' ? '🧠' : '⬆'}</span>
+                <span style={{ color, fontWeight: 700, fontSize: '1rem' }}>{CAT_LABELS[skill.category]}</span>
+              </div>
+              <p style={{ margin: 0, color: '#7982a9', fontSize: '0.82rem', lineHeight: 1.6 }}>{CAT_DESC[skill.category]}</p>
+            </section>
+
+            <section style={{ background: '#1e2030', border: '1px solid #292e42', borderRadius: '10px', padding: '1.25rem', position: 'relative', overflow: 'hidden' }}>
+              <Corner pos="tl" color="#292e42" /><Corner pos="br" color="#292e42" />
+              <h2 style={{ margin: '0 0 0.75rem', fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.12em', color: '#565f89', fontWeight: 600 }}>Powered By</h2>
+              <div style={{ fontWeight: 700, color: '#c0caf5', fontSize: '1rem', marginBottom: '0.5rem' }}>{skill.service}</div>
+              <p style={{ margin: '0 0 0.85rem', color: '#7982a9', fontSize: '0.82rem', lineHeight: 1.5 }}>Official API documentation and integration reference.</p>
+              <a href={skill.docsUrl} target="_blank" rel="noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', padding: '0.35rem 0.9rem', borderRadius: '6px', fontSize: '0.8rem', background: `${color}15`, color, border: `1px solid ${color}35`, textDecoration: 'none', fontWeight: 600 }}>
+                ↗ View Docs
+              </a>
+            </section>
           </div>
-          <p style={{ margin: 0, color: '#7982a9', fontSize: '0.85rem', lineHeight: 1.6 }}>{CAT_DESC[skill.category]}</p>
-        </section>
 
-        {/* Service info */}
-        <section style={{ background: '#1e2030', border: '1px solid #292e42', borderRadius: '10px', padding: '1.25rem', position: 'relative', overflow: 'hidden' }}>
-          <Corner pos="tl" color="#292e42" />
-          <Corner pos="br" color="#292e42" />
-          <h2 style={{ margin: '0 0 0.75rem', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.12em', color: '#565f89', fontWeight: 600 }}>Powered By</h2>
-          <div style={{ fontWeight: 700, color: '#c0caf5', fontSize: '1.1rem', marginBottom: '0.5rem' }}>{skill.service}</div>
-          <p style={{ margin: '0 0 1rem', color: '#7982a9', fontSize: '0.85rem', lineHeight: 1.5 }}>
-            Official service documentation and API reference.
-          </p>
-          <a href={skill.docsUrl} target="_blank" rel="noreferrer" style={{
-            display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
-            padding: '0.4rem 1rem', borderRadius: '6px', fontSize: '0.82rem',
-            background: `${color}15`, color, border: `1px solid ${color}35`,
-            textDecoration: 'none', fontWeight: 600, transition: 'all 0.15s',
-          }}>
-            <span>↗</span> Visit {skill.service} Docs
-          </a>
-        </section>
-
-        {/* Usage stats */}
-        <section style={{ background: '#1e2030', border: '1px solid #292e42', borderRadius: '10px', padding: '1.25rem', position: 'relative', overflow: 'hidden' }}>
-          <Corner pos="tl" color="#292e42" />
-          <Corner pos="br" color="#292e42" />
-          <h2 style={{ margin: '0 0 0.75rem', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.12em', color: '#565f89', fontWeight: 600 }}>Usage</h2>
-          <div style={{ display: 'flex', gap: '1.5rem', marginBottom: '0.75rem' }}>
-            <div>
-              <div style={{ fontSize: '2rem', fontWeight: 800, color: '#c0caf5', fontFamily: "'Cinzel', serif", lineHeight: 1 }}>{usedInRunes.length}</div>
-              <div style={{ fontSize: '0.72rem', color: '#565f89', textTransform: 'uppercase', letterSpacing: '0.08em', marginTop: '0.2rem' }}>Runes</div>
-            </div>
-          </div>
-          {usedInRunes.length === 0 && (
-            <p style={{ margin: 0, color: '#414868', fontSize: '0.82rem' }}>Not yet used in any Rune.</p>
-          )}
+          {/* Used in Runes */}
           {usedInRunes.length > 0 && (
-            <p style={{ margin: 0, color: '#7982a9', fontSize: '0.82rem' }}>This skill is a component in {usedInRunes.length} verified Rune{usedInRunes.length > 1 ? 's' : ''}.</p>
+            <section style={{ background: '#1e2030', border: `1px solid ${color}25`, borderRadius: '10px', padding: '1.25rem', position: 'relative', overflow: 'hidden' }}>
+              <Corner pos="tl" color={color} /><Corner pos="tr" color={color} />
+              <h2 style={{ margin: '0 0 1rem', fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.12em', color: '#565f89', fontWeight: 600 }}>
+                Used in {usedInRunes.length} Rune{usedInRunes.length > 1 ? 's' : ''}
+              </h2>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: '0.6rem' }}>
+                {usedInRunes.map(rune => (
+                  <Link key={rune.id} href={`/runes/${rune.slug}`} style={{ textDecoration: 'none' }}>
+                    <div style={{ background: '#16161e', border: '1px solid #1f2335', borderRadius: '8px', padding: '0.85rem 1rem' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.35rem' }}>
+                        <span>{rune.emoji}</span>
+                        <span style={{ color: '#c0caf5', fontWeight: 600, fontSize: '0.88rem', fontFamily: "'Cinzel', serif" }}>{rune.name}</span>
+                        <span style={{ marginLeft: 'auto', fontSize: '0.6rem', color: '#bb9af7', background: 'rgba(187,154,247,0.1)', border: '1px solid rgba(187,154,247,0.2)', padding: '1px 6px', borderRadius: '3px', fontFamily: "'JetBrains Mono', monospace", flexShrink: 0 }}>{rune.category}</span>
+                      </div>
+                      <p style={{ margin: 0, color: '#565f89', fontSize: '0.76rem', lineHeight: 1.5 }}>{rune.purpose}</p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </section>
           )}
-        </section>
+
+          {/* Related skills */}
+          {related.length > 0 && (
+            <section style={{ background: '#1e2030', border: '1px solid #292e42', borderRadius: '10px', padding: '1.25rem', position: 'relative' }}>
+              <Corner pos="tl" color="#292e42" />
+              <h2 style={{ margin: '0 0 1rem', fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.12em', color: '#565f89', fontWeight: 600 }}>
+                Related — {CAT_LABELS[skill.category]}
+              </h2>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '0.5rem' }}>
+                {related.map(s => {
+                  const rs = getSafetyScore(s)
+                  const rc = safetyColor(rs.total)
+                  return (
+                    <Link key={s.id} href={`/skills/${s.id}`} style={{ textDecoration: 'none' }}>
+                      <div style={{ background: '#16161e', border: '1px solid #1f2335', borderRadius: '7px', padding: '0.75rem' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.2rem' }}>
+                          <span style={{ fontSize: '0.9rem' }}>{s.icon}</span>
+                          <span style={{ color: '#c0caf5', fontWeight: 600, fontSize: '0.8rem', flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{s.label}</span>
+                          <span style={{ fontSize: '0.6rem', color: rc, fontFamily: "'JetBrains Mono', monospace", flexShrink: 0 }}>{rs.total}</span>
+                        </div>
+                        <div style={{ color: '#414868', fontSize: '0.63rem', fontFamily: "'JetBrains Mono', monospace" }}>{s.id}</div>
+                      </div>
+                    </Link>
+                  )
+                })}
+              </div>
+            </section>
+          )}
+        </div>
+
+        {/* Right col: Safety Score panel */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+
+          {/* Safety score big card */}
+          <section style={{ background: '#1e2030', border: `1px solid ${sColor}30`, borderRadius: '12px', padding: '1.5rem', position: 'relative', overflow: 'hidden' }}>
+            <Corner pos="tl" color={sColor} /><Corner pos="tr" color={sColor} />
+            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '3px', background: `linear-gradient(90deg, transparent, ${sColor}, transparent)`, opacity: 0.6 }} />
+            <h2 style={{ margin: '0 0 1.25rem', fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.12em', color: '#565f89', fontWeight: 600 }}>Safety Score</h2>
+
+            {/* Big number */}
+            <div style={{ textAlign: 'center', marginBottom: '1.25rem' }}>
+              <div style={{ fontSize: '3.5rem', fontWeight: 900, color: sColor, fontFamily: "'Cinzel', serif", lineHeight: 1, textShadow: `0 0 30px ${sColor}50` }}>{safety.total}</div>
+              <div style={{ fontSize: '0.78rem', color: sColor, marginTop: '0.35rem', fontWeight: 600, letterSpacing: '0.05em' }}>{sLabel}</div>
+              {/* Arc progress indicator */}
+              <div style={{ marginTop: '0.75rem', height: '6px', background: '#1a1b26', borderRadius: '3px', overflow: 'hidden' }}>
+                <div style={{ height: '100%', width: `${safety.total}%`, background: `linear-gradient(90deg, ${sColor}66, ${sColor})`, borderRadius: '3px', boxShadow: `0 0 10px ${sColor}66` }} />
+              </div>
+            </div>
+
+            {/* Breakdown bars */}
+            <div style={{ borderTop: '1px solid #292e42', paddingTop: '1rem' }}>
+              <StatBar label={safety.providerTrust.label}   score={safety.providerTrust.score}   max={safety.providerTrust.max}   color={sColor} />
+              <StatBar label={safety.actionRisk.label}      score={safety.actionRisk.score}      max={safety.actionRisk.max}      color={sColor} />
+              <StatBar label={safety.dataSensitivity.label} score={safety.dataSensitivity.score} max={safety.dataSensitivity.max} color={sColor} />
+              <StatBar label={safety.reversibility.label}   score={safety.reversibility.score}   max={safety.reversibility.max}   color={sColor} />
+            </div>
+          </section>
+
+          {/* Quick facts */}
+          <section style={{ background: '#1e2030', border: '1px solid #292e42', borderRadius: '10px', padding: '1.25rem' }}>
+            <h2 style={{ margin: '0 0 0.85rem', fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.12em', color: '#565f89', fontWeight: 600 }}>Quick Facts</h2>
+            {[
+              { label: 'Skill ID',  value: skill.id,              mono: true },
+              { label: 'Category', value: CAT_LABELS[skill.category], mono: false, col: color },
+              { label: 'Service',  value: skill.service,           mono: false },
+              { label: 'Used in',  value: `${usedInRunes.length} Rune${usedInRunes.length !== 1 ? 's' : ''}`, mono: true },
+            ].map(f => (
+              <div key={f.label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.45rem 0', borderBottom: '1px solid #1f2335' }}>
+                <span style={{ fontSize: '0.78rem', color: '#565f89' }}>{f.label}</span>
+                <span style={{ fontSize: '0.78rem', color: f.col || '#a9b1d6', fontFamily: f.mono ? "'JetBrains Mono', monospace" : 'inherit', fontWeight: 500 }}>{f.value}</span>
+              </div>
+            ))}
+          </section>
+        </div>
       </div>
-
-      {/* Used in Runes */}
-      {usedInRunes.length > 0 && (
-        <section style={{ background: '#1e2030', border: '1px solid #292e42', borderRadius: '12px', padding: '1.5rem', marginBottom: '1.5rem', position: 'relative', overflow: 'hidden' }}>
-          <Corner pos="tl" color={color} />
-          <Corner pos="tr" color={color} />
-          <h2 style={{ margin: '0 0 1.25rem', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.12em', color: '#565f89', fontWeight: 600 }}>
-            Used in Runes
-          </h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '0.75rem' }}>
-            {usedInRunes.map(rune => (
-              <Link key={rune.id} href={`/runes/${rune.slug}`} style={{ textDecoration: 'none' }}>
-                <div style={{ background: '#16161e', border: '1px solid #1f2335', borderRadius: '8px', padding: '0.9rem 1rem', transition: 'all 0.15s' }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.borderColor = '#bb9af7' + '50' }}
-                  onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.borderColor = '#1f2335' }}
-                >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.4rem' }}>
-                    <span style={{ fontSize: '1.1rem' }}>{rune.emoji}</span>
-                    <span style={{ color: '#c0caf5', fontWeight: 600, fontSize: '0.9rem', fontFamily: "'Cinzel', serif" }}>{rune.name}</span>
-                    <span style={{ marginLeft: 'auto', fontSize: '0.62rem', color: '#bb9af7', background: 'rgba(187,154,247,0.1)', border: '1px solid rgba(187,154,247,0.2)', padding: '1px 6px', borderRadius: '3px', fontFamily: "'JetBrains Mono', monospace", flexShrink: 0 }}>
-                      {rune.category}
-                    </span>
-                  </div>
-                  <p style={{ margin: 0, color: '#565f89', fontSize: '0.78rem', lineHeight: 1.5 }}>{rune.purpose}</p>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* Related skills */}
-      {related.length > 0 && (
-        <section style={{ background: '#1e2030', border: '1px solid #292e42', borderRadius: '12px', padding: '1.5rem', position: 'relative', overflow: 'hidden' }}>
-          <Corner pos="tl" color="#292e42" />
-          <h2 style={{ margin: '0 0 1.25rem', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.12em', color: '#565f89', fontWeight: 600 }}>
-            Related Skills — {CAT_LABELS[skill.category]}
-          </h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '0.6rem' }}>
-            {related.map(s => (
-              <Link key={s.id} href={`/skills/${s.id}`} style={{ textDecoration: 'none' }}>
-                <div style={{ background: '#16161e', border: '1px solid #1f2335', borderRadius: '7px', padding: '0.75rem', transition: 'all 0.15s' }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.borderColor = color + '50' }}
-                  onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.borderColor = '#1f2335' }}
-                >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
-                    <span style={{ fontSize: '0.95rem' }}>{s.icon}</span>
-                    <span style={{ color: '#c0caf5', fontWeight: 600, fontSize: '0.82rem' }}>{s.label}</span>
-                  </div>
-                  <div style={{ color: '#414868', fontSize: '0.65rem', fontFamily: "'JetBrains Mono', monospace" }}>{s.id}</div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </section>
-      )}
     </div>
   )
 }
