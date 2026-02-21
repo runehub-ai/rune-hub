@@ -1,86 +1,40 @@
-'use client';
+import { RUNES } from '@/data/runes'
+import { RuneCard } from '@/components/ui/RuneCard'
 
-import { useState } from 'react';
-import { runes } from '@/data/runes';
-import RuneCard from '@/components/ui/RuneCard';
-
-const CATEGORIES = ['All', 'Input', 'API', 'LLM', 'Output'];
-
-const CAT_ICONS: Record<string, string> = {
-  All: '◈',
-  Input: '⇥',
-  API: '⚡',
-  LLM: '⟡',
-  Output: '⇤',
-};
+const CATEGORIES = ['All', ...Array.from(new Set(RUNES.map(r => r.category))).sort()]
 
 export default function RunesPage() {
-  const [activeCategory, setActiveCategory] = useState('All');
-  const [search, setSearch] = useState('');
-
-  const filtered = runes.filter((rune) => {
-    const matchesCat = activeCategory === 'All' || rune.category === activeCategory;
-    const matchesSearch =
-      !search ||
-      rune.name.toLowerCase().includes(search.toLowerCase()) ||
-      rune.description?.toLowerCase().includes(search.toLowerCase());
-    return matchesCat && matchesSearch;
-  });
-
   return (
-    <div className="py-8 px-6">
-      <div className="max-w-6xl mx-auto">
-        <div className="quest-header mb-8">
-          <div className="text-xs font-mono text-purple-400 tracking-[0.3em] uppercase mb-3">◆ Archive Chamber ◆</div>
-          <h1>Rune Tome</h1>
-          <p className="text-sm font-mono text-[#8888A0] mt-3">
-            {runes.length} runes inscribed · Browse the complete spell archive
-          </p>
+    <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '3rem 2rem' }}>
+      {/* Header */}
+      <div style={{ marginBottom: '2.5rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
+          <span style={{ fontSize: '1.5rem' }}>🔮</span>
+          <h1 style={{ fontSize: '2rem', fontWeight: 800, color: '#E2E2E8', margin: 0, fontFamily: "'Cinzel', serif", letterSpacing: '0.05em' }}>Rune Catalog</h1>
         </div>
+        <p style={{ color: '#666', fontSize: '0.9rem', margin: 0, fontFamily: "'JetBrains Mono', monospace" }}>
+          {RUNES.length} verified skill orchestration workflows · Free forever
+        </p>
+      </div>
 
-        <div className="max-w-md mx-auto mb-8 rpg-panel p-1">
-          <input
-            type="text"
-            placeholder="Search runes..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="rpg-search"
-          />
-        </div>
+      {/* Category filter */}
+      <div style={{ display: 'flex', gap: '0.4rem', marginBottom: '2rem', flexWrap: 'wrap' }}>
+        {CATEGORIES.map(cat => (
+          <span key={cat} style={{
+            padding: '0.3rem 0.8rem', borderRadius: '5px', fontSize: '0.75rem',
+            fontFamily: "'JetBrains Mono', monospace", cursor: 'pointer',
+            background: cat === 'All' ? 'rgba(139,92,246,0.15)' : '#13131A',
+            color: cat === 'All' ? '#8B5CF6' : '#666',
+            border: `1px solid ${cat === 'All' ? 'rgba(139,92,246,0.4)' : '#2A2A35'}`,
+            transition: 'all 0.15s',
+          }}>{cat}</span>
+        ))}
+      </div>
 
-        <div className="flex items-center justify-center gap-2 mb-10 flex-wrap">
-          {CATEGORIES.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
-              className={`
-                flex items-center gap-2 px-4 py-2 text-xs font-display tracking-wider uppercase
-                border transition-all
-                ${
-                  activeCategory === cat
-                    ? 'border-purple-500 text-[#E2E2E8] bg-purple-500/10 shadow-[0_0_10px_rgba(139,92,246,0.2)]'
-                    : 'border-[#2A2A35] text-[#8888A0] hover:border-[#3A3A4A] hover:text-[#E2E2E8]'
-                }
-              `}
-            >
-              <span>{CAT_ICONS[cat]}</span>
-              <span>{cat}</span>
-            </button>
-          ))}
-        </div>
-
-        <div className="text-xs font-mono text-[#8888A0] mb-6">⟐ Showing {filtered.length} of {runes.length} runes</div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filtered.map((rune) => (
-            <RuneCard key={rune.slug} rune={rune} />
-          ))}
-        </div>
-
-        {filtered.length === 0 && (
-          <div className="text-center py-20 text-[#8888A0] font-mono text-sm">No runes found matching your query.</div>
-        )}
+      {/* Grid */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1rem' }}>
+        {RUNES.map(r => <RuneCard key={r.id} rune={r} />)}
       </div>
     </div>
-  );
+  )
 }
