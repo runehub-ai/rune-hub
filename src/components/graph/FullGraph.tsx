@@ -4,7 +4,6 @@ import ReactFlow, {
   Background, Controls, MiniMap,
   type Node, type Edge, type NodeMouseHandler,
 } from 'reactflow'
-import 'reactflow/dist/style.css'
 import { SkillNode } from './SkillNode'
 import { FULL_GRAPH, CATEGORY_COLORS, RUNES, HUB_SKILLS, type SkillCategory } from '@/data/runes'
 

@@ -1,6 +1,5 @@
 'use client'
 import ReactFlow, { Background, Controls, type Node, type Edge } from 'reactflow'
-import 'reactflow/dist/style.css'
 import { SkillNode } from './SkillNode'
 import { CATEGORY_COLORS, type Rune } from '@/data/runes'
 

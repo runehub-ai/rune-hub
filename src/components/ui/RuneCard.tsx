@@ -1,40 +1,92 @@
- 'use client'
-import Link from 'next/link'
-import { CATEGORY_COLORS, type Rune } from '@/data/runes'
+import Link from 'next/link';
 
-export function RuneCard({ rune }: { rune: Rune }) {
-  const skillCats = [...new Set(rune.nodes.map(n => n.category))]
+const CAT_COLORS: Record<string, { text: string; border: string; glow: string }> = {
+  Input: { text: '#3B82F6', border: 'rgba(59,130,246,0.3)', glow: 'rgba(59,130,246,0.1)' },
+  API: { text: '#10B981', border: 'rgba(16,185,129,0.3)', glow: 'rgba(16,185,129,0.1)' },
+  LLM: { text: '#8B5CF6', border: 'rgba(139,92,246,0.3)', glow: 'rgba(139,92,246,0.1)' },
+  Output: { text: '#F59E0B', border: 'rgba(245,158,11,0.3)', glow: 'rgba(245,158,11,0.1)' },
+};
+
+function getGrade(skillCount: number) {
+  if (skillCount >= 10) return { label: 'Rune Lord', class: 'grade-badge--runelord' };
+  if (skillCount >= 7) return { label: 'Archmage', class: 'grade-badge--archmage' };
+  if (skillCount >= 5) return { label: 'Artisan', class: 'grade-badge--artisan' };
+  if (skillCount >= 3) return { label: 'Smith', class: 'grade-badge--smith' };
+  return { label: 'Apprentice', class: 'grade-badge--apprentice' };
+}
+
+interface RuneCardProps {
+  rune: {
+    slug: string;
+    name: string;
+    description?: string;
+    category?: string;
+    nodes?: { id: string; name?: string; category?: string }[];
+  };
+}
+
+export default function RuneCard({ rune }: RuneCardProps) {
+  const skillCount = rune.nodes?.length ?? 0;
+  const grade = getGrade(skillCount);
+  const trust = Math.min(100, 40 + skillCount * 8);
+
   return (
-    <Link href={`/runes/${rune.slug}`} style={{ textDecoration: 'none' }}>
-      <div style={{
-        background: '#13131A', border: '1px solid #2A2A35', borderRadius: '12px',
-        padding: '1.25rem', cursor: 'pointer', transition: 'all 0.2s',
-        display: 'flex', flexDirection: 'column', gap: '0.75rem', height: '100%',
-      }}
-        onMouseEnter={e => {
-          (e.currentTarget as HTMLDivElement).style.borderColor = '#8B5CF6'
-          ;(e.currentTarget as HTMLDivElement).style.boxShadow = '0 0 20px rgba(139,92,246,0.2)'
-        }}
-        onMouseLeave={e => {
-          (e.currentTarget as HTMLDivElement).style.borderColor = '#2A2A35'
-          ;(e.currentTarget as HTMLDivElement).style.boxShadow = 'none'
-        }}
+    <Link href={`/runes/${rune.slug}`}>
+      <div
+        className="rpg-panel p-5 h-full hover:translate-y-[-2px] transition-all cursor-pointer group"
+        style={{ borderColor: 'rgba(139,92,246,0.3)' }}
       >
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-          <span style={{ fontSize: '1.75rem' }}>{rune.emoji}</span>
-          <span style={{ fontSize: '0.7rem', background: 'rgba(139,92,246,0.15)', color: '#8B5CF6', padding: '2px 8px', borderRadius: '4px', border: '1px solid rgba(139,92,246,0.3)' }}>{rune.category}</span>
-        </div>
-        <div>
-          <div style={{ fontWeight: 700, color: '#E2E2E8', marginBottom: '0.35rem', fontSize: '1rem' }}>{rune.name}</div>
-          <div style={{ fontSize: '0.8rem', color: '#888', lineHeight: 1.5 }}>{rune.purpose}</div>
-        </div>
-        <div style={{ display: 'flex', gap: '0.35rem', flexWrap: 'wrap', marginTop: 'auto' }}>
-          {skillCats.map(cat => (
-            <span key={cat} style={{ fontSize: '0.65rem', padding: '2px 6px', borderRadius: '3px', background: `${CATEGORY_COLORS[cat]}15`, color: CATEGORY_COLORS[cat], border: `1px solid ${CATEGORY_COLORS[cat]}40`, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{cat}</span>
-          ))}
-          <span style={{ fontSize: '0.65rem', padding: '2px 6px', borderRadius: '3px', background: '#1a1a24', color: '#555', marginLeft: 'auto' }}>{rune.nodes.length} skills</span>
+        <div className="rpg-panel-inner">
+          <div className="flex items-start justify-between mb-3 gap-2">
+            <h3 className="font-display text-base tracking-wider uppercase group-hover:text-purple-300 transition-colors leading-tight">{rune.name}</h3>
+            <span className="cat-badge flex-shrink-0">{rune.category}</span>
+          </div>
+
+          <p className="text-xs text-[#8888A0] mb-4 line-clamp-2 leading-relaxed">{rune.description}</p>
+
+          <div className="mb-3">
+            <span className={`grade-badge ${grade.class}`}>Lv.{skillCount} {grade.label}</span>
+          </div>
+
+          <div className="flex flex-wrap gap-1.5 mb-4">
+            {rune.nodes?.slice(0, 5).map((skill) => {
+              const sc = CAT_COLORS[skill.category ?? 'LLM'] ?? CAT_COLORS.LLM;
+              return (
+                <span
+                  key={skill.id}
+                  className="text-[10px] font-mono px-2 py-0.5 border rounded-sm"
+                  style={{
+                    color: sc.text,
+                    borderColor: `${sc.text}33`,
+                    background: `${sc.text}0D`,
+                  }}
+                >
+                  {skill.id}
+                </span>
+              );
+            })}
+            {skillCount > 5 && (
+              <span className="text-[10px] font-mono text-[#8888A0] px-2 py-0.5">+{skillCount - 5} more</span>
+            )}
+          </div>
+
+          <div>
+            <div className="flex items-center justify-between text-[10px] font-mono text-[#8888A0] mb-1">
+              <span>Trust Score</span>
+              <span style={{ color: 'var(--purple)' }}>{trust}%</span>
+            </div>
+            <div className="stat-bar" style={{ height: '14px' }}>
+              <div className="stat-bar__fill stat-bar__fill--purple" style={{ width: `${trust}%` }} />
+              <div className="stat-bar__label">{trust}/100</div>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between mt-4 text-[10px] font-mono">
+            <span className="text-[#8888A0]">⚔ {skillCount} nodes</span>
+            <span className="text-purple-400 opacity-0 group-hover:opacity-100 transition-opacity">Open Scroll →</span>
+          </div>
         </div>
       </div>
     </Link>
-  )
+  );
 }
