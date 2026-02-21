@@ -121,6 +121,64 @@ export default function Home() {
             </p>
           </div>
         </div>
+
+        {/* ── Live Example Pipeline ── */}
+        <div style={{ marginTop: '3.5rem', background: '#16161e', border: '1px solid #2e3452', borderRadius: '14px', padding: '1.75rem 2rem' }}>
+          {/* Header */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1.5rem', flexWrap: 'wrap' }}>
+            <span style={{ fontSize: '0.75rem', color: '#c9a8ff', letterSpacing: '0.15em', textTransform: 'uppercase', fontWeight: 700 }}>Live Example</span>
+            <span style={{ color: '#2e3452' }}>·</span>
+            <span style={{ fontSize: '1rem', color: '#d0d8f8', fontWeight: 700, fontFamily: "'Cinzel', serif" }}>☀ Morning Brief</span>
+            <span style={{ marginLeft: 'auto', fontSize: '0.75rem', color: '#a8d878', background: 'rgba(168,216,120,0.08)', border: '1px solid rgba(168,216,120,0.25)', padding: '2px 10px', borderRadius: '20px', flexShrink: 0 }}>
+              Trust Score 87
+            </span>
+          </div>
+
+          {/* Pipeline */}
+          <div style={{ display: 'flex', alignItems: 'stretch', gap: '0', overflowX: 'auto', paddingBottom: '0.25rem' }}>
+            {[
+              { icon: '📧', name: 'Gmail Fetch',     service: 'Gmail',   cat: 'INPUT',  color: '#8ab4ff', desc: 'Fetch unread emails from last 24h' },
+              { icon: '🧠', name: 'LLM Summarize',   service: 'Claude',  cat: 'LLM',    color: '#c9a8ff', desc: 'Extract key threads & action items' },
+              { icon: '📊', name: 'Sheets Log',       service: 'G Sheets',cat: 'API',    color: '#a8d878', desc: 'Append daily summary to tracker' },
+              { icon: '💬', name: 'Slack Notify',     service: 'Slack',   cat: 'OUTPUT', color: '#ffb07a', desc: 'Post briefing to #daily channel' },
+            ].map((node, i, arr) => (
+              <div key={node.name} style={{ display: 'flex', alignItems: 'center', flex: i < arr.length - 1 ? '1 1 auto' : undefined }}>
+                {/* Node card */}
+                <div style={{
+                  background: '#1e2030',
+                  border: `1px solid ${node.color}30`,
+                  borderRadius: '10px',
+                  padding: '1rem 1.1rem',
+                  minWidth: '140px',
+                  boxShadow: `0 0 18px ${node.color}10`,
+                  flexShrink: 0,
+                }}>
+                  <div style={{ fontSize: '1.4rem', marginBottom: '0.5rem' }}>{node.icon}</div>
+                  <div style={{ fontSize: '0.875rem', color: '#d0d8f8', fontWeight: 700, marginBottom: '0.2rem' }}>{node.name}</div>
+                  <div style={{ fontSize: '0.68rem', color: node.color, textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 700, marginBottom: '0.4rem' }}>{node.cat}</div>
+                  <div style={{ fontSize: '0.75rem', color: '#748ab8', lineHeight: 1.4 }}>{node.desc}</div>
+                  {/* Service badge */}
+                  <div style={{ marginTop: '0.6rem', display: 'inline-block', fontSize: '0.65rem', color: node.color, background: `${node.color}10`, border: `1px solid ${node.color}25`, padding: '1px 7px', borderRadius: '4px', fontFamily: "'JetBrains Mono', monospace" }}>
+                    {node.service}
+                  </div>
+                </div>
+
+                {/* Arrow connector (between nodes) */}
+                {i < arr.length - 1 && (
+                  <div style={{ flex: 1, minWidth: '2rem', maxWidth: '3.5rem', display: 'flex', alignItems: 'center', position: 'relative', padding: '0 2px' }}>
+                    <div style={{ width: '100%', height: '1.5px', background: `linear-gradient(90deg, ${node.color}60, ${arr[i+1].color}60)` }} />
+                    <div style={{ position: 'absolute', right: 0, width: 0, height: 0, borderTop: '5px solid transparent', borderBottom: '5px solid transparent', borderLeft: `7px solid ${arr[i+1].color}80` }} />
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* Caption */}
+          <p style={{ margin: '1.25rem 0 0', fontSize: '0.875rem', color: '#748ab8', lineHeight: 1.6 }}>
+            Every morning: fetches unread emails → AI extracts key threads & todos → logs summary to Sheets → pings your Slack with the briefing. <span style={{ color: '#c9a8ff' }}>One Rune. Zero manual work.</span>
+          </p>
+        </div>
       </section>
 
       {/* ── Featured Runes ── */}
