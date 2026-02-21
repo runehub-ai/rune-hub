@@ -3,10 +3,10 @@ import { SKILLS_REGISTRY } from '@/data/skills-registry'
 import { RUNES } from '@/data/runes'
 
 const CAT_COLORS: Record<string, string> = {
-  input:  '#3B82F6',
-  api:    '#10B981',
-  llm:    '#8B5CF6',
-  output: '#F59E0B',
+  input:  '#7aa2f7',
+  api:    '#9ece6a',
+  llm:    '#bb9af7',
+  output: '#ff9e64',
 }
 
 const CAT_LABELS: Record<string, string> = {
@@ -38,9 +38,9 @@ export default function SkillsPage() {
       <div style={{ marginBottom: '2.5rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
           <span style={{ fontSize: '1.5rem' }}>📦</span>
-          <h1 style={{ fontSize: '2rem', fontWeight: 800, color: '#E2E2E8', margin: 0, fontFamily: "'Cinzel', serif", letterSpacing: '0.05em' }}>Skills Registry</h1>
+          <h1 style={{ fontSize: '2rem', fontWeight: 800, color: '#c0caf5', margin: 0, fontFamily: "'Cinzel', serif", letterSpacing: '0.05em' }}>Skills Registry</h1>
         </div>
-        <p style={{ color: '#666', fontSize: '0.9rem', margin: 0, fontFamily: "'JetBrains Mono', monospace" }}>
+        <p style={{ color: '#7982a9', fontSize: '0.9rem', margin: 0, fontFamily: "'JetBrains Mono', monospace" }}>
           {SKILLS_REGISTRY.length} real-world skills across {Object.keys(byCategory).length} categories
         </p>
       </div>
@@ -50,14 +50,14 @@ export default function SkillsPage() {
         {(Object.keys(byCategory) as Array<keyof typeof byCategory>).map(cat => (
           <div key={cat} style={{
             border: `1px solid ${CAT_COLORS[cat]}30`,
-            borderRadius: '10px', background: '#13131A', padding: '1rem',
+            borderRadius: '10px', background: '#1e2030', padding: '1rem',
             boxShadow: `0 0 12px ${CAT_COLORS[cat]}0A`,
           }}>
-            <div style={{ color: CAT_COLORS[cat], fontWeight: 700, fontSize: '0.85rem', fontFamily: "'Rajdhani', sans-serif", marginBottom: '0.5rem' }}>
+            <div style={{ color: CAT_COLORS[cat], fontWeight: 700, fontSize: '0.85rem', fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif", marginBottom: '0.5rem' }}>
               {CAT_LABELS[cat]}
             </div>
-            <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#E2E2E8' }}>{byCategory[cat].length}</div>
-            <div style={{ fontSize: '0.72rem', color: '#555', marginTop: '0.2rem' }}>skills</div>
+            <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#c0caf5' }}>{byCategory[cat].length}</div>
+            <div style={{ fontSize: '0.72rem', color: '#565f89', marginTop: '0.2rem' }}>skills</div>
           </div>
         ))}
       </div>
@@ -67,7 +67,7 @@ export default function SkillsPage() {
         <section key={cat} style={{ marginBottom: '2.5rem' }}>
           <h2 style={{
             fontSize: '0.8rem', color: CAT_COLORS[cat], textTransform: 'uppercase',
-            letterSpacing: '0.12em', fontFamily: "'Rajdhani', sans-serif",
+            letterSpacing: '0.12em', fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
             margin: '0 0 1rem', padding: '0.4rem 0', borderBottom: `1px solid ${CAT_COLORS[cat]}25`,
           }}>{CAT_LABELS[cat]} — {byCategory[cat].length} skills</h2>
 
@@ -77,27 +77,27 @@ export default function SkillsPage() {
               return (
                 <a key={skill.id} href={skill.docsUrl} target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
                   <div style={{
-                    background: '#0F0F15', border: '1px solid #262636', borderRadius: '8px',
+                    background: '#1a1b26', border: '1px solid #1f2335', borderRadius: '8px',
                     padding: '0.85rem 1rem', transition: 'all 0.15s', cursor: 'pointer',
                     position: 'relative',
                   }}
                     onMouseEnter={e => {
                       const el = e.currentTarget as HTMLDivElement
                       el.style.borderColor = `${CAT_COLORS[cat]}55`
-                      el.style.background = '#13131A'
+                      el.style.background = '#1e2030'
                     }}
                     onMouseLeave={e => {
                       const el = e.currentTarget as HTMLDivElement
-                      el.style.borderColor = '#262636'
-                      el.style.background = '#0F0F15'
+                      el.style.borderColor = '#1f2335'
+                      el.style.background = '#1a1b26'
                     }}
                   >
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '0.5rem' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', minWidth: 0 }}>
                         <span style={{ fontSize: '1rem', flexShrink: 0 }}>{skill.icon}</span>
                         <div style={{ minWidth: 0 }}>
-                          <div style={{ color: '#E2E2E8', fontWeight: 600, fontSize: '0.85rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{skill.label}</div>
-                          <div style={{ color: '#555', fontSize: '0.65rem', fontFamily: "'JetBrains Mono', monospace", marginTop: '1px' }}>{skill.id}</div>
+                          <div style={{ color: '#c0caf5', fontWeight: 600, fontSize: '0.85rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{skill.label}</div>
+                          <div style={{ color: '#565f89', fontSize: '0.65rem', fontFamily: "'JetBrains Mono', monospace", marginTop: '1px' }}>{skill.id}</div>
                         </div>
                       </div>
                       {usedIn > 0 && (
@@ -109,8 +109,8 @@ export default function SkillsPage() {
                         }}>×{usedIn}</span>
                       )}
                     </div>
-                    <div style={{ marginTop: '0.5rem', color: '#666', fontSize: '0.72rem', lineHeight: 1.4 }}>{skill.description}</div>
-                    <div style={{ marginTop: '0.4rem', fontSize: '0.65rem', color: '#444', fontFamily: "'JetBrains Mono', monospace" }}>{skill.service}</div>
+                    <div style={{ marginTop: '0.5rem', color: '#7982a9', fontSize: '0.72rem', lineHeight: 1.4 }}>{skill.description}</div>
+                    <div style={{ marginTop: '0.4rem', fontSize: '0.65rem', color: '#414868', fontFamily: "'JetBrains Mono', monospace" }}>{skill.service}</div>
                   </div>
                 </a>
               )

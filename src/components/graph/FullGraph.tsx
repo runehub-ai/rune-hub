@@ -56,9 +56,9 @@ export function FullGraph() {
     .map((e, i) => ({
       id: `e-${i}`, source: e.source, target: e.target,
       label: e.label, animated: true,
-      style: { stroke: '#8B5CF6', strokeWidth: 1.2, opacity: 0.6 },
-      labelStyle: { fill: '#666', fontSize: 9 },
-      labelBgStyle: { fill: '#0A0A0F' },
+      style: { stroke: '#bb9af7', strokeWidth: 1.2, opacity: 0.6 },
+      labelStyle: { fill: '#7982a9', fontSize: 9 },
+      labelBgStyle: { fill: '#1a1b26' },
     }))
 
   const onNodeClick: NodeMouseHandler = (_, node) => setSelectedNode(node.id === selectedNode ? null : node.id)
@@ -71,38 +71,38 @@ export function FullGraph() {
     <div style={{ display: 'flex', height: '70vh', gap: '1rem' }}>
       {/* Sidebar */}
       <div style={{ width: 200, flexShrink: 0, display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-        <div style={{ background: '#13131A', border: '1px solid #2A2A35', borderRadius: '8px', padding: '1rem' }}>
-          <div style={{ fontSize: '0.7rem', color: '#555', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.75rem' }}>Filter</div>
+        <div style={{ background: '#1e2030', border: '1px solid #292e42', borderRadius: '8px', padding: '1rem' }}>
+          <div style={{ fontSize: '0.7rem', color: '#565f89', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.75rem' }}>Filter</div>
           {Object.entries(CAT_LABELS).map(([cat, label]) => (
             <label key={cat} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', marginBottom: '0.5rem' }}>
               <input type="checkbox" checked={activeCategories.has(cat)} onChange={() => toggleCat(cat)} style={{ accentColor: CATEGORY_COLORS[cat as SkillCategory] }} />
-              <span style={{ fontSize: '0.8rem', color: activeCategories.has(cat) ? CATEGORY_COLORS[cat as SkillCategory] : '#555' }}>{label}</span>
+              <span style={{ fontSize: '0.8rem', color: activeCategories.has(cat) ? CATEGORY_COLORS[cat as SkillCategory] : '#565f89' }}>{label}</span>
             </label>
           ))}
-          <div style={{ borderTop: '1px solid #2A2A35', marginTop: '0.75rem', paddingTop: '0.75rem' }}>
+          <div style={{ borderTop: '1px solid #292e42', marginTop: '0.75rem', paddingTop: '0.75rem' }}>
             <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
-              <input type="checkbox" checked={hubOnly} onChange={() => setHubOnly(!hubOnly)} style={{ accentColor: '#8B5CF6' }} />
-              <span style={{ fontSize: '0.8rem', color: hubOnly ? '#8B5CF6' : '#555' }}>⭐ Hub Skills Only</span>
+              <input type="checkbox" checked={hubOnly} onChange={() => setHubOnly(!hubOnly)} style={{ accentColor: '#bb9af7' }} />
+              <span style={{ fontSize: '0.8rem', color: hubOnly ? '#bb9af7' : '#565f89' }}>⭐ Hub Skills Only</span>
             </label>
           </div>
         </div>
 
         {selectedNode && (
-          <div style={{ background: '#13131A', border: '1px solid #8B5CF6', borderRadius: '8px', padding: '1rem' }}>
-            <div style={{ fontSize: '0.7rem', color: '#8B5CF6', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>Used In</div>
+          <div style={{ background: '#1e2030', border: '1px solid #bb9af7', borderRadius: '8px', padding: '1rem' }}>
+            <div style={{ fontSize: '0.7rem', color: '#bb9af7', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>Used In</div>
             {usedInRunes.length ? usedInRunes.map(r => (
-              <div key={r} style={{ fontSize: '0.75rem', color: '#E2E2E8', marginBottom: '0.25rem' }}>· {r}</div>
-            )) : <div style={{ fontSize: '0.75rem', color: '#555' }}>No Runes</div>}
+              <div key={r} style={{ fontSize: '0.75rem', color: '#c0caf5', marginBottom: '0.25rem' }}>· {r}</div>
+            )) : <div style={{ fontSize: '0.75rem', color: '#565f89' }}>No Runes</div>}
           </div>
         )}
       </div>
 
       {/* Graph */}
-      <div style={{ flex: 1, background: '#0A0A0F', borderRadius: '12px', border: '1px solid #2A2A35', overflow: 'hidden' }}>
+      <div style={{ flex: 1, background: '#1a1b26', borderRadius: '12px', border: '1px solid #292e42', overflow: 'hidden' }}>
         <ReactFlow nodes={gridLayout()} edges={edges} nodeTypes={nodeTypes} onNodeClick={onNodeClick} fitView fitViewOptions={{ padding: 0.2 }}>
-          <Background color="#1a1a24" gap={24} />
-          <Controls style={{ background: '#13131A', border: '1px solid #2A2A35' }} />
-          <MiniMap nodeColor={(n) => CATEGORY_COLORS[(n.data?.category as SkillCategory) ?? 'api']} style={{ background: '#13131A', border: '1px solid #2A2A35' }} />
+          <Background color="#1f2335" gap={24} />
+          <Controls style={{ background: '#1e2030', border: '1px solid #292e42' }} />
+          <MiniMap nodeColor={(n) => CATEGORY_COLORS[(n.data?.category as SkillCategory) ?? 'api']} style={{ background: '#1e2030', border: '1px solid #292e42' }} />
         </ReactFlow>
       </div>
     </div>
