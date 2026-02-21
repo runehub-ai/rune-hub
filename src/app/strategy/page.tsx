@@ -5,7 +5,7 @@ export default function StrategyPage() {
         <h1 style={{ fontSize: '2rem', fontWeight: 800, color: '#c0caf5', marginBottom: '0.5rem', fontFamily: "'Cinzel', serif", letterSpacing: '0.05em' }}>
           RuneGraph Strategy
         </h1>
-        <p style={{ color: '#9aa5ce', marginTop: 0, lineHeight: 1.7, fontSize: '1rem' }}>
+        <p style={{ color: '#b0bcd8', marginTop: 0, lineHeight: 1.7, fontSize: '1rem' }}>
           A three-axis strategy for product design, community growth, and technical excellence in AI skill orchestration.
         </p>
       </div>
@@ -49,7 +49,7 @@ export default function StrategyPage() {
           <div style={{ position: 'absolute', top: 6, left: 6, width: 10, height: 10, borderTop: '1.5px solid #bb9af7', borderLeft: '1.5px solid #bb9af7', opacity: 0.4 }} />
           <div style={{ position: 'absolute', top: 6, right: 6, width: 10, height: 10, borderTop: '1.5px solid #bb9af7', borderRight: '1.5px solid #bb9af7', opacity: 0.4 }} />
           <h2 style={{ color: '#c0caf5', marginTop: 0, fontFamily: "'Cinzel', serif", fontSize: '1.1rem', letterSpacing: '0.03em' }}>{section.title}</h2>
-          <ul style={{ paddingLeft: '1.25rem', color: '#a9b1d6', lineHeight: 1.85, marginTop: '0.75rem', marginBottom: 0 }}>
+          <ul style={{ paddingLeft: '1.25rem', color: '#bac4e0', lineHeight: 1.85, marginTop: '0.75rem', marginBottom: 0 }}>
             {section.items.map((item, j) => (
               <li key={j} style={{ marginBottom: '0.4rem', fontSize: '0.95rem' }}>{item}</li>
             ))}
@@ -70,7 +70,7 @@ export default function StrategyPage() {
           ].map(({ q, color, items }) => (
             <div key={q} style={{ background: '#1a1b26', border: `1px solid ${color}30`, borderRadius: '8px', padding: '1rem' }}>
               <div style={{ color, fontWeight: 700, fontSize: '0.85rem', marginBottom: '0.6rem', fontFamily: "'JetBrains Mono', monospace", letterSpacing: '0.1em' }}>{q}</div>
-              <ul style={{ margin: 0, paddingLeft: '1.1rem', color: '#9aa5ce', fontSize: '0.875rem', lineHeight: 1.7 }}>
+              <ul style={{ margin: 0, paddingLeft: '1.1rem', color: '#b0bcd8', fontSize: '0.875rem', lineHeight: 1.7 }}>
                 {items.map(it => <li key={it}>{it}</li>)}
               </ul>
             </div>

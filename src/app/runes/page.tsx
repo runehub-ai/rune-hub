@@ -26,7 +26,7 @@ export default function RunesPage() {
           <span style={{ fontSize: '1.5rem' }}>🔮</span>
           <h1 style={{ fontSize: '2rem', fontWeight: 800, color: '#c0caf5', margin: 0, fontFamily: "'Cinzel', serif", letterSpacing: '0.05em' }}>Rune Catalog</h1>
         </div>
-        <p style={{ color: '#7aa2c8', fontSize: '0.95rem', margin: 0 }}>
+        <p style={{ color: '#8ab4e0', fontSize: '0.95rem', margin: 0 }}>
           {RUNES.length} verified skill orchestration workflows · Open Source
         </p>
       </div>
@@ -60,7 +60,7 @@ export default function RunesPage() {
 
         {/* Search */}
         <div style={{ marginLeft: 'auto', position: 'relative' }}>
-          <span style={{ position: 'absolute', left: '0.7rem', top: '50%', transform: 'translateY(-50%)', color: '#7aa2c8', fontSize: '0.8rem', pointerEvents: 'none' }}>🔍</span>
+          <span style={{ position: 'absolute', left: '0.7rem', top: '50%', transform: 'translateY(-50%)', color: '#8ab4e0', fontSize: '0.8rem', pointerEvents: 'none' }}>🔍</span>
           <input
             value={search}
             onChange={e => setSearch(e.target.value)}
@@ -75,7 +75,7 @@ export default function RunesPage() {
       </div>
 
       {/* Count */}
-      <p style={{ color: '#6272a4', fontSize: '0.78rem', marginBottom: '1.25rem', fontFamily: "'JetBrains Mono', monospace" }}>
+      <p style={{ color: '#7c86b8', fontSize: '0.78rem', marginBottom: '1.25rem', fontFamily: "'JetBrains Mono', monospace" }}>
         {filtered.length} rune{filtered.length !== 1 ? 's' : ''} {active !== 'All' ? `in ${active}` : 'total'}
       </p>
 

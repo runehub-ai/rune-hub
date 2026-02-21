@@ -13,7 +13,7 @@ function getGrade(n: number): { label: string; color: string } {
   if (n >= 7) return { label: 'Archmage', color: '#ff9e64' }
   if (n >= 6) return { label: 'Artisan',  color: '#9ece6a' }
   if (n >= 5) return { label: 'Smith',    color: '#7aa2f7' }
-  return       { label: 'Apprentice',     color: '#9aa5ce' }
+  return       { label: 'Apprentice',     color: '#b0bcd8' }
 }
 
 function getTrustScore(rune: Rune): number {
@@ -78,13 +78,13 @@ export function RuneCard({ rune }: { rune: Rune }) {
         {/* Name + purpose */}
         <div>
           <div style={{ fontWeight: 700, color: '#c0caf5', marginBottom: '0.35rem', fontSize: '1rem', fontFamily: "'Cinzel', serif", letterSpacing: '0.03em' }}>{rune.name}</div>
-          <div style={{ fontSize: '0.78rem', color: '#a9b1d6', lineHeight: 1.5 }}>{rune.purpose}</div>
+          <div style={{ fontSize: '0.78rem', color: '#bac4e0', lineHeight: 1.5 }}>{rune.purpose}</div>
         </div>
 
         {/* Trust score bar */}
         <div>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.3rem' }}>
-            <span style={{ fontSize: '0.62rem', color: '#7aa2c8', fontFamily: "'JetBrains Mono', monospace", letterSpacing: '0.05em', textTransform: 'uppercase' }}>Trust Score</span>
+            <span style={{ fontSize: '0.62rem', color: '#8ab4e0', fontFamily: "'JetBrains Mono', monospace", letterSpacing: '0.05em', textTransform: 'uppercase' }}>Trust Score</span>
             <span style={{ fontSize: '0.62rem', color: trustColor, fontFamily: "'JetBrains Mono', monospace", fontWeight: 600 }}>{trust}</span>
           </div>
           <div style={{ height: '4px', background: '#1f2335', borderRadius: '2px', overflow: 'hidden' }}>
@@ -111,7 +111,7 @@ export function RuneCard({ rune }: { rune: Rune }) {
               fontFamily: "'JetBrains Mono', monospace",
             }}>{cat}</span>
           ))}
-          <span style={{ fontSize: '0.6rem', padding: '2px 6px', borderRadius: '3px', background: '#1f2335', color: '#6272a4', marginLeft: 'auto', fontFamily: "'JetBrains Mono', monospace" }}>{rune.nodes.length} skills</span>
+          <span style={{ fontSize: '0.6rem', padding: '2px 6px', borderRadius: '3px', background: '#1f2335', color: '#7c86b8', marginLeft: 'auto', fontFamily: "'JetBrains Mono', monospace" }}>{rune.nodes.length} skills</span>
         </div>
       </div>
     </Link>

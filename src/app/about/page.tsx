@@ -2,7 +2,7 @@ export default function AboutPage() {
   return (
     <div style={{ maxWidth: '900px', margin: '0 auto', padding: '2rem 1.5rem 3rem' }}>
       <h1 style={{ fontSize: '2rem', fontWeight: 800, color: '#c0caf5', marginBottom: '0.5rem' }}>About RuneGraph</h1>
-      <p style={{ color: '#a9b1d6', lineHeight: 1.7 }}>
+      <p style={{ color: '#bac4e0', lineHeight: 1.7 }}>
         RuneGraph는 AI 에이전트 스킬을 중심으로, 스킬 간 연결관계와 실행 흐름을 이해하기 쉽게 정리한 오픈소스 프로젝트입니다.
       </p>
 

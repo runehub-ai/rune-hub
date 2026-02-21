@@ -5,16 +5,16 @@
 :root {
   --bg:      #1a1b26;
   --surface: #1e2030;
-  --border:  #292e42;
-  --text:    #c0caf5;
-  --dim:     #a9b1d6;
-  --muted:   #565f89;
-  --purple:  #bb9af7;
-  --gold:    #ff9e64;
-  --green:   #9ece6a;
-  --blue:    #7aa2f7;
-  --teal:    #2ac3de;
-  --red:     #f7768e;
+  --border:  #2e3452;
+  --text:    #d0d8f8;
+  --dim:     #bac4e0;
+  --muted:   #748ab8;
+  --purple:  #c9a8ff;
+  --gold:    #ffb07a;
+  --green:   #a8d878;
+  --blue:    #8ab4ff;
+  --teal:    #3dd5e8;
+  --red:     #ff8fa0;
 }
 
 * { box-sizing: border-box; }
@@ -22,19 +22,29 @@
 body {
   background-color: var(--bg);
   color: var(--text);
-  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  font-size: 15.5px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 16px;
   font-weight: 400;
-  line-height: 1.65;
+  line-height: 1.7;
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-optical-sizing: auto;
+  letter-spacing: -0.01em;
 }
 
 /* Improve text contrast globally */
 p, li, span { color: inherit; }
-h1, h2, h3 { color: #c0caf5; }
+h1, h2, h3 { color: #d0d8f8; font-weight: 700; }
+h1 { letter-spacing: -0.02em; }
+h2 { letter-spacing: -0.01em; }
+
+/* Better body text contrast for paragraphs */
+p { color: var(--dim); }
+strong { color: var(--text); }
+
+/* Subtle link styling */
+a { text-underline-offset: 3px; }
 
 
 /* React Flow overrides */
