@@ -39,6 +39,96 @@ export default function Home() {
         </div>
       </section>
 
+      {/* What is a Rune? */}
+      <section style={{ maxWidth: '900px', margin: '0 auto', padding: '0 2rem 5rem' }}>
+        {/* Section label */}
+        <p style={{ textAlign: 'center', fontSize: '0.75rem', color: '#8B5CF6', letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>
+          The Core Concept
+        </p>
+        <h2 style={{ textAlign: 'center', fontSize: 'clamp(1.6rem, 3.5vw, 2.25rem)', fontWeight: 800, color: '#E2E2E8', marginBottom: '1rem', letterSpacing: '-0.02em' }}>
+          What is a Rune?
+        </h2>
+        <p style={{ textAlign: 'center', color: '#777', fontSize: '1rem', maxWidth: '560px', margin: '0 auto 3.5rem', lineHeight: 1.7 }}>
+          A Rune is a verified, composable AI workflow — a recipe that chains multiple skills together into one reliable, repeatable action.
+        </p>
+
+        {/* 3-column analogy cards */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1px', background: 'rgba(139,92,246,0.15)', borderRadius: '16px', overflow: 'hidden', border: '1px solid rgba(139,92,246,0.2)' }}>
+          {/* Skill */}
+          <div style={{ background: '#0D0D15', padding: '2rem 1.75rem' }}>
+            <div style={{ fontSize: '2rem', marginBottom: '0.75rem' }}>🧪</div>
+            <div style={{ fontSize: '0.7rem', letterSpacing: '0.15em', color: '#3B82F6', textTransform: 'uppercase', marginBottom: '0.5rem', fontWeight: 600 }}>Skill</div>
+            <div style={{ fontSize: '1.1rem', fontWeight: 700, color: '#E2E2E8', marginBottom: '0.6rem' }}>The Ingredient</div>
+            <p style={{ color: '#666', fontSize: '0.875rem', lineHeight: 1.6, margin: 0 }}>
+              A single, atomic capability — like <span style={{ color: '#aaa' }}>web-search</span>, <span style={{ color: '#aaa' }}>llm-summarize</span>, or <span style={{ color: '#aaa' }}>slack-notify</span>. Skills do one thing well.
+            </p>
+          </div>
+
+          {/* Rune */}
+          <div style={{ background: '#0D0D15', padding: '2rem 1.75rem', position: 'relative' }}>
+            <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at 50% 0%, rgba(139,92,246,0.07) 0%, transparent 70%)', pointerEvents: 'none' }} />
+            <div style={{ fontSize: '2rem', marginBottom: '0.75rem' }}>🔮</div>
+            <div style={{ fontSize: '0.7rem', letterSpacing: '0.15em', color: '#8B5CF6', textTransform: 'uppercase', marginBottom: '0.5rem', fontWeight: 600 }}>Rune</div>
+            <div style={{ fontSize: '1.1rem', fontWeight: 700, color: '#E2E2E8', marginBottom: '0.6rem' }}>The Recipe</div>
+            <p style={{ color: '#666', fontSize: '0.875rem', lineHeight: 1.6, margin: 0 }}>
+              A verified multi-skill workflow — skills chained in sequence or parallel, with trust-scored security, ready to invoke with one command.
+            </p>
+          </div>
+
+          {/* Graph */}
+          <div style={{ background: '#0D0D15', padding: '2rem 1.75rem' }}>
+            <div style={{ fontSize: '2rem', marginBottom: '0.75rem' }}>🗺️</div>
+            <div style={{ fontSize: '0.7rem', letterSpacing: '0.15em', color: '#F59E0B', textTransform: 'uppercase', marginBottom: '0.5rem', fontWeight: 600 }}>Graph</div>
+            <div style={{ fontSize: '1.1rem', fontWeight: 700, color: '#E2E2E8', marginBottom: '0.6rem' }}>The Map</div>
+            <p style={{ color: '#666', fontSize: '0.875rem', lineHeight: 1.6, margin: 0 }}>
+              A visual map of how all skills connect — see which skills are reused across Runes, discover dependencies, and find your next build.
+            </p>
+          </div>
+        </div>
+
+        {/* Flow diagram: Skill → Rune → Output */}
+        <div style={{ marginTop: '3rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0', flexWrap: 'wrap' }}>
+          {/* Skills cluster */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', alignItems: 'flex-end' }}>
+            {['web-search', 'llm-summarize', 'notion-save'].map((s, i) => (
+              <div key={s} style={{ background: 'rgba(59,130,246,0.1)', border: '1px solid rgba(59,130,246,0.25)', borderRadius: '6px', padding: '0.3rem 0.75rem', fontSize: '0.75rem', color: '#3B82F6', fontFamily: 'monospace', opacity: i === 1 ? 1 : 0.6 }}>
+                {s}
+              </div>
+            ))}
+          </div>
+
+          {/* Arrow */}
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '0 1rem' }}>
+            <div style={{ width: '60px', height: '1px', background: 'linear-gradient(to right, rgba(59,130,246,0.4), rgba(139,92,246,0.8))' }} />
+            <div style={{ fontSize: '0.65rem', color: '#444', marginTop: '0.3rem' }}>compose</div>
+          </div>
+
+          {/* Rune */}
+          <div style={{ background: 'rgba(139,92,246,0.12)', border: '1px solid rgba(139,92,246,0.4)', borderRadius: '10px', padding: '0.6rem 1.25rem', textAlign: 'center', boxShadow: '0 0 20px rgba(139,92,246,0.15)' }}>
+            <div style={{ fontSize: '1.25rem' }}>🔮</div>
+            <div style={{ fontSize: '0.8rem', fontWeight: 700, color: '#8B5CF6', fontFamily: 'monospace' }}>deep-research</div>
+            <div style={{ fontSize: '0.65rem', color: '#555', marginTop: '0.2rem' }}>Trust Score 94</div>
+          </div>
+
+          {/* Arrow */}
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '0 1rem' }}>
+            <div style={{ width: '60px', height: '1px', background: 'linear-gradient(to right, rgba(139,92,246,0.8), rgba(245,158,11,0.4))' }} />
+            <div style={{ fontSize: '0.65rem', color: '#444', marginTop: '0.3rem' }}>invoke</div>
+          </div>
+
+          {/* Output */}
+          <div style={{ background: 'rgba(245,158,11,0.08)', border: '1px solid rgba(245,158,11,0.2)', borderRadius: '8px', padding: '0.5rem 1rem', textAlign: 'center' }}>
+            <div style={{ fontSize: '1rem' }}>📄</div>
+            <div style={{ fontSize: '0.75rem', color: '#F59E0B', fontFamily: 'monospace' }}>notion-save</div>
+          </div>
+        </div>
+
+        {/* Bottom tagline */}
+        <p style={{ textAlign: 'center', color: '#444', fontSize: '0.8rem', marginTop: '2rem', fontStyle: 'italic' }}>
+          Think npm for AI workflows — but every package is security-verified before it ships.
+        </p>
+      </section>
+
       {/* Stats */}
       <section style={{ display: 'flex', justifyContent: 'center', gap: '2rem', padding: '2rem', flexWrap: 'wrap', borderTop: '1px solid #1a1a24', borderBottom: '1px solid #1a1a24', background: '#0D0D15' }}>
         {stats.map(s => (
