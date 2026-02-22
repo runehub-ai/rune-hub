@@ -254,26 +254,31 @@ export default function Home() {
 
 `}<span style={{ color: '#bb9af7' }}>{`Resolving dependencies...`}</span>{`
   + gmail          `}<span style={{ color: '#34d399' }}>✓</span>{`
-  + slack          `}<span style={{ color: '#34d399' }}>✓</span>{`
-  + weather        `}<span style={{ color: '#34d399' }}>✓</span>{`
   + calendar       `}<span style={{ color: '#34d399' }}>✓</span>{`
-  + news-feed      `}<span style={{ color: '#34d399' }}>✓</span>{`
-  + summarizer     `}<span style={{ color: '#34d399' }}>✓</span>{`
-  + formatter      `}<span style={{ color: '#34d399' }}>✓</span>{`
-  + notifier       `}<span style={{ color: '#34d399' }}>✓</span>{`
-`}<span style={{ color: '#34d399' }}>{`✓ 8 skills auto-installed  |  Trust Score: 87  |  32 actions ready`}</span>{`
+  + github         `}<span style={{ color: '#34d399' }}>✓</span>{`
+  + brave-news     `}<span style={{ color: '#34d399' }}>✓</span>{`
+  + openweather    `}<span style={{ color: '#34d399' }}>✓</span>{`
+  + market-pulse   `}<span style={{ color: '#34d399' }}>✓</span>{`
+  + llm-triage     `}<span style={{ color: '#34d399' }}>✓</span>{`
+  + llm-compose    `}<span style={{ color: '#34d399' }}>✓</span>{`
+  + slack          `}<span style={{ color: '#34d399' }}>✓</span>{`
+  + telegram       `}<span style={{ color: '#34d399' }}>✓</span>{`
+  + notion         `}<span style={{ color: '#34d399' }}>✓</span>{`
+`}<span style={{ color: '#34d399' }}>{`✓ 11 skills auto-installed  |  Trust Score: 91  |  44 actions ready`}</span>{`
 
 `}<span style={{ color: '#7aa2f7' }}>{`Running morning-brief...`}</span>{`
-  `}<span style={{ color: '#748ab8' }}>{`[1/8]`}</span>{` fetch-emails       `}<span style={{ color: '#34d399' }}>✓  0.3s</span>{`
-  `}<span style={{ color: '#748ab8' }}>{`[2/8]`}</span>{` fetch-calendar     `}<span style={{ color: '#34d399' }}>✓  0.2s</span>{`
-  `}<span style={{ color: '#748ab8' }}>{`[3/8]`}</span>{` fetch-weather      `}<span style={{ color: '#34d399' }}>✓  0.4s</span>{`
-  `}<span style={{ color: '#748ab8' }}>{`[4/8]`}</span>{` fetch-news         `}<span style={{ color: '#34d399' }}>✓  0.6s</span>{`
-  `}<span style={{ color: '#748ab8' }}>{`[5/8]`}</span>{` summarize-llm     `}<span style={{ color: '#34d399' }}>✓  1.1s</span>{`
-  `}<span style={{ color: '#748ab8' }}>{`[6/8]`}</span>{` format-brief      `}<span style={{ color: '#34d399' }}>✓  0.3s</span>{`
-  `}<span style={{ color: '#748ab8' }}>{`[7/8]`}</span>{` post-slack        `}<span style={{ color: '#34d399' }}>✓  0.2s</span>{`
-  `}<span style={{ color: '#748ab8' }}>{`[8/8]`}</span>{` save-audit-log    `}<span style={{ color: '#34d399' }}>✓  0.1s</span>{`
+  `}<span style={{ color: '#748ab8' }}>{`[1/10]`}</span>{` fetch-calendar     `}<span style={{ color: '#34d399' }}>✓  0.2s</span>{`
+  `}<span style={{ color: '#748ab8' }}>{`[2/10]`}</span>{` fetch-emails       `}<span style={{ color: '#34d399' }}>✓  0.3s</span>{`
+  `}<span style={{ color: '#748ab8' }}>{`[3/10]`}</span>{` fetch-github       `}<span style={{ color: '#34d399' }}>✓  0.5s</span>{`
+  `}<span style={{ color: '#748ab8' }}>{`[4/10]`}</span>{` triage-llm        `}<span style={{ color: '#34d399' }}>✓  1.4s</span>{`
+  `}<span style={{ color: '#748ab8' }}>{`[5/10]`}</span>{` fetch-news         `}<span style={{ color: '#34d399' }}>✓  0.5s</span>{`
+  `}<span style={{ color: '#748ab8' }}>{`[6/10]`}</span>{` fetch-weather      `}<span style={{ color: '#34d399' }}>✓  0.3s</span>{`
+  `}<span style={{ color: '#748ab8' }}>{`[7/10]`}</span>{` fetch-market       `}<span style={{ color: '#34d399' }}>✓  0.4s</span>{`
+  `}<span style={{ color: '#748ab8' }}>{`[8/10]`}</span>{` compose-llm       `}<span style={{ color: '#34d399' }}>✓  1.8s</span>{`
+  `}<span style={{ color: '#748ab8' }}>{`[9/10]`}</span>{` broadcast-3ch      `}<span style={{ color: '#34d399' }}>✓  0.3s</span>{`
+  `}<span style={{ color: '#748ab8' }}>{`[10/10]`}</span>{` archive-notion    `}<span style={{ color: '#34d399' }}>✓  0.1s</span>{`
 
-`}<span style={{ color: '#34d399' }}>{`✓ Done in 4.2s  ·  3,400 tokens used  (saved 68%)  ·  audit log saved`}</span></pre>
+`}<span style={{ color: '#34d399' }}>{`✓ Done in 5.8s  ·  4,800 tokens used  (saved 71%)  ·  archived to Notion`}</span></pre>
         </div>
 
         {/* 3 auto-things */}
@@ -303,20 +308,20 @@ export default function Home() {
             <span style={{ color: '#2e3452' }}>·</span>
             <span style={{ fontSize: '1rem', color: '#e2e8ff', fontWeight: 700, fontFamily: "'Outfit', sans-serif" }}>🌅 Morning Brief</span>
             <div style={{ marginLeft: 'auto', display: 'flex', gap: '0.5rem', flexShrink: 0, alignItems: 'center' }}>
-              <span style={{ fontSize: '0.72rem', color: '#a8d878', background: 'rgba(168,216,120,0.08)', border: '1px solid rgba(168,216,120,0.25)', padding: '2px 10px', borderRadius: '20px' }}>Trust Score 87</span>
-              <span style={{ fontSize: '0.72rem', color: '#9aa4d2', background: 'rgba(154,164,210,0.08)', border: '1px solid rgba(154,164,210,0.2)', padding: '2px 10px', borderRadius: '20px' }}>8 skills</span>
-              <span style={{ fontSize: '0.72rem', color: '#bb9af7', background: 'rgba(187,154,247,0.08)', border: '1px solid rgba(187,154,247,0.2)', padding: '2px 10px', borderRadius: '20px' }}>Dual LLM</span>
+              <span style={{ fontSize: '0.72rem', color: '#a8d878', background: 'rgba(168,216,120,0.08)', border: '1px solid rgba(168,216,120,0.25)', padding: '2px 10px', borderRadius: '20px' }}>Trust Score 91</span>
+              <span style={{ fontSize: '0.72rem', color: '#9aa4d2', background: 'rgba(154,164,210,0.08)', border: '1px solid rgba(154,164,210,0.2)', padding: '2px 10px', borderRadius: '20px' }}>11 skills</span>
+              <span style={{ fontSize: '0.72rem', color: '#bb9af7', background: 'rgba(187,154,247,0.08)', border: '1px solid rgba(187,154,247,0.2)', padding: '2px 10px', borderRadius: '20px' }}>Dual LLM · 3-output</span>
             </div>
           </div>
 
           {/* Pipeline stage legend */}
           <div style={{ display: 'flex', gap: '1.5rem', marginBottom: '1.25rem', flexWrap: 'wrap' }}>
             {[
-              { dot: '#34d399', label: 'INPUT — Calendar · Email' },
-              { dot: '#a78bfa', label: 'LLM 1 — Prioritize' },
-              { dot: '#60a5fa', label: 'API — News · Weather' },
+              { dot: '#34d399', label: 'INPUT — Calendar · Email · GitHub' },
+              { dot: '#a78bfa', label: 'LLM 1 — Triage & Score' },
+              { dot: '#60a5fa', label: 'API — News · Weather · Market' },
               { dot: '#a78bfa', label: 'LLM 2 — Compose' },
-              { dot: '#f472b6', label: 'OUTPUT — Slack · Telegram' },
+              { dot: '#f472b6', label: 'OUTPUT — Slack · Telegram · Notion' },
             ].map((s, i) => (
               <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
                 <span style={{ width: 8, height: 8, borderRadius: '50%', background: s.dot, display: 'inline-block', flexShrink: 0 }} />
@@ -332,9 +337,7 @@ export default function Home() {
 
           {/* Caption */}
           <p style={{ margin: '1.25rem 0 0', fontSize: '0.875rem', color: '#9aa4d2', lineHeight: 1.65 }}>
-            Two LLM passes for depth — <span style={{ color: '#a78bfa' }}>Claude Prioritize</span> ranks your calendar + inbox, then{' '}
-            <span style={{ color: '#a78bfa' }}>Claude Compose</span> merges priorities with live headlines and weather into a polished brief,{' '}
-            delivered simultaneously to <span style={{ color: '#f472b6' }}>Slack</span> and <span style={{ color: '#f472b6' }}>Telegram</span>.
+            Three input channels — calendar, email, and GitHub Issues — feed <span style={{ color: '#a78bfa' }}>Claude Triage</span>, which classifies, dedupes, and urgency-scores everything into a priority matrix. <span style={{ color: '#a78bfa' }}>Claude Compose</span> then weaves that matrix with live headlines, weather forecasts, and market data into a brief personalized to your calendar density — broadcast simultaneously to <span style={{ color: '#f472b6' }}>Slack</span>, <span style={{ color: '#f472b6' }}>Telegram</span>, and <span style={{ color: '#f472b6' }}>Notion</span> for long-term recall.
           </p>
         </div>
       </section>

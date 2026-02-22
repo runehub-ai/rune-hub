@@ -2,7 +2,8 @@
 
 // ─────────────────────────────────────────────────────────────────────
 // MorningBriefGraph — Animated SVG pipeline for Morning Brief rune
-// 8 nodes, dual-LLM, flowing data packets + glow animations
+// 11 nodes · 3-input · dual-LLM · 3-output · flowing data packets
+// Canvas: 760 × 650
 // ─────────────────────────────────────────────────────────────────────
 
 type Cat = 'input' | 'api' | 'llm' | 'output';
@@ -26,66 +27,97 @@ interface NNode {
   emoji: string; label: string; sub: string; cat: Cat;
 }
 
-// Canvas: 760 × 510
+interface Edge {
+  id: string; cat: Cat; d: string;
+  lbl: string; lx: number; ly: number; anchor: 'middle' | 'start' | 'end';
+  dur: string; delay: string; thick?: boolean;
+}
+
+// Canvas: 760 × 650
 const NODES: NNode[] = [
-  // Row 1 — Inputs
-  { id: 'gcal',     x: 78,  y: 0,   w: 162, h: 82, emoji: '📅', label: 'Google Calendar',  sub: "today's schedule",    cat: 'input'  },
-  { id: 'gmail',    x: 520, y: 0,   w: 162, h: 82, emoji: '📧', label: 'Gmail Inbox',       sub: 'unread + flagged',    cat: 'input'  },
-  // Row 2 — LLM pass 1
-  { id: 'pri',      x: 238, y: 137, w: 284, h: 82, emoji: '🎯', label: 'Claude Prioritize', sub: 'rank tasks & emails', cat: 'llm'    },
-  // Row 3 — API inputs + LLM pass 2
-  { id: 'brave',    x: 18,  y: 278, w: 168, h: 82, emoji: '🔍', label: 'Brave News',        sub: 'top headlines',       cat: 'api'    },
-  { id: 'comp',     x: 238, y: 278, w: 284, h: 82, emoji: '✍️', label: 'Claude Compose',    sub: 'write the brief',     cat: 'llm'    },
-  { id: 'weather',  x: 574, y: 278, w: 168, h: 82, emoji: '⛅', label: 'OpenWeather',       sub: 'forecast + alerts',   cat: 'api'    },
-  // Row 4 — Outputs
-  { id: 'slack',    x: 112, y: 420, w: 168, h: 76, emoji: '💬', label: 'Slack Post',        sub: '#morning channel',    cat: 'output' },
-  { id: 'telegram', x: 480, y: 420, w: 168, h: 76, emoji: '📱', label: 'Telegram Send',     sub: 'mobile push',         cat: 'output' },
+  // Row 1 — Inputs (y=0, h=82)
+  { id: 'gcal',    x: 20,  y: 0,   w: 185, h: 82, emoji: '📅', label: 'Google Calendar', sub: 'schedule + conflicts',   cat: 'input'  },
+  { id: 'gmail',   x: 288, y: 0,   w: 185, h: 82, emoji: '📧', label: 'Gmail Inbox',     sub: 'VIP + flagged emails',   cat: 'input'  },
+  { id: 'github',  x: 556, y: 0,   w: 185, h: 82, emoji: '🐙', label: 'GitHub Issues',   sub: 'PRs · blockers · due',   cat: 'input'  },
+  // Row 2 — LLM 1 (y=137, h=84, wide)
+  { id: 'triage',  x: 80,  y: 137, w: 600, h: 84, emoji: '🎯', label: 'Claude Triage',   sub: 'classify · dedupe · urgency-score all inputs', cat: 'llm' },
+  // Row 3 — APIs (y=283, h=82)
+  { id: 'brave',   x: 20,  y: 283, w: 185, h: 82, emoji: '🔍', label: 'Brave News',      sub: 'agenda-aware headlines', cat: 'api'    },
+  { id: 'weather', x: 288, y: 283, w: 185, h: 82, emoji: '⛅', label: 'OpenWeather',     sub: 'forecast + commute risk', cat: 'api'   },
+  { id: 'market',  x: 556, y: 283, w: 185, h: 82, emoji: '📈', label: 'Market Pulse',    sub: 'portfolio snapshot',     cat: 'api'    },
+  // Row 4 — LLM 2 (y=423, h=84, wide)
+  { id: 'compose', x: 80,  y: 423, w: 600, h: 84, emoji: '✍️', label: 'Claude Compose',  sub: 'synthesize · personalize · adapt to calendar density', cat: 'llm' },
+  // Row 5 — Outputs (y=564, h=76)
+  { id: 'slack',   x: 60,  y: 564, w: 165, h: 76, emoji: '💬', label: 'Slack Post',      sub: '#morning-standup',       cat: 'output' },
+  { id: 'telegram',x: 298, y: 564, w: 165, h: 76, emoji: '📱', label: 'Telegram',        sub: 'mobile push + actions',  cat: 'output' },
+  { id: 'notion',  x: 536, y: 564, w: 165, h: 76, emoji: '📒', label: 'Notion Archive',  sub: 'knowledge base log',     cat: 'output' },
 ];
 
-// Edge definitions: path d, color, animation timing, label position
-const EDGES = [
+const EDGES: Edge[] = [
+  // Inputs → Triage
   {
-    id: 'e1', cat: 'input' as Cat,
-    d: 'M 159 82 C 159 110 380 110 380 137',
-    lbl: 'schedule',        lx: 248, ly: 106, anchor: 'middle',
-    dur: '2.2s', delay: '0s',
+    id: 'e1', cat: 'input',
+    d: 'M 113 82 C 113 112 200 137 200 137',
+    lbl: 'schedule',       lx: 135, ly: 108, anchor: 'middle',
+    dur: '1.8s', delay: '0s',
   },
   {
-    id: 'e2', cat: 'input' as Cat,
-    d: 'M 601 82 C 601 110 380 110 380 137',
-    lbl: 'urgent emails',   lx: 514, ly: 106, anchor: 'middle',
-    dur: '2.2s', delay: '0.5s',
+    id: 'e2', cat: 'input',
+    d: 'M 381 82 C 381 112 380 137 380 137',
+    lbl: 'emails',         lx: 396, ly: 107, anchor: 'start',
+    dur: '1.8s', delay: '0.35s',
   },
   {
-    id: 'e3', cat: 'llm' as Cat,
-    d: 'M 380 219 L 380 278',
-    lbl: 'priority agenda', lx: 394, ly: 254, anchor: 'start',
-    dur: '1.1s', delay: '2.1s',
+    id: 'e3', cat: 'input',
+    d: 'M 649 82 C 649 112 560 137 560 137',
+    lbl: 'dev tasks',      lx: 618, ly: 108, anchor: 'end',
+    dur: '1.8s', delay: '0.7s',
+  },
+  // Triage → Compose (thick center)
+  {
+    id: 'e4', cat: 'llm',
+    d: 'M 380 221 L 380 423',
+    lbl: 'priority matrix', lx: 394, ly: 326, anchor: 'start',
+    dur: '1.2s', delay: '2.3s',
     thick: true,
   },
+  // APIs → Compose
   {
-    id: 'e4', cat: 'api' as Cat,
-    d: 'M 186 319 L 238 319',
-    lbl: 'headlines',       lx: 212, ly: 312, anchor: 'middle',
-    dur: '0.9s', delay: '1.0s',
+    id: 'e5', cat: 'api',
+    d: 'M 113 365 C 113 395 200 423 200 423',
+    lbl: 'headlines',      lx: 118, ly: 395, anchor: 'start',
+    dur: '1.0s', delay: '1.2s',
   },
   {
-    id: 'e5', cat: 'api' as Cat,
-    d: 'M 574 319 L 522 319',
-    lbl: 'weather',         lx: 548, ly: 312, anchor: 'middle',
-    dur: '0.9s', delay: '1.3s',
+    id: 'e6', cat: 'api',
+    d: 'M 381 365 C 381 395 380 423 380 423',
+    lbl: 'weather',        lx: 396, ly: 395, anchor: 'start',
+    dur: '1.0s', delay: '1.5s',
   },
   {
-    id: 'e6', cat: 'output' as Cat,
-    d: 'M 380 360 C 380 395 196 395 196 420',
-    lbl: 'morning brief',   lx: 268, ly: 394, anchor: 'middle',
-    dur: '1.8s', delay: '3.2s',
+    id: 'e7', cat: 'api',
+    d: 'M 649 365 C 649 395 560 423 560 423',
+    lbl: 'market',         lx: 620, ly: 395, anchor: 'end',
+    dur: '1.0s', delay: '1.8s',
+  },
+  // Compose → Outputs
+  {
+    id: 'e8', cat: 'output',
+    d: 'M 200 507 C 200 536 143 564 143 564',
+    lbl: 'team brief',     lx: 155, ly: 537, anchor: 'start',
+    dur: '1.6s', delay: '3.7s',
   },
   {
-    id: 'e7', cat: 'output' as Cat,
-    d: 'M 380 360 C 380 395 564 395 564 420',
-    lbl: 'mobile push',     lx: 492, ly: 394, anchor: 'middle',
-    dur: '1.8s', delay: '3.5s',
+    id: 'e9', cat: 'output',
+    d: 'M 380 507 L 381 564',
+    lbl: 'push',           lx: 395, ly: 537, anchor: 'start',
+    dur: '1.6s', delay: '3.9s',
+  },
+  {
+    id: 'e10', cat: 'output',
+    d: 'M 560 507 C 560 536 619 564 619 564',
+    lbl: 'archive',        lx: 566, ly: 537, anchor: 'start',
+    dur: '1.6s', delay: '4.1s',
   },
 ];
 
@@ -94,6 +126,7 @@ function GraphNode({ n }: { n: NNode }) {
   const c = CLR[n.cat];
   const isLLM = n.cat === 'llm';
   const isOut = n.cat === 'output';
+  const isWide = n.w >= 400;
 
   return (
     <g>
@@ -118,8 +151,8 @@ function GraphNode({ n }: { n: NNode }) {
         x={n.x} y={n.y} width={n.w} height={n.h} rx={10}
         fill="#1e2030"
         stroke={c}
-        strokeOpacity={isLLM ? 0.65 : 0.38}
-        strokeWidth={isLLM ? 2.2 : 1.6}
+        strokeOpacity={isLLM ? 0.7 : 0.38}
+        strokeWidth={isLLM ? 2.4 : 1.6}
       />
       {/* Category badge (top-right) */}
       <rect
@@ -135,35 +168,52 @@ function GraphNode({ n }: { n: NNode }) {
       >
         {BADGE[n.cat]}
       </text>
-      {/* Emoji */}
-      <text x={cx} y={n.y + 30} textAnchor="middle" fontSize="22">
+      {/* Emoji — left for wide nodes, centered for narrow */}
+      <text
+        x={isWide ? n.x + 28 : cx}
+        y={n.y + 30}
+        textAnchor={isWide ? 'middle' : 'middle'}
+        fontSize="22"
+      >
         {n.emoji}
       </text>
       {/* Label */}
       <text
-        x={cx} y={n.y + 52}
-        textAnchor="middle" fontSize="19" fill="#e2e8ff"
-        fontWeight="700" fontFamily="'Inter', sans-serif"
+        x={isWide ? n.x + 60 : cx}
+        y={n.y + 52}
+        textAnchor={isWide ? 'start' : 'middle'}
+        fontSize={isWide ? 17 : 15}
+        fill="#e2e8ff"
+        fontWeight="700"
+        fontFamily="'Inter', sans-serif"
       >
         {n.label}
       </text>
       {/* Sublabel */}
       <text
-        x={cx} y={n.y + 70}
-        textAnchor="middle" fontSize="14" fill="#8fa8d4"
+        x={isWide ? n.x + 60 : cx}
+        y={n.y + 70}
+        textAnchor={isWide ? 'start' : 'middle'}
+        fontSize="12"
+        fill="#8fa8d4"
         fontFamily="'Inter', sans-serif"
       >
         {n.sub}
       </text>
       {/* Connection dots */}
-      {/* top */}
-      <circle cx={cx} cy={n.y}      r={3.5} fill={c} opacity={0.6} />
-      {/* bottom */}
-      <circle cx={cx} cy={n.y + n.h} r={3.5} fill={c} opacity={0.6} />
-      {/* left */}
-      <circle cx={n.x}       cy={n.y + n.h / 2} r={3.5} fill={c} opacity={0.6} />
-      {/* right */}
-      <circle cx={n.x + n.w} cy={n.y + n.h / 2} r={3.5} fill={c} opacity={0.6} />
+      <circle cx={cx}         cy={n.y}        r={3.5} fill={c} opacity={0.6} />
+      <circle cx={cx}         cy={n.y + n.h}  r={3.5} fill={c} opacity={0.6} />
+      <circle cx={n.x}        cy={n.y + n.h / 2} r={3.5} fill={c} opacity={0.6} />
+      <circle cx={n.x + n.w}  cy={n.y + n.h / 2} r={3.5} fill={c} opacity={0.6} />
+      {/* Extra dots for wide LLM nodes at edge connection points */}
+      {isWide && (
+        <>
+          <circle cx={n.x + 120} cy={n.y}       r={3} fill={c} opacity={0.45} />
+          <circle cx={n.x + 480} cy={n.y}       r={3} fill={c} opacity={0.45} />
+          <circle cx={n.x + 120} cy={n.y + n.h} r={3} fill={c} opacity={0.45} />
+          <circle cx={n.x + 480} cy={n.y + n.h} r={3} fill={c} opacity={0.45} />
+        </>
+      )}
     </g>
   );
 }
@@ -176,10 +226,9 @@ export function MorningBriefGraph() {
 
   const css = `
     @keyframes dash-flow { from{stroke-dashoffset:18} to{stroke-dashoffset:0} }
-    @keyframes llm-breathe { 0%,100%{opacity:0.06} 50%{opacity:0.2} }
+    @keyframes llm-breathe { 0%,100%{opacity:0.06} 50%{opacity:0.22} }
     @keyframes out-breathe { 0%,100%{opacity:0.04} 50%{opacity:0.12} }
     @keyframes dot-move { from{offset-distance:0%} to{offset-distance:100%} }
-    @keyframes title-pulse { 0%,100%{opacity:0.85} 50%{opacity:1} }
     .edge-anim{stroke-dasharray:6 4;animation:dash-flow 1.3s linear infinite}
     .llm-aura{animation:llm-breathe 2.5s ease-in-out infinite}
     .out-aura{animation:out-breathe 3s ease-in-out infinite}
@@ -191,14 +240,13 @@ export function MorningBriefGraph() {
       {/* eslint-disable-next-line react/no-danger */}
       <style dangerouslySetInnerHTML={{ __html: css }} />
       <svg
-        viewBox="0 0 760 506"
+        viewBox="0 0 760 650"
         width="100%"
         height="auto"
         style={{ display: 'block', overflow: 'visible' }}
         aria-label="Morning Brief pipeline graph"
       >
         <defs>
-          {/* Arrow markers per category */}
           {(['input', 'api', 'llm', 'output'] as Cat[]).map((cat) => (
             <marker
               key={cat} id={`arr-${cat}`}
@@ -207,8 +255,6 @@ export function MorningBriefGraph() {
               <path d="M0,0 L0,6 L7,3 z" fill={CLR[cat]} opacity="0.85" />
             </marker>
           ))}
-
-          {/* Soft glow filter for LLM nodes */}
           <filter id="glow-llm" x="-30%" y="-30%" width="160%" height="160%">
             <feGaussianBlur stdDeviation="5" result="blur" />
             <feMerge>
@@ -218,15 +264,15 @@ export function MorningBriefGraph() {
           </filter>
         </defs>
 
-        {/* ── Edges (visible animated dashes) ── */}
+        {/* ── Edges ── */}
         {EDGES.map((e) => (
           <path
             key={e.id}
             d={e.d}
             stroke={CLR[e.cat]}
-            strokeWidth={e.thick ? 2.4 : 1.7}
+            strokeWidth={e.thick ? 2.6 : 1.7}
             fill="none"
-            strokeOpacity={e.thick ? 0.55 : 0.42}
+            strokeOpacity={e.thick ? 0.6 : 0.42}
             className="edge-anim"
             markerEnd={`url(#arr-${e.cat})`}
           />
@@ -237,22 +283,22 @@ export function MorningBriefGraph() {
           <text
             key={`lbl-${e.id}`}
             x={e.lx} y={e.ly}
-            textAnchor={e.anchor as 'middle' | 'start'}
-            fontSize="11"
+            textAnchor={e.anchor}
+            fontSize="10"
             fill={CLR[e.cat]}
-            opacity="0.85"
+            opacity="0.82"
             fontFamily="'JetBrains Mono', monospace"
           >
             {e.lbl}
           </text>
         ))}
 
-        {/* ── Animated Data Packets (offset-path CSS) ── */}
+        {/* ── Animated Data Packets ── */}
         {EDGES.map((e) => (
           <circle
             key={`dot-${e.id}`}
             className={`dot-${e.id}`}
-            r={4}
+            r={e.thick ? 5 : 4}
             fill={CLR[e.cat]}
             opacity={0.95}
             style={{ filter: `drop-shadow(0 0 4px ${CLR[e.cat]})` }}
