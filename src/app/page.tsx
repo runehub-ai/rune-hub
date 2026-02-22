@@ -52,22 +52,22 @@ export default function Home() {
               color: '#fff', borderRadius: '8px', textDecoration: 'none', fontWeight: 700,
               fontSize: '1rem', boxShadow: '0 0 28px rgba(187,154,247,0.5)',
               fontFamily: "'Outfit', sans-serif", letterSpacing: '-0.01em',
-              width: '100%', maxWidth: '320px',
-              display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+              width: '100%', maxWidth: '320px', textAlign: 'center',
+              position: 'relative', display: 'block',
             }}>
-              <span>Browse Runes — Free</span>
-              <span style={{ fontSize: '1.2rem', lineHeight: 1 }}>›</span>
+              Browse Runes — Free
+              <span style={{ position: 'absolute', right: '1.2rem', top: '50%', transform: 'translateY(-50%)', fontSize: '1.2rem', lineHeight: 1 }}>›</span>
             </Link>
             <a href="#why-rune" style={{
               padding: '0.8rem 1.5rem', background: 'rgba(26,27,38,0.6)',
               color: '#bb9af7', border: '1px solid rgba(187,154,247,0.45)',
               borderRadius: '8px', textDecoration: 'none', fontWeight: 600,
               fontSize: '1rem', backdropFilter: 'blur(4px)',
-              width: '100%', maxWidth: '320px',
-              display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+              width: '100%', maxWidth: '320px', textAlign: 'center',
+              position: 'relative', display: 'block',
             }}>
-              <span>How it works</span>
-              <span style={{ fontSize: '1.2rem', lineHeight: 1 }}>›</span>
+              How it works
+              <span style={{ position: 'absolute', right: '1.2rem', top: '50%', transform: 'translateY(-50%)', fontSize: '1.2rem', lineHeight: 1 }}>›</span>
             </a>
           </div>
         </div>
