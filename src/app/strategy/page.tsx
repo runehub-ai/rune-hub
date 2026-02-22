@@ -51,20 +51,28 @@ export default function StrategyPage() {
 
           <div style={{ background: '#1e2030', border: '1px solid rgba(255,158,100,0.2)', borderRadius: '12px', padding: '1.75rem' }}>
             <h3 style={{ color: '#ff9e64', fontSize: '1.05rem', fontWeight: 700, fontFamily: "'Outfit', sans-serif", margin: '0 0 0.75rem' }}>⚡ Token Efficiency — Four techniques, compounding</h3>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginBottom: '0.75rem' }}>
-              {[
-                ['Zero-token planning', 'The graph IS the plan — no LLM needed to decide what to do'],
-                ['Context isolation', 'Each step sees only its inputs, not the entire conversation history'],
-                ['Semantic caching', 'Identical or similar inputs skip the LLM entirely'],
-                ['Smart model routing', 'Groq for extraction, Haiku for classification, Sonnet only when needed'],
-              ].map(([name, desc]) => (
-                <div key={name} style={{ display: 'flex', gap: '0.75rem', fontSize: '0.875rem' }}>
-                  <span style={{ color: '#ff9e64', whiteSpace: 'nowrap', flexShrink: 0 }}>→</span>
-                  <span><strong style={{ color: '#dde4fc' }}>{name}</strong><span style={{ color: '#748ab8' }}> — {desc}</span></span>
+            {/* Token breakdown table */}
+            <div style={{ background: '#13131a', border: '1px solid rgba(255,158,100,0.15)', borderRadius: '10px', overflow: 'hidden', marginBottom: '0.875rem' }}>
+              {/* Header */}
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr auto', gap: '0', padding: '0.5rem 1rem', borderBottom: '1px solid rgba(255,158,100,0.12)', fontSize: '0.65rem', color: '#4a5275', fontFamily: "'JetBrains Mono', monospace", fontWeight: 700, letterSpacing: '0.08em' }}>
+                <span>TECHNIQUE</span><span>HOW IT SAVES TOKENS</span><span style={{ textAlign: 'right' }}>SAVES</span>
+              </div>
+              {([
+                ['① Zero-token planning',  'The Rune graph is the plan. No LLM decides what steps to run — that phase costs 0 tokens.',        '~2,000 tok'],
+                ['② Context isolation',    'Each step receives only its required inputs, not the full conversation history.',                    '~5,000 tok'],
+                ['③ Semantic caching',     'If the same (or similar) input was processed before, the cached result is returned. LLM skipped.', 'run-specific'],
+                ['④ Smart model routing',  'Simple extraction → Groq. Classification → Haiku. Deep synthesis → Sonnet. Opus never by default.', '30–50% /step'],
+              ] as [string, string, string][]).map(([name, how, saves], i, arr) => (
+                <div key={name} style={{ display: 'grid', gridTemplateColumns: '1fr 2fr auto', gap: '0', padding: '0.7rem 1rem', borderBottom: i < arr.length - 1 ? '1px solid rgba(255,158,100,0.08)' : 'none', fontSize: '0.8rem', alignItems: 'start' }}>
+                  <span style={{ color: '#e2c9a0', fontWeight: 700, paddingRight: '0.5rem' }}>{name}</span>
+                  <span style={{ color: '#748ab8', lineHeight: 1.55 }}>{how}</span>
+                  <span style={{ color: '#ff9e64', fontFamily: "'JetBrains Mono', monospace", fontSize: '0.72rem', textAlign: 'right', paddingLeft: '0.75rem', whiteSpace: 'nowrap' }}>{saves}</span>
                 </div>
               ))}
             </div>
-            <p style={{ color: '#ff9e64', fontSize: '0.875rem', fontWeight: 700, margin: 0 }}>Combined: 60–70% token reduction on typical workflows.</p>
+            <p style={{ color: '#ff9e64', fontSize: '0.875rem', fontWeight: 700, margin: 0 }}>
+              Combined: 60–70% token reduction on a typical 8-skill workflow (~12,000 → ~3,600 tokens/run).
+            </p>
           </div>
 
           <div style={{ background: '#1e2030', border: '1px solid rgba(52,211,153,0.2)', borderRadius: '12px', padding: '1.75rem' }}>

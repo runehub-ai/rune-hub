@@ -167,23 +167,29 @@ export default function Home() {
                 </svg>
                 <h3 style={{ color: '#dde4fc', fontSize: '1.1rem', fontWeight: 800, fontFamily: "'Outfit', sans-serif", margin: 0 }}>Up to 70% Fewer Tokens</h3>
               </div>
-              <div style={{ color: '#ff9e64', fontSize: '1.35rem', fontWeight: 900, fontFamily: "'Outfit', sans-serif", marginBottom: '0.75rem' }}>~70% cost savings</div>
-              <p style={{ color: '#9aa4d2', fontSize: '0.875rem', lineHeight: 1.7, margin: '0 0 1rem' }}>
-                Zero-token planning. Per-step context isolation. Semantic caching. Smart model routing — cheapest model that gets the job done, automatically.
-              </p>
-              {/* SkillsBench callout */}
-              <div style={{ background: 'rgba(255,158,100,0.06)', border: '1px solid rgba(255,158,100,0.2)', borderRadius: '8px', padding: '0.65rem 0.9rem', marginBottom: '1rem', fontSize: '0.78rem', color: '#c8d2ec', lineHeight: 1.55 }}>
-                <span style={{ color: '#ff9e64', fontWeight: 700 }}>SkillsBench: </span>Haiku + Rune <span style={{ color: '#34d399', fontWeight: 700 }}>27.7%</span> pass rate vs Opus alone <span style={{ color: '#f87171', fontWeight: 700 }}>22.0%</span> — cheaper model, better result.
+              <div style={{ color: '#ff9e64', fontSize: '1.35rem', fontWeight: 900, fontFamily: "'Outfit', sans-serif", marginBottom: '0.875rem' }}>~12,000 → ~3,600 tokens/run</div>
+
+              {/* 4-technique breakdown */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginBottom: '1rem' }}>
+                {([
+                  ['① Zero-token planning', 'The graph is the plan. No LLM call to decide what to do next.', '−2,000 tok'],
+                  ['② Context isolation', 'Each step gets only its own inputs — not the full session history.', '−5,000 tok'],
+                  ['③ Semantic caching', 'Matching inputs reuse cached results. LLM skipped entirely.', 'variable'],
+                  ['④ Smart routing', 'Haiku for classification, Groq for extraction, Sonnet only for synthesis.', '−30–50%'],
+                ] as [string, string, string][]).map(([name, desc, saving]) => (
+                  <div key={name} style={{ display: 'flex', flexDirection: 'column', gap: '2px', padding: '0.55rem 0.75rem', background: 'rgba(255,158,100,0.05)', borderRadius: '6px', borderLeft: '2px solid rgba(255,158,100,0.28)' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '0.5rem' }}>
+                      <span style={{ color: '#e2c9a0', fontSize: '0.75rem', fontWeight: 700 }}>{name}</span>
+                      <span style={{ color: '#ff9e64', fontSize: '0.68rem', fontFamily: "'JetBrains Mono', monospace", flexShrink: 0 }}>{saving}</span>
+                    </div>
+                    <span style={{ color: '#748ab8', fontSize: '0.73rem', lineHeight: 1.5 }}>{desc}</span>
+                  </div>
+                ))}
               </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                  <span style={{ fontSize: '0.6rem', color: '#f87171', background: 'rgba(248,113,113,0.1)', padding: '2px 8px', borderRadius: '4px', fontWeight: 700, whiteSpace: 'nowrap', fontFamily: "'JetBrains Mono', monospace" }}>BEFORE</span>
-                  <span style={{ color: '#748ab8', fontSize: '0.8rem' }}>~12,000 tokens per run</span>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                  <span style={{ fontSize: '0.6rem', color: '#34d399', background: 'rgba(52,211,153,0.1)', padding: '2px 8px', borderRadius: '4px', fontWeight: 700, whiteSpace: 'nowrap', fontFamily: "'JetBrains Mono', monospace" }}>AFTER</span>
-                  <span style={{ color: '#dde4fc', fontSize: '0.8rem', fontWeight: 600 }}>~3,600 tokens per run</span>
-                </div>
+
+              {/* SkillsBench proof */}
+              <div style={{ background: 'rgba(255,158,100,0.06)', border: '1px solid rgba(255,158,100,0.2)', borderRadius: '8px', padding: '0.65rem 0.9rem', fontSize: '0.77rem', color: '#c8d2ec', lineHeight: 1.55 }}>
+                <span style={{ color: '#ff9e64', fontWeight: 700 }}>SkillsBench: </span>Haiku + Rune <span style={{ color: '#34d399', fontWeight: 700 }}>27.7%</span> pass rate vs Opus alone <span style={{ color: '#f87171', fontWeight: 700 }}>22.0%</span> — cheaper model, better result.
               </div>
             </div>
 
