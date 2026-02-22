@@ -122,9 +122,11 @@ export default async function RuneDetailPage({ params }: { params: Params }) {
       </div>
 
       {/* Pipeline Graph */}
-      <section style={{ background: '#0F0F18', border: '1px solid #292e42', borderRadius: '12px', padding: '1rem', position: 'relative', overflow: 'hidden', marginBottom: '1.5rem' }}>
+      <section style={{ background: '#1a1b26', border: '1px solid #292e42', borderRadius: '12px', padding: '0', position: 'relative', overflow: 'hidden', marginBottom: '1.5rem' }}>
         <Corner pos="tl" /><Corner pos="tr" /><Corner pos="bl" /><Corner pos="br" />
-        <h2 style={{ marginTop: 0, marginBottom: '0.75rem', color: '#dde4fc', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 700 }}>Pipeline Graph</h2>
+        <div style={{ padding: '1rem 1rem 0.5rem' }}>
+          <h2 style={{ margin: 0, color: '#dde4fc', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 700 }}>Pipeline Graph</h2>
+        </div>
         <PipelineGraph rune={rune} />
       </section>
 
