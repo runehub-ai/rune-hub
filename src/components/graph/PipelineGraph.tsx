@@ -61,12 +61,19 @@ export function PipelineGraph({ rune }: { rune: Rune }) {
     labelBgBorderRadius: 4,
   }))
 
-  // Height: one ROW_STEP per category row + small padding for last node
-  const graphH = Math.max(300, activeRows.length * ROW_STEP + 60)
+  // Natural canvas dimensions (without fitView padding)
+  const NODE_H = 66  // approximate rendered height of SkillNode
+  const naturalH = (activeRows.length - 1) * ROW_STEP + NODE_H
+  // aspect ratio: wider graphs are proportionally shorter
+  // +80 vertical: room for edge labels above top row and below bottom row
+  const AR_W = canvasW
+  const AR_H = naturalH + 80
 
   return (
     <div style={{
-      height: graphH,
+      aspectRatio: `${AR_W} / ${AR_H}`,
+      minHeight: '180px',
+      maxHeight: '640px',
       background: '#1a1b26',
       borderRadius: '12px',
       border: '1px solid #292e42',
@@ -77,7 +84,7 @@ export function PipelineGraph({ rune }: { rune: Rune }) {
         edges={edges}
         nodeTypes={nodeTypes}
         fitView
-        fitViewOptions={{ padding: 0.08 }}
+        fitViewOptions={{ padding: 0.06 }}
         nodesDraggable={false}
         nodesConnectable={false}
         elementsSelectable={false}
