@@ -46,12 +46,13 @@ export default function Home() {
           </p>
 
           {/* CTAs */}
-          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', alignItems: 'center', width: '100%' }}>
             <Link href="/runes" style={{
               padding: '0.8rem 2rem', background: 'linear-gradient(135deg, #9d7cd8, #bb9af7)',
               color: '#fff', borderRadius: '8px', textDecoration: 'none', fontWeight: 700,
               fontSize: '1rem', boxShadow: '0 0 28px rgba(187,154,247,0.5)',
               fontFamily: "'Outfit', sans-serif", letterSpacing: '-0.01em',
+              width: '100%', maxWidth: '320px', textAlign: 'center',
             }}>
               Browse Runes — Free →
             </Link>
@@ -60,6 +61,7 @@ export default function Home() {
               color: '#bb9af7', border: '1px solid rgba(187,154,247,0.45)',
               borderRadius: '8px', textDecoration: 'none', fontWeight: 600,
               fontSize: '1rem', backdropFilter: 'blur(4px)',
+              width: '100%', maxWidth: '320px', textAlign: 'center',
             }}>
               How it works →
             </a>
