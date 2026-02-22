@@ -1,6 +1,6 @@
 'use client'
 import { useCallback } from 'react'
-import ReactFlow, { Background, Controls, type Node, type Edge, type ReactFlowInstance } from 'reactflow'
+import ReactFlow, { Background, type Node, type Edge, type ReactFlowInstance } from 'reactflow'
 import { SkillNode } from './SkillNode'
 import { type Rune } from '@/data/runes'
 
@@ -86,7 +86,7 @@ export function PipelineGraph({ rune }: { rune: Rune }) {
   const onInit = useCallback((instance: ReactFlowInstance) => {
     // Brief delay so ReactFlow measures node sizes before fitting
     requestAnimationFrame(() => {
-      instance.fitView({ padding: 0.10, includeHiddenNodes: false })
+      instance.fitView({ padding: 0.14, includeHiddenNodes: false })
     })
   }, [])
 
@@ -108,10 +108,6 @@ export function PipelineGraph({ rune }: { rune: Rune }) {
         maxZoom={1.8}
       >
         <Background color="#1f2335" gap={22} size={1} />
-        <Controls
-          showInteractive={false}
-          style={{ background: '#1e2030', border: '1px solid #292e42', borderRadius: '6px' }}
-        />
       </ReactFlow>
     </div>
   )
