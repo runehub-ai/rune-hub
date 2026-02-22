@@ -82,20 +82,32 @@ export function PipelineGraph({ rune }: { rune: Rune }) {
     })
   })
 
-  // ── Edges ──────────────────────────────────────────────────────────────
-  const edges: Edge[] = rune.edges.map((e, i) => ({
-    id:       `e-${i}`,
-    source:   e.source,
-    target:   e.target,
-    label:    e.label,
-    type:     'smoothstep',
-    animated: true,
-    style: { stroke: '#c8a8ff', strokeWidth: 1.8 },
-    labelStyle:     { fill: '#e8eeff', fontSize: 10, fontFamily: "'JetBrains Mono', monospace", fontWeight: 600 },
-    labelBgStyle:   { fill: '#161824', fillOpacity: 0.95 },
-    labelBgPadding: [4, 6] as [number, number],
-    labelBgBorderRadius: 4,
-  }))
+  // ── Edge color by source node category ────────────────────────────────
+  const CAT_COLORS: Record<string, string> = {
+    input:  '#7aa2f7',
+    api:    '#9ece6a',
+    llm:    '#c8a8ff',
+    output: '#ff9e64',
+  }
+  const nodeCategory: Record<string, string> = {}
+  rune.nodes.forEach(n => { nodeCategory[n.id] = n.category })
+
+  const edges: Edge[] = rune.edges.map((e, i) => {
+    const edgeColor = CAT_COLORS[nodeCategory[e.source]] ?? '#c8a8ff'
+    return {
+      id:       `e-${i}`,
+      source:   e.source,
+      target:   e.target,
+      label:    e.label,
+      type:     'smoothstep',
+      animated: true,
+      style: { stroke: edgeColor, strokeWidth: 1.8 },
+      labelStyle:     { fill: '#e8eeff', fontSize: 10, fontFamily: "'JetBrains Mono', monospace", fontWeight: 600 },
+      labelBgStyle:   { fill: '#0f1018', fillOpacity: 0.95 },
+      labelBgPadding: [4, 6] as [number, number],
+      labelBgBorderRadius: 4,
+    }
+  })
 
   // ── Container height ──────────────────────────────────────────────────
   const naturalH = (numLayers - 1) * ROW_STEP + NODE_H

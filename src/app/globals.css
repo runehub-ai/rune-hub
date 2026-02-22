@@ -803,3 +803,19 @@ a { text-underline-offset: 3px; }
   transform-origin: center;
   animation: rg-logo-halo 3s ease-out infinite;
 }
+
+/* ── Rarity system ── */
+@keyframes rg-legendary-pulse {
+  0%, 100% {
+    box-shadow: 0 0 18px #ffd06044, 0 0 36px #ffd06022, inset 0 0 20px #ffd06008;
+    border-color: #ffd06066;
+  }
+  50% {
+    box-shadow: 0 0 32px #ffd060aa, 0 0 64px #ffd06044, inset 0 0 30px #ffd06014;
+    border-color: #ffd060cc;
+  }
+}
+
+.rg-card-legendary {
+  animation: rg-legendary-pulse 2.4s ease-in-out infinite;
+}
