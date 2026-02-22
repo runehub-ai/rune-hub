@@ -54,7 +54,7 @@ export default function Home() {
               fontFamily: "'Outfit', sans-serif", letterSpacing: '-0.01em',
               width: '100%', maxWidth: '320px', textAlign: 'center',
             }}>
-              Browse Runes — Free →
+              Browse Runes — Free ›
             </Link>
             <a href="#why-rune" style={{
               padding: '0.8rem 2rem', background: 'rgba(26,27,38,0.6)',
@@ -63,7 +63,7 @@ export default function Home() {
               fontSize: '1rem', backdropFilter: 'blur(4px)',
               width: '100%', maxWidth: '320px', textAlign: 'center',
             }}>
-              How it works →
+              How it works ›
             </a>
           </div>
         </div>
@@ -353,7 +353,7 @@ export default function Home() {
       <section className="rg-section">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.75rem' }}>
           <h2 className="rg-section-h2">Featured Runes</h2>
-          <Link href="/runes" style={{ color: '#bb9af7', textDecoration: 'none', fontSize: '0.875rem' }}>View all {RUNES.length} →</Link>
+          <Link href="/runes" style={{ color: '#bb9af7', textDecoration: 'none', fontSize: '0.875rem' }}>View all {RUNES.length} ›</Link>
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1rem' }}>
           {RUNES.slice(0, 12).map(r => <RuneCard key={r.id} rune={r} />)}
@@ -440,7 +440,7 @@ export default function Home() {
           <h2 style={{ fontSize: 'clamp(1.9rem, 3.8vw, 2.8rem)', fontWeight: 800, color: '#dde4fc', marginBottom: '0.75rem', fontFamily: "'Outfit', sans-serif", letterSpacing: '-0.02em', lineHeight: 1.15, textShadow: '0 2px 20px rgba(0,0,0,0.5)' }}>Browse the Skills Registry</h2>
           <p style={{ color: '#c8d2ec', marginBottom: '2rem', fontSize: '1rem' }}>{SKILL_PACKAGES.length} skills · {SKILLS_REGISTRY.length} actions · {RUNES.length} Runes</p>
           <Link href="/skills" style={{ padding: '0.75rem 2rem', background: 'rgba(187,154,247,0.15)', color: '#bb9af7', border: '1px solid rgba(187,154,247,0.4)', borderRadius: '8px', textDecoration: 'none', fontWeight: 600, fontFamily: "'Outfit', sans-serif", letterSpacing: '-0.01em', backdropFilter: 'blur(4px)' }}>
-            View All Skills →
+            View All Skills ›
           </Link>
         </div>
       </section>
