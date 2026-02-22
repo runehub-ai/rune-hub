@@ -41,9 +41,8 @@ export default function Home() {
           <p style={{ fontSize: '1.05rem', color: '#ccd4ee', maxWidth: '520px', margin: '0 auto 0.75rem', lineHeight: 1.75 }}>
             Pick a Rune. Run one command. Everything installs, connects, and executes — automatically.
           </p>
-          <p style={{ fontSize: '0.875rem', color: '#748ab8', maxWidth: '480px', margin: '0 auto 1.75rem', lineHeight: 1.75 }}>
-            Deterministic runs. 70% fewer tokens. Weeks of setup → one command.<br />
-            Not a prompt — a GPS. Works every time, even when the route changes.
+          <p style={{ fontSize: '0.875rem', color: '#748ab8', maxWidth: '420px', margin: '0 auto 1.75rem', lineHeight: 1.75 }}>
+            Deterministic. 70% fewer tokens. Weeks of setup → one command. Not a prompt — a GPS that works every time.
           </p>
 
           {/* CTAs */}
