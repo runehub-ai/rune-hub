@@ -27,16 +27,15 @@ export function SkillNode({ data, id }: { data: SkillNodeData; id: string }) {
 
   return (
     <div style={{
-      background: '#1e2030',
-      border: `1.8px solid ${color}`,
+      background: '#161824',
+      border: `2px solid ${color}cc`,
       borderRadius: '9px',
-      // Fixed width so column spacing is predictable; text wraps inside
       width: '168px',
       padding: '8px 10px 9px',
       textAlign: 'center',
       boxShadow: isHub
-        ? `0 0 18px ${color}55, inset 0 0 10px ${color}0a`
-        : `0 0 6px ${color}22`,
+        ? `0 0 22px ${color}66, inset 0 0 12px ${color}12`
+        : `0 0 10px ${color}33`,
       position: 'relative',
     }}>
       <Handle
@@ -66,8 +65,8 @@ export function SkillNode({ data, id }: { data: SkillNodeData; id: string }) {
       {/* Category row */}
       <div style={{
         fontSize: '0.72rem',
-        color,
-        fontWeight: 700,
+        color: `${color}ff`,
+        fontWeight: 800,
         letterSpacing: '0.08em',
         marginBottom: '5px',
         // If HUB badge present, shift right slightly to avoid overlap
@@ -86,8 +85,8 @@ export function SkillNode({ data, id }: { data: SkillNodeData; id: string }) {
       {/* Label — wraps to 2 lines */}
       <div style={{
         fontSize: '0.85rem',
-        color: '#e2e8ff',
-        fontWeight: 600,
+        color: '#f4f7ff',
+        fontWeight: 700,
         lineHeight: 1.35,
         wordBreak: 'break-word',
         overflowWrap: 'break-word',

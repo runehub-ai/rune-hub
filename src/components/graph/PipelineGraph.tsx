@@ -90,10 +90,10 @@ export function PipelineGraph({ rune }: { rune: Rune }) {
     label:    e.label,
     type:     'smoothstep',
     animated: true,
-    style: { stroke: '#bb9af7', strokeWidth: 1.6 },
-    labelStyle:     { fill: '#c8d2ec', fontSize: 10, fontFamily: "'JetBrains Mono', monospace" },
-    labelBgStyle:   { fill: '#1a1b26', fillOpacity: 1 },
-    labelBgPadding: [4, 5] as [number, number],
+    style: { stroke: '#c8a8ff', strokeWidth: 1.8 },
+    labelStyle:     { fill: '#e8eeff', fontSize: 10, fontFamily: "'JetBrains Mono', monospace", fontWeight: 600 },
+    labelBgStyle:   { fill: '#161824', fillOpacity: 0.95 },
+    labelBgPadding: [4, 6] as [number, number],
     labelBgBorderRadius: 4,
   }))
 
@@ -114,7 +114,7 @@ export function PipelineGraph({ rune }: { rune: Rune }) {
         nodes={nodes}
         edges={edges}
         nodeTypes={nodeTypes}
-        style={{ background: '#1a1b26' }}
+        style={{ background: '#0f1018' }}
         onInit={onInit}
         nodesDraggable={false}
         nodesConnectable={false}
@@ -125,7 +125,7 @@ export function PipelineGraph({ rune }: { rune: Rune }) {
         minZoom={0.15}
         maxZoom={2.0}
       >
-        <Background color="#1f2335" gap={22} size={1} />
+        <Background color="#1a1c2e" gap={22} size={1.5} />
       </ReactFlow>
     </div>
   )
