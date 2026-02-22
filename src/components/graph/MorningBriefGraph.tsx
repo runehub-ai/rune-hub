@@ -240,7 +240,7 @@ export function MorningBriefGraph() {
       {/* eslint-disable-next-line react/no-danger */}
       <style dangerouslySetInnerHTML={{ __html: css }} />
       <svg
-        viewBox="0 0 760 650"
+        viewBox="0 -12 760 662"
         width="100%"
         height="auto"
         style={{ display: 'block', overflow: 'visible' }}
