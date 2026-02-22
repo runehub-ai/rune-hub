@@ -42,7 +42,7 @@ export default function Home() {
             Pick a workflow. Run one command. Everything installs, connects, and executes — automatically.
           </p>
           <p style={{ fontSize: '0.875rem', color: '#748ab8', maxWidth: '480px', margin: '0 auto 1.75rem', lineHeight: 1.6 }}>
-            Deterministic runs. 70% fewer tokens. Trust-scored and auditable.
+            Deterministic runs. 70% fewer tokens. Weeks of setup → one command.
           </p>
 
           {/* CTAs */}
@@ -132,7 +132,7 @@ export default function Home() {
         <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start', background: 'rgba(187,154,247,0.05)', border: '1px solid rgba(187,154,247,0.2)', borderRadius: '10px', padding: '1rem 1.25rem', marginBottom: '2.5rem', maxWidth: '680px' }}>
           <span style={{ fontSize: '1.1rem', flexShrink: 0, marginTop: '1px' }}>💡</span>
           <p style={{ color: '#c8d2ec', fontSize: '0.875rem', lineHeight: 1.65, margin: 0 }}>
-            95% of potential users will never spend 10 hours configuring an AI agent. The winners in the Skill Era aren&apos;t the best engineers — they&apos;re the ones who package the right workflow and put it one command away.
+            The real cost of AI automation isn&apos;t the API bill — it&apos;s the <strong>2–4 weeks of engineering</strong> to wire a reliable workflow, plus ongoing maintenance when it breaks. Runes eliminate that cost entirely. The token savings are just a bonus.
           </p>
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.25rem' }}>
@@ -194,8 +194,12 @@ export default function Home() {
               </div>
 
               {/* SkillsBench proof */}
-              <div style={{ background: 'rgba(255,158,100,0.06)', border: '1px solid rgba(255,158,100,0.2)', borderRadius: '8px', padding: '0.65rem 0.9rem', fontSize: '0.77rem', color: '#c8d2ec', lineHeight: 1.55 }}>
+              <div style={{ background: 'rgba(255,158,100,0.06)', border: '1px solid rgba(255,158,100,0.2)', borderRadius: '8px', padding: '0.65rem 0.9rem', fontSize: '0.77rem', color: '#c8d2ec', lineHeight: 1.55, marginBottom: '0.5rem' }}>
                 <span style={{ color: '#ff9e64', fontWeight: 700 }}>SkillsBench: </span>Haiku + Rune <span style={{ color: '#34d399', fontWeight: 700 }}>27.7%</span> pass rate vs Opus alone <span style={{ color: '#f87171', fontWeight: 700 }}>22.0%</span> — cheaper model, better result.
+              </div>
+              {/* Dev time callout */}
+              <div style={{ background: 'rgba(168,216,120,0.05)', border: '1px solid rgba(168,216,120,0.18)', borderRadius: '8px', padding: '0.65rem 0.9rem', fontSize: '0.77rem', color: '#c8d2ec', lineHeight: 1.55 }}>
+                <span style={{ color: '#a8d878', fontWeight: 700 }}>Beyond runtime: </span>Building a reliable workflow from scratch takes 2–4 weeks. Factor in the engineering hours + debugging cost, and Runes save <span style={{ color: '#a8d878', fontWeight: 700 }}>10–50× more</span> than the token bill alone.
               </div>
             </div>
 
@@ -364,6 +368,61 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── Build & Earn ── */}
+      <section className="rg-pad-section" style={{ maxWidth: '1100px', margin: '0 auto', padding: '5rem 2rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '3rem', alignItems: 'center' }}>
+          {/* Left: text */}
+          <div>
+            <p style={{ fontSize: '0.7rem', fontWeight: 800, letterSpacing: '0.18em', color: '#34d399', marginBottom: '0.75rem', fontFamily: "'JetBrains Mono', monospace", marginTop: 0 }}>DEVELOPER ECOSYSTEM</p>
+            <h2 style={{ fontSize: 'clamp(1.9rem, 3.8vw, 2.8rem)', fontWeight: 800, color: '#dde4fc', margin: '0 0 1rem', fontFamily: "'Outfit', sans-serif", letterSpacing: '-0.02em', lineHeight: 1.15 }}>
+              Build a Rune.<br /><span style={{ color: '#34d399' }}>Earn from every run.</span>
+            </h2>
+            <p style={{ color: '#9aa4d2', fontSize: '0.95rem', lineHeight: 1.8, marginBottom: '1.5rem' }}>
+              Publish your workflow to the registry. Every time someone runs your Rune, usage revenue is generated — automatically tokenized and distributed to you. No ads, no subscriptions — pure usage economics.
+            </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '1.5rem' }}>
+              {[
+                { icon: '🔨', color: '#34d399', title: 'Build once', body: 'Author a Rune with the Builder or CLI. Auto-Fill wires the gaps. Validate with one command.' },
+                { icon: '📈', color: '#60a5fa', title: 'Community improves it', body: 'Developers fork, extend, and contribute — each Rune evolves through community iteration.' },
+                { icon: '💰', color: '#ff9e64', title: 'Revenue is tokenized', body: 'Usage fees flow back to creators as on-chain revenue shares. Verifiable, automatic, no middleman.' },
+              ].map(s => (
+                <div key={s.title} style={{ display: 'flex', gap: '0.875rem', alignItems: 'flex-start' }}>
+                  <span style={{ fontSize: '1.1rem', flexShrink: 0, marginTop: '2px' }}>{s.icon}</span>
+                  <div>
+                    <span style={{ color: s.color, fontWeight: 700, fontSize: '0.875rem' }}>{s.title}</span>
+                    <span style={{ color: '#748ab8', fontSize: '0.875rem' }}> — {s.body}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <Link href="/runes/build" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.65rem 1.5rem', background: 'rgba(52,211,153,0.1)', border: '1px solid rgba(52,211,153,0.35)', borderRadius: '8px', color: '#34d399', textDecoration: 'none', fontSize: '0.875rem', fontWeight: 700 }}>
+              Start building ›
+            </Link>
+          </div>
+          {/* Right: flow diagram */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+            {[
+              { step: '01', label: 'Author a Rune', sub: 'Drag, wire, validate', color: '#34d399' },
+              { step: '02', label: 'Publish to registry', sub: 'Trust Score ≥ 70 required', color: '#60a5fa' },
+              { step: '03', label: 'Users run it', sub: 'Every execution is logged', color: '#bb9af7' },
+              { step: '04', label: 'Auto-eval & optimize', sub: 'Community forks improve the Rune', color: '#ff9e64' },
+              { step: '05', label: 'Revenue → tokenized', sub: 'Creator receives 85% of usage fees', color: '#a8d878' },
+            ].map((s, i, arr) => (
+              <div key={s.step} style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flexShrink: 0 }}>
+                  <div style={{ width: '36px', height: '36px', borderRadius: '50%', background: `${s.color}14`, border: `1px solid ${s.color}40`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.65rem', fontWeight: 800, color: s.color, fontFamily: "'JetBrains Mono', monospace" }}>{s.step}</div>
+                  {i < arr.length - 1 && <div style={{ width: '1px', height: '20px', background: '#2e3452', marginTop: '2px' }} />}
+                </div>
+                <div style={{ paddingTop: '6px' }}>
+                  <div style={{ color: '#dde4fc', fontWeight: 700, fontSize: '0.9rem', fontFamily: "'Outfit', sans-serif" }}>{s.label}</div>
+                  <div style={{ color: '#4a5275', fontSize: '0.78rem', fontFamily: "'JetBrains Mono', monospace" }}>{s.sub}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── Pricing ── */}
       <section style={{ background: '#16161e', borderTop: '1px solid #1f2335', borderBottom: '1px solid #1f2335' }}>
         <div className="rg-pad-section" style={{ maxWidth: '1100px', margin: '0 auto', padding: '5rem 2rem' }}>
@@ -432,6 +491,17 @@ export default function Home() {
           <p style={{ textAlign: 'center', color: '#748ab8', fontSize: '0.85rem', marginTop: '2rem' }}>
             Enterprise? <a href="mailto:hello@runehub.dev" style={{ color: '#bb9af7', textDecoration: 'none' }}>Contact us</a> for dedicated infrastructure, compliance, and custom SLAs.
           </p>
+          {/* Creator Program callout */}
+          <div style={{ display: 'flex', gap: '1.25rem', alignItems: 'center', background: 'rgba(168,216,120,0.05)', border: '1px solid rgba(168,216,120,0.2)', borderRadius: '12px', padding: '1.25rem 1.75rem', marginTop: '1.5rem', flexWrap: 'wrap' }}>
+            <div style={{ flex: 1, minWidth: '240px' }}>
+              <div style={{ fontSize: '0.65rem', color: '#a8d878', fontWeight: 800, letterSpacing: '0.15em', fontFamily: "'JetBrains Mono', monospace", marginBottom: '0.35rem' }}>CREATOR PROGRAM</div>
+              <div style={{ color: '#dde4fc', fontSize: '1rem', fontWeight: 700, fontFamily: "'Outfit', sans-serif", marginBottom: '0.3rem' }}>Build Runes. Earn from every run.</div>
+              <div style={{ color: '#748ab8', fontSize: '0.85rem' }}>Every time someone runs your Rune, usage revenue is tokenized and 85% flows back to you — automatically, on-chain, no invoicing.</div>
+            </div>
+            <Link href="/runes/build" style={{ padding: '0.6rem 1.4rem', background: 'rgba(168,216,120,0.12)', border: '1px solid rgba(168,216,120,0.35)', borderRadius: '8px', color: '#a8d878', textDecoration: 'none', fontSize: '0.85rem', fontWeight: 700, flexShrink: 0, whiteSpace: 'nowrap' }}>
+              Start building ›
+            </Link>
+          </div>
         </div>
       </section>
 
