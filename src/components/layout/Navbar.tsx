@@ -7,7 +7,7 @@ const links = [
   { href: '/runes',        label: 'Runes' },
   { href: '/skills',       label: 'Skills' },
   { href: '/runes/build',  label: 'Build' },
-  { href: '/strategy',     label: 'Strategy' },
+  { href: '/strategy',     label: 'Guide' },
 ]
 
 export function Navbar() {
