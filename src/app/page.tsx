@@ -74,7 +74,7 @@ export default function Home() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '3rem', alignItems: 'center', marginBottom: '2.5rem' }}>
           <div>
             <p style={{ fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.15em', color: '#bb9af7', marginBottom: '0.75rem', fontFamily: "'JetBrains Mono', monospace", marginTop: 0 }}>THE CORE CONCEPT</p>
-            <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.1rem)', fontWeight: 800, color: '#dde4fc', margin: '0 0 0.75rem', fontFamily: "'Outfit', sans-serif", letterSpacing: '-0.01em', lineHeight: 1.2 }}>
+            <h2 style={{ fontSize: 'clamp(1.9rem, 3.8vw, 2.8rem)', fontWeight: 800, color: '#dde4fc', margin: '0 0 0.75rem', fontFamily: "'Outfit', sans-serif", letterSpacing: '-0.02em', lineHeight: 1.15 }}>
               What is a Rune?
             </h2>
             <p style={{ color: '#c8d2ec', fontSize: '1rem', marginBottom: 0, maxWidth: '460px', lineHeight: 1.75 }}>
@@ -115,7 +115,7 @@ export default function Home() {
           <p style={{ fontSize: '0.7rem', fontWeight: 800, letterSpacing: '0.18em', color: '#bb9af7', margin: 0, fontFamily: "'JetBrains Mono', monospace", whiteSpace: 'nowrap' as const }}>WHY IT MATTERS</p>
           <div style={{ flex: 1, height: '1px', background: '#1f2335' }} />
         </div>
-        <h2 style={{ fontSize: 'clamp(1.3rem, 2.5vw, 1.9rem)', fontWeight: 800, color: '#dde4fc', margin: '0 0 0.75rem', fontFamily: "'Outfit', sans-serif", letterSpacing: '-0.01em', lineHeight: 1.2 }}>
+        <h2 style={{ fontSize: 'clamp(1.7rem, 3.2vw, 2.4rem)', fontWeight: 800, color: '#dde4fc', margin: '0 0 0.75rem', fontFamily: "'Outfit', sans-serif", letterSpacing: '-0.02em', lineHeight: 1.15 }}>
           Vibe coding hits a ceiling.<br />
           <span style={{ color: '#bb9af7' }}>Runes break through it.</span>
         </h2>
@@ -239,7 +239,7 @@ export default function Home() {
       {/* ── How It Works ── */}
       <section id="how-it-works" className="rg-pad-section" style={{ maxWidth: '900px', margin: '0 auto', padding: '5rem 2rem' }}>
         <p style={{ fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.15em', color: '#7aa2f7', marginBottom: '0.75rem', fontFamily: "'JetBrains Mono', monospace" }}>HOW IT WORKS</p>
-        <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.1rem)', fontWeight: 800, color: '#dde4fc', margin: '0 0 0.75rem', fontFamily: "'Outfit', sans-serif", letterSpacing: '-0.01em' }}>
+        <h2 style={{ fontSize: 'clamp(1.9rem, 3.8vw, 2.8rem)', fontWeight: 800, color: '#dde4fc', margin: '0 0 0.75rem', fontFamily: "'Outfit', sans-serif", letterSpacing: '-0.02em', lineHeight: 1.15 }}>
           One command. That&apos;s it.
         </h2>
         <p style={{ color: '#748ab8', fontSize: '1rem', marginBottom: '2.5rem', maxWidth: '520px' }}>
@@ -362,7 +362,7 @@ export default function Home() {
       <section style={{ background: '#16161e', borderTop: '1px solid #1f2335', borderBottom: '1px solid #1f2335' }}>
         <div className="rg-pad-section" style={{ maxWidth: '1100px', margin: '0 auto', padding: '5rem 2rem' }}>
           <p style={{ fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.15em', color: '#ff9e64', marginBottom: '0.75rem', fontFamily: "'JetBrains Mono', monospace", textAlign: 'center' }}>PRICING</p>
-          <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.1rem)', fontWeight: 800, color: '#dde4fc', margin: '0 0 0.75rem', fontFamily: "'Outfit', sans-serif", letterSpacing: '-0.01em', textAlign: 'center' }}>
+          <h2 style={{ fontSize: 'clamp(1.9rem, 3.8vw, 2.8rem)', fontWeight: 800, color: '#dde4fc', margin: '0 0 0.75rem', fontFamily: "'Outfit', sans-serif", letterSpacing: '-0.02em', lineHeight: 1.15, textAlign: 'center' }}>
             Start free. Optimize when ready.
           </h2>
           <p style={{ color: '#748ab8', fontSize: '1rem', marginBottom: '3rem', textAlign: 'center' }}>
@@ -435,7 +435,7 @@ export default function Home() {
         <div style={{ position: 'absolute', inset: 0, backgroundImage: 'url(/images/hero-market.jpg)', backgroundSize: 'cover', backgroundPosition: 'center', zIndex: 0 }} />
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(26,27,38,0.95) 0%, rgba(26,27,38,0.78) 50%, rgba(26,27,38,0.97) 100%)', zIndex: 1 }} />
         <div style={{ position: 'relative', zIndex: 2 }}>
-          <h2 style={{ fontSize: '1.5rem', fontWeight: 700, color: '#dde4fc', marginBottom: '0.75rem', fontFamily: "'Outfit', sans-serif", textShadow: '0 2px 20px rgba(0,0,0,0.5)' }}>Browse the Skills Registry</h2>
+          <h2 style={{ fontSize: 'clamp(1.9rem, 3.8vw, 2.8rem)', fontWeight: 800, color: '#dde4fc', marginBottom: '0.75rem', fontFamily: "'Outfit', sans-serif", letterSpacing: '-0.02em', lineHeight: 1.15, textShadow: '0 2px 20px rgba(0,0,0,0.5)' }}>Browse the Skills Registry</h2>
           <p style={{ color: '#c8d2ec', marginBottom: '2rem', fontSize: '1rem' }}>{SKILL_PACKAGES.length} skills · {SKILLS_REGISTRY.length} actions · {RUNES.length} Runes</p>
           <Link href="/skills" style={{ padding: '0.75rem 2rem', background: 'rgba(187,154,247,0.15)', color: '#bb9af7', border: '1px solid rgba(187,154,247,0.4)', borderRadius: '8px', textDecoration: 'none', fontWeight: 600, fontFamily: "'Outfit', sans-serif", letterSpacing: '-0.01em', backdropFilter: 'blur(4px)' }}>
             View All Skills →

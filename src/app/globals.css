@@ -265,8 +265,8 @@ a { text-underline-offset: 3px; }
 }
 
 /* ── Featured Runes heading ── */
-.rg-section-h2 { font-size: 1.5rem; font-weight: 700; color: #dde4fc; margin: 0; font-family: 'Outfit', sans-serif; letter-spacing: -0.01em; }
-@media (max-width: 480px) { .rg-section-h2 { font-size: 1.2rem; } }
+.rg-section-h2 { font-size: clamp(1.9rem, 3.8vw, 2.8rem); font-weight: 800; color: #dde4fc; margin: 0; font-family: 'Outfit', sans-serif; letter-spacing: -0.02em; line-height: 1.15; }
+@media (max-width: 480px) { .rg-section-h2 { font-size: 1.6rem; } }
 
 /* ── Footer ── */
 .rg-footer { padding: 2rem; margin-top: 4rem; }
