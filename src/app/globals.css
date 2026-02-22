@@ -217,9 +217,22 @@ a { text-underline-offset: 3px; }
 }
 
 /* ── Build page sidebar responsive ── */
-.rg-build-sidebar { width: 220px; flex-shrink: 0; }
-@media (max-width: 900px) { .rg-build-sidebar { width: 180px; } }
-@media (max-width: 600px) { .rg-build-sidebar { display: none; } }
+.rg-build-sidebar { width: 220px; flex-shrink: 0; transition: transform 0.22s ease; }
+@media (max-width: 900px) { .rg-build-sidebar { width: 195px; } }
+/* Mobile: sidebar overlays the canvas */
+@media (max-width: 700px) {
+  .rg-build-sidebar {
+    position: absolute; top: 0; left: 0; bottom: 0;
+    width: 240px; z-index: 40;
+    transform: translateX(-100%);
+  }
+  .rg-build-sidebar.open { transform: translateX(0); }
+}
+/* Hide toggle on desktop */
+.rg-build-sidebar-toggle { display: none; }
+@media (max-width: 700px) { .rg-build-sidebar-toggle { display: flex !important; } }
+.rg-build-backdrop { display: none; }
+@media (max-width: 700px) { .rg-build-backdrop { display: block !important; } }
 
 /* ── Build top bar responsive ── */
 .rg-build-topbar {
