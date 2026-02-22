@@ -29,7 +29,7 @@ export default function Home() {
         <div style={{ position: 'relative', zIndex: 3 }}>
           {/* Badge */}
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(187,154,247,0.12)', border: '1px solid rgba(187,154,247,0.35)', borderRadius: '100px', padding: '0.35rem 1.1rem', fontSize: '0.75rem', color: '#bb9af7', marginBottom: '2rem', letterSpacing: '-0.01em', backdropFilter: 'blur(4px)' }}>
-            ✦ {RUNES.length} verified Runes · install in one command
+            ✦ {RUNES.length} verified Runes · trusted by builders
           </div>
 
           {/* Title */}
@@ -42,7 +42,7 @@ export default function Home() {
             Pick a Rune. Run one command. Everything installs, connects, and executes — automatically.
           </p>
           <p style={{ fontSize: '0.875rem', color: '#748ab8', maxWidth: '420px', margin: '0 auto 1.75rem', lineHeight: 1.75 }}>
-            Deterministic. 70% fewer tokens. Weeks of setup → one command. Not a prompt — a GPS that works every time.
+            Deterministic. 70% fewer tokens. Not a prompt — a GPS that works every time.
           </p>
 
           {/* CTAs */}
