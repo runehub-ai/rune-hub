@@ -48,22 +48,26 @@ export default function Home() {
           {/* CTAs */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', alignItems: 'center', width: '100%' }}>
             <Link href="/runes" style={{
-              padding: '0.8rem 2rem', background: 'linear-gradient(135deg, #9d7cd8, #bb9af7)',
+              padding: '0.8rem 1.5rem', background: 'linear-gradient(135deg, #9d7cd8, #bb9af7)',
               color: '#fff', borderRadius: '8px', textDecoration: 'none', fontWeight: 700,
               fontSize: '1rem', boxShadow: '0 0 28px rgba(187,154,247,0.5)',
               fontFamily: "'Outfit', sans-serif", letterSpacing: '-0.01em',
-              width: '100%', maxWidth: '320px', textAlign: 'center',
+              width: '100%', maxWidth: '320px',
+              display: 'flex', alignItems: 'center', justifyContent: 'space-between',
             }}>
-              Browse Runes — Free ›
+              <span>Browse Runes — Free</span>
+              <span style={{ fontSize: '1.2rem', lineHeight: 1 }}>›</span>
             </Link>
             <a href="#why-rune" style={{
-              padding: '0.8rem 2rem', background: 'rgba(26,27,38,0.6)',
+              padding: '0.8rem 1.5rem', background: 'rgba(26,27,38,0.6)',
               color: '#bb9af7', border: '1px solid rgba(187,154,247,0.45)',
               borderRadius: '8px', textDecoration: 'none', fontWeight: 600,
               fontSize: '1rem', backdropFilter: 'blur(4px)',
-              width: '100%', maxWidth: '320px', textAlign: 'center',
+              width: '100%', maxWidth: '320px',
+              display: 'flex', alignItems: 'center', justifyContent: 'space-between',
             }}>
-              How it works ›
+              <span>How it works</span>
+              <span style={{ fontSize: '1.2rem', lineHeight: 1 }}>›</span>
             </a>
           </div>
         </div>
