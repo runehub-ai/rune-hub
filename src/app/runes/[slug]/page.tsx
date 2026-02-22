@@ -59,6 +59,23 @@ export default async function RuneDetailPage({ params }: { params: Params }) {
   const tLabel = safetyLabel(trustScore)
   const rarity = getRarity(trustScore)
 
+  // Auth requirements for cookbook section
+  type AuthReq = { key: string; docs: string; color: string }
+  const authReqsRaw: (AuthReq | null)[] = rune.nodes.map(n => {
+    if (n.category === 'llm') return { key: 'ANTHROPIC_API_KEY', docs: 'console.anthropic.com', color: '#bb9af7' }
+    if (n.id.includes('gmail')) return { key: 'GMAIL_OAUTH', docs: 'console.cloud.google.com', color: '#7aa2f7' }
+    if (n.id.includes('brave')) return { key: 'BRAVE_API_KEY', docs: 'api.search.brave.com', color: '#9ece6a' }
+    if (n.id.includes('telegram')) return { key: 'TELEGRAM_BOT_TOKEN', docs: 't.me/BotFather', color: '#7aa2f7' }
+    if (n.id.includes('notion')) return { key: 'NOTION_API_KEY', docs: 'notion.so/my-integrations', color: '#ff9e64' }
+    if (n.id.includes('weather')) return { key: 'OPENWEATHER_API_KEY', docs: 'openweathermap.org/api', color: '#9ece6a' }
+    if (n.id.includes('coingecko')) return { key: 'COINGECKO (free)', docs: 'coingecko.com/api', color: '#9ece6a' }
+    if (n.id.includes('arxiv')) return { key: 'arXiv (free)', docs: 'arxiv.org/help/api', color: '#9ece6a' }
+    return null
+  })
+  const authReqs: AuthReq[] = authReqsRaw
+    .filter((x): x is AuthReq => x !== null)
+    .filter((v, i, arr) => arr.findIndex(x => x.key === v.key) === i)
+
   // Enrich each node with registry data
   const enrichedNodes = rune.nodes.map(node => {
     const reg = SKILLS_REGISTRY.find(s => s.id === node.id)
@@ -169,6 +186,75 @@ export default async function RuneDetailPage({ params }: { params: Params }) {
           <h2 style={{ margin: 0, color: '#dde4fc', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 700 }}>Pipeline Graph</h2>
         </div>
         <PipelineGraph rune={rune} />
+      </section>
+
+      {/* ── Cookbook Section ── */}
+      <section style={{ background: 'linear-gradient(145deg, #0f1018, #161824)', border: `1px solid ${rarity.color}33`, borderRadius: '12px', padding: '1.5rem', position: 'relative', overflow: 'hidden', marginBottom: '1.5rem' }}>
+        <Corner pos="tl" color={rarity.color} /><Corner pos="tr" color={rarity.color} /><Corner pos="bl" color={rarity.color} /><Corner pos="br" color={rarity.color} />
+
+        {/* Divider header */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }}>
+          <div style={{ flex: 1, height: '1px', background: `linear-gradient(90deg, transparent, ${rarity.color}44)` }} />
+          <span style={{ fontSize: '0.68rem', fontWeight: 900, letterSpacing: '0.16em', color: rarity.color, fontFamily: "'JetBrains Mono', monospace", whiteSpace: 'nowrap', textShadow: `0 0 12px ${rarity.color}88` }}>≪ ◈ COOKBOOK ◈ ≫</span>
+          <div style={{ flex: 1, height: '1px', background: `linear-gradient(90deg, ${rarity.color}44, transparent)` }} />
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem' }}>
+
+          {/* Quick Start */}
+          <div>
+            <div style={{ fontSize: '0.68rem', fontWeight: 800, color: rarity.color, letterSpacing: '0.12em', fontFamily: "'JetBrains Mono', monospace", marginBottom: '0.75rem' }}>▸ QUICK START</div>
+            <pre style={{ background: '#0d0e14', border: '1px solid #1f2335', borderRadius: '8px', padding: '1rem', margin: 0, fontSize: '0.75rem', color: '#c8d2ec', fontFamily: "'JetBrains Mono', monospace", lineHeight: 1.7, overflowX: 'auto' }}>
+              <span style={{ color: '#636da6' }}># install the CLI</span>{'\n'}
+              <span style={{ color: '#9ece6a' }}>npm</span> install -g rune-hub-cli{'\n\n'}
+              <span style={{ color: '#636da6' }}># set up auth</span>{'\n'}
+              {[...new Set(rune.nodes.map(n => n.category === 'llm' ? 'anthropic' : n.category === 'output' ? 'telegram' : n.id.split('-')[0]))].slice(0, 3).map(s => (
+                <span key={s}><span style={{ color: '#9ece6a' }}>rune</span> auth {s}{'\n'}</span>
+              ))}{'\n'}
+              <span style={{ color: '#636da6' }}># run it</span>{'\n'}
+              <span style={{ color: '#9ece6a' }}>rune</span> install <span style={{ color: '#e0af68' }}>{rune.slug}</span>{'\n'}
+              <span style={{ color: '#9ece6a' }}>rune</span> run <span style={{ color: '#e0af68' }}>{rune.slug}</span>
+            </pre>
+          </div>
+
+          {/* Ingredients */}
+          <div>
+            <div style={{ fontSize: '0.68rem', fontWeight: 800, color: rarity.color, letterSpacing: '0.12em', fontFamily: "'JetBrains Mono', monospace", marginBottom: '0.75rem' }}>▸ INGREDIENTS — {rune.nodes.length} SKILLS</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+              {rune.nodes.map((node, i) => {
+                const cColor = CATEGORY_COLORS[node.category] || '#9aa4d2'
+                const reg = SKILLS_REGISTRY.find(s => s.id === node.id)
+                return (
+                  <div key={node.id} style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', padding: '0.5rem 0.75rem', background: '#0d0e14', borderRadius: '6px', border: `1px solid ${cColor}18` }}>
+                    <span style={{ fontSize: '0.62rem', color: '#748ab8', fontFamily: "'JetBrains Mono', monospace", minWidth: '16px' }}>{String(i + 1).padStart(2, '0')}</span>
+                    <span style={{ fontSize: '0.95rem' }}>{reg?.icon || '⚙️'}</span>
+                    <span style={{ color: '#dde4fc', fontSize: '0.82rem', flex: 1 }}>{node.label}</span>
+                    <span style={{ fontSize: '0.58rem', padding: '1px 6px', borderRadius: '3px', background: `${cColor}15`, color: cColor, border: `1px solid ${cColor}35`, fontFamily: "'JetBrains Mono', monospace", textTransform: 'uppercase' as const }}>
+                      {CATEGORY_LABELS[node.category]}
+                    </span>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+
+          {/* What you'll need */}
+          <div>
+            <div style={{ fontSize: '0.68rem', fontWeight: 800, color: rarity.color, letterSpacing: '0.12em', fontFamily: "'JetBrains Mono', monospace", marginBottom: '0.75rem' }}>▸ WHAT YOU&apos;LL NEED</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+              {authReqs.map(item => (
+                <div key={item.key} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.45rem 0.75rem', background: '#0d0e14', borderRadius: '6px', border: `1px solid ${item.color}20` }}>
+                  <span style={{ fontSize: '0.72rem', color: item.color, fontFamily: "'JetBrains Mono', monospace", fontWeight: 600 }}>{item.key}</span>
+                  <a href={`https://${item.docs}`} target="_blank" rel="noreferrer" style={{ fontSize: '0.62rem', color: '#4a5578', textDecoration: 'none' }}>↗ {item.docs.split('/')[0]}</a>
+                </div>
+              ))}
+              <div style={{ marginTop: '0.5rem', padding: '0.5rem 0.75rem', background: `${rarity.color}08`, border: `1px solid ${rarity.color}20`, borderRadius: '6px' }}>
+                <span style={{ fontSize: '0.72rem', color: '#748ab8', fontFamily: "'JetBrains Mono', monospace" }}>Est. cost per run: </span>
+                <span style={{ fontSize: '0.78rem', color: rarity.color, fontWeight: 700 }}>~$0.03–0.08</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* ── Skill Details (dense info below graph) ── */}
