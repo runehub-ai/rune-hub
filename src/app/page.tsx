@@ -326,7 +326,7 @@ export default function Home() {
           </div>
 
           {/* Pipeline stage legend */}
-          <div style={{ display: 'flex', gap: '1.5rem', marginBottom: '1.25rem', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', columnGap: '1.25rem', rowGap: '0.3rem', marginBottom: '1rem', flexWrap: 'wrap' }}>
             {[
               { dot: '#34d399', label: 'INPUT — Calendar · Email · GitHub' },
               { dot: '#a78bfa', label: 'LLM 1 — Triage & Score' },

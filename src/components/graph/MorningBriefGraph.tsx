@@ -162,7 +162,7 @@ function GraphNode({ n }: { n: NNode }) {
       />
       <text
         x={n.x + n.w - 32} y={n.y + 18}
-        textAnchor="middle" fontSize="11" fill={c}
+        textAnchor="middle" fontSize="12" fill={c}
         fontWeight="700" fontFamily="'JetBrains Mono', monospace"
         letterSpacing="0.8"
       >
@@ -182,7 +182,7 @@ function GraphNode({ n }: { n: NNode }) {
         x={isWide ? n.x + 60 : cx}
         y={n.y + 52}
         textAnchor={isWide ? 'start' : 'middle'}
-        fontSize={isWide ? 18 : 16}
+        fontSize={isWide ? 19 : 17}
         fill="#e2e8ff"
         fontWeight="700"
         fontFamily="'Inter', sans-serif"
@@ -194,7 +194,7 @@ function GraphNode({ n }: { n: NNode }) {
         x={isWide ? n.x + 60 : cx}
         y={n.y + 70}
         textAnchor={isWide ? 'start' : 'middle'}
-        fontSize="13"
+        fontSize="14"
         fill="#8fa8d4"
         fontFamily="'Inter', sans-serif"
       >
@@ -284,7 +284,7 @@ export function MorningBriefGraph() {
             key={`lbl-${e.id}`}
             x={e.lx} y={e.ly}
             textAnchor={e.anchor}
-            fontSize="11"
+            fontSize="12"
             fill={CLR[e.cat]}
             opacity="0.82"
             fontFamily="'JetBrains Mono', monospace"
