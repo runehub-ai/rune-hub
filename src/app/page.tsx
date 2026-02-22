@@ -170,16 +170,12 @@ export default function Home() {
           Vibe coding hits a ceiling.<br />
           <span style={{ color: '#bb9af7' }}>Runes break through it.</span>
         </h2>
-        <p style={{ color: '#748ab8', fontSize: '1rem', marginBottom: '1.5rem', maxWidth: '600px' }}>
-          92% of devs use AI daily. The edge isn&apos;t the model — it&apos;s the playbook. Runes make every playbook deterministic, auditable, and cheap to run.
+        <p style={{ color: '#748ab8', fontSize: '1rem', marginBottom: '1rem', maxWidth: '600px' }}>
+          🧑‍💻 92% of devs use AI daily. The edge isn&apos;t the model — it&apos;s the playbook. Runes make every playbook deterministic, auditable, and cheap to run.
         </p>
-        {/* Wrapper gap callout */}
-        <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start', background: 'rgba(187,154,247,0.05)', border: '1px solid rgba(187,154,247,0.2)', borderRadius: '10px', padding: '1rem 1.25rem', marginBottom: '2.5rem', maxWidth: '680px' }}>
-          <span style={{ fontSize: '1.1rem', flexShrink: 0, marginTop: '1px' }}>💡</span>
-          <p style={{ color: '#c8d2ec', fontSize: '0.875rem', lineHeight: 1.65, margin: 0 }}>
-            The real cost of AI automation isn&apos;t the API bill — it&apos;s the <strong>2–4 weeks of engineering</strong> to wire a reliable workflow, plus ongoing maintenance when it breaks. Runes eliminate that cost entirely. The token savings are just a bonus.
-          </p>
-        </div>
+        <p style={{ color: '#748ab8', fontSize: '0.925rem', lineHeight: 1.7, marginBottom: '2.5rem', maxWidth: '600px' }}>
+          💡 The real cost of AI automation isn&apos;t the API bill — it&apos;s the <strong style={{ color: '#c8d2ec' }}>2–4 weeks of engineering</strong> to wire a reliable workflow, plus ongoing maintenance when it breaks. Runes eliminate that cost entirely. The token savings are just a bonus.
+        </p>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.25rem' }}>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.25rem' }}>
 
