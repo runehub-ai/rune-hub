@@ -821,12 +821,12 @@ a { text-underline-offset: 3px; }
 /* ── Rarity system ── */
 @keyframes rg-legendary-pulse {
   0%, 100% {
-    box-shadow: 0 0 18px #ffd06044, 0 0 36px #ffd06022, inset 0 0 20px #ffd06008;
-    border-color: #ffd06066;
+    box-shadow: 0 0 12px #ffd06030, 0 0 26px #ffd06014, inset 0 0 16px #ffd06006;
+    border-color: #ffd06055;
   }
   50% {
-    box-shadow: 0 0 32px #ffd060aa, 0 0 64px #ffd06044, inset 0 0 30px #ffd06014;
-    border-color: #ffd060cc;
+    box-shadow: 0 0 22px #ffd06070, 0 0 44px #ffd06030, inset 0 0 22px #ffd0600e;
+    border-color: #ffd06099;
   }
 }
 

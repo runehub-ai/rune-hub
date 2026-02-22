@@ -88,7 +88,7 @@ export function RuneCard({ rune }: { rune: Rune }) {
         onMouseEnter={e => {
           const el = e.currentTarget as HTMLDivElement
           el.style.borderColor = `${rarity.color}cc`
-          el.style.boxShadow = `0 0 28px ${rarity.glow}44, 0 4px 20px rgba(0,0,0,0.4)`
+          el.style.boxShadow = `0 0 20px ${rarity.glow}33, 0 4px 20px rgba(0,0,0,0.4)`
           el.style.transform = 'translateY(-2px)'
         }}
         onMouseLeave={e => {
