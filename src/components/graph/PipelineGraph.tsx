@@ -9,9 +9,9 @@ const nodeTypes = { skill: SkillNode }
 // Category = ROW (top→bottom: input → api → llm → output)
 // Nodes within same category = COLUMNS (centered horizontally)
 const NODE_W   = 168   // must match SkillNode fixed width
-const COL_GAP  = 32    // horizontal gap between sibling nodes
-const COL_STEP = NODE_W + COL_GAP   // = 200px
-const ROW_STEP = 115   // vertical step between category rows
+const COL_GAP  = 72    // horizontal gap between sibling nodes (wider → room for edge labels)
+const COL_STEP = NODE_W + COL_GAP   // = 240px
+const ROW_STEP = 160   // vertical step between category rows (taller → room for edge labels)
 
 export function PipelineGraph({ rune }: { rune: Rune }) {
   const categoryOrder = ['input', 'api', 'llm', 'output']
@@ -62,7 +62,7 @@ export function PipelineGraph({ rune }: { rune: Rune }) {
   }))
 
   // Height: one ROW_STEP per category row + padding for last node
-  const graphH = Math.max(300, activeRows.length * ROW_STEP + 120)
+  const graphH = Math.max(360, activeRows.length * ROW_STEP + 140)
 
   return (
     <div style={{
