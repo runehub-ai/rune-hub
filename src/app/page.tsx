@@ -41,8 +41,11 @@ export default function Home() {
           <p style={{ fontSize: '1.05rem', color: '#ccd4ee', maxWidth: '520px', margin: '0 auto 0.75rem', lineHeight: 1.75 }}>
             Pick a workflow. Run one command. Everything installs, connects, and executes — automatically.
           </p>
-          <p style={{ fontSize: '0.875rem', color: '#748ab8', maxWidth: '480px', margin: '0 auto 1.75rem', lineHeight: 1.6 }}>
+          <p style={{ fontSize: '0.875rem', color: '#748ab8', maxWidth: '480px', margin: '0 auto 0.75rem', lineHeight: 1.6 }}>
             Deterministic runs. 70% fewer tokens. Weeks of setup → one command.
+          </p>
+          <p style={{ fontSize: '0.82rem', color: '#4a5578', maxWidth: '460px', margin: '0 auto 1.75rem', lineHeight: 1.6, fontStyle: 'italic' }}>
+            The difference between a prompt and a Rune is giving someone directions once vs handing them a GPS — one works in the moment, the other works every time, even when the route changes.
           </p>
 
           {/* CTAs */}
@@ -83,8 +86,11 @@ export default function Home() {
             <h2 style={{ fontSize: 'clamp(1.9rem, 3.8vw, 2.8rem)', fontWeight: 800, color: '#dde4fc', margin: '0 0 0.75rem', fontFamily: "'Outfit', sans-serif", letterSpacing: '-0.02em', lineHeight: 1.15 }}>
               What is a Rune?
             </h2>
-            <p style={{ color: '#c8d2ec', fontSize: '1rem', marginBottom: 0, maxWidth: '460px', lineHeight: 1.75 }}>
+            <p style={{ color: '#c8d2ec', fontSize: '1rem', marginBottom: '0.75rem', maxWidth: '460px', lineHeight: 1.75 }}>
               A Rune is a composable AI workflow — a recipe that chains multiple Skills into one reliable pipeline. Install once, get the same result every time.
+            </p>
+            <p style={{ color: '#748ab8', fontSize: '0.875rem', marginBottom: 0, maxWidth: '460px', lineHeight: 1.7 }}>
+              Think of it as upgrading from <em>giving directions</em> to <em>handing someone a GPS</em>. A one-off prompt works in the moment. A Rune works every time — even when the route changes.
             </p>
           </div>
           {/* Orb image */}
@@ -113,6 +119,49 @@ export default function Home() {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* ── Comparison: RuneHub vs others ── */}
+        <div style={{ marginBottom: '3.5rem', padding: '1.75rem', background: '#0f1018', border: '1px solid rgba(187,154,247,0.15)', borderRadius: '14px' }}>
+          <p style={{ fontSize: '0.68rem', fontWeight: 900, letterSpacing: '0.15em', color: '#748ab8', marginBottom: '1.25rem', fontFamily: "'JetBrains Mono', monospace', marginTop: 0" }}>HOW WE&apos;RE DIFFERENT</p>
+          <div style={{ overflowX: 'auto' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.83rem' }}>
+              <thead>
+                <tr>
+                  {(['', 'skillsmp / playbooks', 'n8n / Zapier', 'RuneHub ✦'].map((h, i) => (
+                    <th key={i} style={{
+                      padding: '0.5rem 0.875rem',
+                      textAlign: i === 0 ? 'left' : 'center',
+                      color: i === 3 ? '#bb9af7' : '#748ab8',
+                      fontFamily: "'JetBrains Mono', monospace",
+                      fontWeight: i === 3 ? 800 : 600,
+                      fontSize: '0.72rem',
+                      letterSpacing: '0.06em',
+                      borderBottom: '1px solid #1f2335',
+                      whiteSpace: 'nowrap',
+                    }}>{h}</th>
+                  )))}
+                </tr>
+              </thead>
+              <tbody>
+                {([
+                  ['Shareable workflows',       '✅ files',    '✅ exports',  '✅ registry'],
+                  ['One-command install',        '❌',          '❌',          '✅'],
+                  ['Executable pipelines',       '❌ static',   '✅ hosted',   '✅ local + cloud'],
+                  ['Trust Score / audit trail',  '❌',          '△ logs only', '✅'],
+                  ['Creator revenue share',      '❌',          '❌',          '✅ 85% on-chain'],
+                  ['Auto-eval + optimization',   '❌',          '❌',          '🔜 roadmap'],
+                ] as [string, string, string, string][]).map(([feat, a, b, c], i) => (
+                  <tr key={i} style={{ borderBottom: '1px solid #16161e' }}>
+                    <td style={{ padding: '0.6rem 0.875rem', color: '#c8d2ec', fontWeight: 500 }}>{feat}</td>
+                    <td style={{ padding: '0.6rem 0.875rem', textAlign: 'center', color: '#4a5578' }}>{a}</td>
+                    <td style={{ padding: '0.6rem 0.875rem', textAlign: 'center', color: '#4a5578' }}>{b}</td>
+                    <td style={{ padding: '0.6rem 0.875rem', textAlign: 'center', color: '#bb9af7', fontWeight: 700 }}>{c}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
 
         {/* Divider: Why it matters */}
