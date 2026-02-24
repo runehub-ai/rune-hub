@@ -119,45 +119,48 @@ export default function Home() {
         </div>
 
         {/* ── Comparison: RuneHub vs others ── */}
-        <div style={{ marginBottom: '3.5rem', padding: '1.5rem', background: '#0f1018', border: '1px solid rgba(187,154,247,0.15)', borderRadius: '14px' }}>
-          <p style={{ fontSize: '0.68rem', fontWeight: 900, letterSpacing: '0.15em', color: '#748ab8', marginBottom: '1.25rem', fontFamily: "'JetBrains Mono', monospace", marginTop: 0 }}>HOW WE&apos;RE DIFFERENT</p>
+        <div style={{ marginBottom: '3.5rem', padding: '1.5rem', background: '#0f1018', border: '1px solid rgba(187,154,247,0.15)', borderRadius: '14px', overflowX: 'auto' }}>
+          <p style={{ fontSize: '0.68rem', fontWeight: 900, letterSpacing: '0.15em', color: '#748ab8', marginBottom: '1.25rem', fontFamily: "'JetBrains Mono', monospace", marginTop: 0, whiteSpace: 'nowrap' }}>HOW WE&apos;RE DIFFERENT</p>
 
-          {/* Column header row */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 72px 72px 80px', gap: '0.25rem', marginBottom: '0.5rem', paddingBottom: '0.5rem', borderBottom: '1px solid #1f2335' }}>
-            <div />
-            {(['Skillsmp', 'n8n', 'RuneHub'] as const).map((h, i) => (
-              <div key={h} style={{
-                fontSize: '0.6rem', fontWeight: 700, letterSpacing: '0.06em',
-                color: i === 2 ? '#bb9af7' : '#4a5578',
-                fontFamily: "'JetBrains Mono', monospace",
-                textAlign: 'center', lineHeight: 1.3,
-              }}>{h}{i === 2 ? ' ✦' : ''}</div>
+          {/* Scrollable inner wrapper — prevents column crush on narrow viewports */}
+          <div style={{ minWidth: 480 }}>
+            {/* Column header row */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 88px 88px 104px', gap: '0.25rem', marginBottom: '0.5rem', paddingBottom: '0.5rem', borderBottom: '1px solid #1f2335' }}>
+              <div />
+              {(['Skillsmp', 'n8n', 'RuneHub'] as const).map((h, i) => (
+                <div key={h} style={{
+                  fontSize: '0.6rem', fontWeight: 700, letterSpacing: '0.06em',
+                  color: i === 2 ? '#bb9af7' : '#4a5578',
+                  fontFamily: "'JetBrains Mono', monospace",
+                  textAlign: 'center', lineHeight: 1.3,
+                }}>{h}{i === 2 ? ' ✦' : ''}</div>
+              ))}
+            </div>
+
+            {/* Feature rows */}
+            {([
+              { feat: 'Shareable workflows',      a: '✅ files',     ac: '#34d399', b: '✅ exports',      bc: '#34d399', c: '✅ registry',      cc: '#bb9af7' },
+              { feat: 'One-command install',       a: '✗',            ac: '#f87171', b: '✗',               bc: '#f87171', c: '✅',               cc: '#bb9af7' },
+              { feat: 'Executable pipelines',      a: '✗ static',     ac: '#f87171', b: '✅ hosted',       bc: '#34d399', c: '✅ local+cloud',   cc: '#bb9af7' },
+              { feat: 'Trust Score / audit',       a: '✗',            ac: '#f87171', b: '△ logs',          bc: '#ffd060', c: '✅',               cc: '#bb9af7' },
+              { feat: 'Creator revenue',           a: '✗',            ac: '#f87171', b: '✗',               bc: '#f87171', c: '🔜 planned',        cc: '#ffd060' },
+              { feat: 'Auto-eval',                 a: '✗',            ac: '#f87171', b: '✗',               bc: '#f87171', c: '🔜 soon',          cc: '#ffd060' },
+            ] as { feat: string; a: string; ac: string; b: string; bc: string; c: string; cc: string }[]).map((row, i) => (
+              <div key={i} style={{
+                display: 'grid',
+                gridTemplateColumns: '1fr 88px 88px 104px',
+                gap: '0.25rem',
+                padding: '0.55rem 0',
+                borderBottom: i < 5 ? '1px solid #16161e' : undefined,
+                alignItems: 'center',
+              }}>
+                <span style={{ fontSize: '0.78rem', color: '#c8d2ec', fontWeight: 500, lineHeight: 1.3, whiteSpace: 'nowrap' }}>{row.feat}</span>
+                <span style={{ fontSize: '0.68rem', color: row.ac, textAlign: 'center', fontFamily: "'JetBrains Mono', monospace", lineHeight: 1.3, whiteSpace: 'nowrap' }}>{row.a}</span>
+                <span style={{ fontSize: '0.68rem', color: row.bc, textAlign: 'center', fontFamily: "'JetBrains Mono', monospace", lineHeight: 1.3, whiteSpace: 'nowrap' }}>{row.b}</span>
+                <span style={{ fontSize: '0.68rem', color: row.cc, textAlign: 'center', fontWeight: 700, fontFamily: "'JetBrains Mono', monospace", lineHeight: 1.3, whiteSpace: 'nowrap' }}>{row.c}</span>
+              </div>
             ))}
           </div>
-
-          {/* Feature rows */}
-          {([
-            { feat: 'Shareable workflows',      a: '✅ files',     ac: '#34d399', b: '✅ exports',      bc: '#34d399', c: '✅ registry',      cc: '#bb9af7' },
-            { feat: 'One-command install',       a: '✗',            ac: '#f87171', b: '✗',               bc: '#f87171', c: '✅',               cc: '#bb9af7' },
-            { feat: 'Executable pipelines',      a: '✗ static',     ac: '#f87171', b: '✅ hosted',       bc: '#34d399', c: '✅ local+cloud',   cc: '#bb9af7' },
-            { feat: 'Trust Score / audit',       a: '✗',            ac: '#f87171', b: '△ logs',          bc: '#ffd060', c: '✅',               cc: '#bb9af7' },
-            { feat: 'Creator revenue',           a: '✗',            ac: '#f87171', b: '✗',               bc: '#f87171', c: '🔜 planned',        cc: '#ffd060' },
-            { feat: 'Auto-eval',                 a: '✗',            ac: '#f87171', b: '✗',               bc: '#f87171', c: '🔜 soon',          cc: '#ffd060' },
-          ] as { feat: string; a: string; ac: string; b: string; bc: string; c: string; cc: string }[]).map((row, i) => (
-            <div key={i} style={{
-              display: 'grid',
-              gridTemplateColumns: '1fr 72px 72px 80px',
-              gap: '0.25rem',
-              padding: '0.55rem 0',
-              borderBottom: i < 5 ? '1px solid #16161e' : undefined,
-              alignItems: 'center',
-            }}>
-              <span style={{ fontSize: '0.78rem', color: '#c8d2ec', fontWeight: 500, lineHeight: 1.3 }}>{row.feat}</span>
-              <span style={{ fontSize: '0.68rem', color: row.ac, textAlign: 'center', fontFamily: "'JetBrains Mono', monospace", lineHeight: 1.3 }}>{row.a}</span>
-              <span style={{ fontSize: '0.68rem', color: row.bc, textAlign: 'center', fontFamily: "'JetBrains Mono', monospace", lineHeight: 1.3 }}>{row.b}</span>
-              <span style={{ fontSize: '0.68rem', color: row.cc, textAlign: 'center', fontWeight: 700, fontFamily: "'JetBrains Mono', monospace", lineHeight: 1.3 }}>{row.c}</span>
-            </div>
-          ))}
         </div>
 
         {/* Divider: Why it matters */}
