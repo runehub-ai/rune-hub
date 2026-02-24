@@ -35,7 +35,7 @@ export default function Home() {
           {/* Title */}
           <h1 style={{ fontSize: 'clamp(2.2rem, 5.5vw, 3.75rem)', fontWeight: 900, letterSpacing: '-0.03em', lineHeight: 1.08, margin: '0 0 1.25rem', fontFamily: "'Outfit', sans-serif", textShadow: '0 2px 30px rgba(0,0,0,0.8)' }}>
             <span style={{ color: '#dde4fc' }}>Your AI stack,</span><br />
-            <span style={{ color: '#bb9af7', textShadow: '0 0 40px rgba(187,154,247,0.5)' }}>already built with Runes.</span>
+            <span className="rg-gradient-text" style={{ textShadow: '0 0 40px rgba(187,154,247,0.25)' }}>already built with Runes.</span>
           </h1>
 
           <p style={{ fontSize: '1.05rem', color: '#ccd4ee', maxWidth: '520px', margin: '0 auto 0.75rem', lineHeight: 1.75 }}>
@@ -79,9 +79,9 @@ export default function Home() {
         {/* Part 1: What is a Rune — 2-col: text left, orb right */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '3rem', alignItems: 'center', marginBottom: '2.5rem' }}>
           <div>
-            <p style={{ fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.15em', color: '#bb9af7', marginBottom: '0.75rem', fontFamily: "'JetBrains Mono', monospace", marginTop: 0 }}>THE CORE CONCEPT</p>
-            <h2 style={{ fontSize: 'clamp(1.9rem, 3.8vw, 2.8rem)', fontWeight: 800, color: '#dde4fc', margin: '0 0 0.75rem', fontFamily: "'Outfit', sans-serif", letterSpacing: '-0.02em', lineHeight: 1.15 }}>
-              What is a Rune?
+            <p className="rg-section-label" style={{ fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.15em', color: '#bb9af7', marginBottom: '0.75rem', fontFamily: "'JetBrains Mono', monospace", marginTop: 0 }}>THE CORE CONCEPT</p>
+            <h2 style={{ fontSize: 'clamp(1.9rem, 3.8vw, 2.8rem)', fontWeight: 800, margin: '0 0 0.75rem', fontFamily: "'Outfit', sans-serif", letterSpacing: '-0.02em', lineHeight: 1.15 }}>
+              <span className="rg-gradient-text">What is a Rune?</span>
             </h2>
             <p style={{ color: '#c8d2ec', fontSize: '1rem', marginBottom: '0.75rem', maxWidth: '460px', lineHeight: 1.75 }}>
               A Rune is a composable AI workflow — a recipe that chains multiple Skills into one reliable pipeline. Install once, get the same result every time.
@@ -163,12 +163,12 @@ export default function Home() {
         {/* Divider: Why it matters */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '2.5rem' }}>
           <div style={{ flex: 1, height: '1px', background: 'linear-gradient(90deg, transparent, #bb9af755)' }} />
-          <p style={{ fontSize: '0.68rem', fontWeight: 900, letterSpacing: '0.18em', color: '#bb9af7', margin: 0, fontFamily: "'JetBrains Mono', monospace", whiteSpace: 'nowrap' as const, textShadow: '0 0 12px #bb9af788' }}>≪ ◈ WHY IT MATTERS ◈ ≫</p>
+          <p className="rg-section-label" style={{ fontSize: '0.68rem', fontWeight: 900, letterSpacing: '0.18em', color: '#bb9af7', margin: 0, fontFamily: "'JetBrains Mono', monospace", whiteSpace: 'nowrap' as const, textShadow: '0 0 12px #bb9af788' }}>≪ ◈ WHY IT MATTERS ◈ ≫</p>
           <div style={{ flex: 1, height: '1px', background: 'linear-gradient(90deg, #bb9af755, transparent)' }} />
         </div>
         <h2 style={{ fontSize: 'clamp(1.7rem, 3.2vw, 2.4rem)', fontWeight: 800, color: '#dde4fc', margin: '0 0 0.75rem', fontFamily: "'Outfit', sans-serif", letterSpacing: '-0.02em', lineHeight: 1.15 }}>
           Vibe coding hits a ceiling.<br />
-          <span style={{ color: '#bb9af7' }}>Runes break through it.</span>
+          <span className="rg-gradient-text">Runes break through it.</span>
         </h2>
         <p style={{ color: '#748ab8', fontSize: '1rem', marginBottom: '1rem', maxWidth: '600px' }}>
           🧑‍💻 92% of devs use AI daily. The edge isn&apos;t the model — it&apos;s the playbook. Runes make every playbook deterministic, auditable, and cheap to run.
@@ -289,9 +289,9 @@ export default function Home() {
 
       {/* ── How It Works ── */}
       <section id="how-it-works" className="rg-pad-section" style={{ maxWidth: '900px', margin: '0 auto', padding: '5rem 2rem' }}>
-        <p style={{ fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.15em', color: '#7aa2f7', marginBottom: '0.75rem', fontFamily: "'JetBrains Mono', monospace" }}>HOW IT WORKS</p>
-        <h2 style={{ fontSize: 'clamp(1.9rem, 3.8vw, 2.8rem)', fontWeight: 800, color: '#dde4fc', margin: '0 0 0.75rem', fontFamily: "'Outfit', sans-serif", letterSpacing: '-0.02em', lineHeight: 1.15 }}>
-          One command. That&apos;s it.
+        <p className="rg-section-label" style={{ fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.15em', color: '#7aa2f7', marginBottom: '0.75rem', fontFamily: "'JetBrains Mono', monospace" }}>HOW IT WORKS</p>
+        <h2 style={{ fontSize: 'clamp(1.9rem, 3.8vw, 2.8rem)', fontWeight: 800, margin: '0 0 0.75rem', fontFamily: "'Outfit', sans-serif", letterSpacing: '-0.02em', lineHeight: 1.15 }}>
+          <span className="rg-gradient-text">One command. That&apos;s it.</span>
         </h2>
         <p style={{ color: '#748ab8', fontSize: '1rem', marginBottom: '2.5rem', maxWidth: '520px' }}>
           RuneHub resolves dependencies, configures auth, wires every step, and runs — all from a single CLI command.
@@ -401,7 +401,7 @@ export default function Home() {
       {/* ── Featured Runes ── */}
       <section className="rg-section">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.75rem' }}>
-          <h2 className="rg-section-h2">Featured Runes</h2>
+          <h2 className="rg-section-h2"><span className="rg-gradient-text">Featured Runes</span></h2>
           <Link href="/runes" style={{ color: '#bb9af7', textDecoration: 'none', fontSize: '0.875rem' }}>View all {RUNES.length} ›</Link>
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1rem' }}>
@@ -414,9 +414,9 @@ export default function Home() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '3rem', alignItems: 'center' }}>
           {/* Left: text */}
           <div>
-            <p style={{ fontSize: '0.7rem', fontWeight: 800, letterSpacing: '0.18em', color: '#34d399', marginBottom: '0.75rem', fontFamily: "'JetBrains Mono', monospace", marginTop: 0 }}>DEVELOPER ECOSYSTEM</p>
+            <p className="rg-section-label" style={{ fontSize: '0.7rem', fontWeight: 800, letterSpacing: '0.18em', color: '#34d399', marginBottom: '0.75rem', fontFamily: "'JetBrains Mono', monospace", marginTop: 0 }}>DEVELOPER ECOSYSTEM</p>
             <h2 style={{ fontSize: 'clamp(1.9rem, 3.8vw, 2.8rem)', fontWeight: 800, color: '#dde4fc', margin: '0 0 1rem', fontFamily: "'Outfit', sans-serif", letterSpacing: '-0.02em', lineHeight: 1.15 }}>
-              Build a Rune.<br /><span style={{ color: '#34d399' }}>Earn from every run.</span>
+              Build a Rune.<br /><span className="rg-gradient-text-earn">Earn from every run.</span>
             </h2>
             <p style={{ color: '#9aa4d2', fontSize: '0.95rem', lineHeight: 1.8, marginBottom: '1.5rem' }}>
               Publish your workflow to the registry. Every time someone runs your Rune, usage revenue is generated and distributed back to you. No ads, no subscriptions — pure usage economics.
@@ -467,9 +467,9 @@ export default function Home() {
       {/* ── Pricing ── */}
       <section style={{ background: '#16161e', borderTop: '1px solid #1f2335', borderBottom: '1px solid #1f2335' }}>
         <div className="rg-pad-section" style={{ maxWidth: '1100px', margin: '0 auto', padding: '5rem 2rem' }}>
-          <p style={{ fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.15em', color: '#ff9e64', marginBottom: '0.75rem', fontFamily: "'JetBrains Mono', monospace", textAlign: 'center' }}>PRICING</p>
-          <h2 style={{ fontSize: 'clamp(1.9rem, 3.8vw, 2.8rem)', fontWeight: 800, color: '#dde4fc', margin: '0 0 0.75rem', fontFamily: "'Outfit', sans-serif", letterSpacing: '-0.02em', lineHeight: 1.15, textAlign: 'center' }}>
-            Start free. Optimize when ready.
+          <p className="rg-section-label" style={{ fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.15em', color: '#ff9e64', marginBottom: '0.75rem', fontFamily: "'JetBrains Mono', monospace", textAlign: 'center' }}>PRICING</p>
+          <h2 style={{ fontSize: 'clamp(1.9rem, 3.8vw, 2.8rem)', fontWeight: 800, margin: '0 0 0.75rem', fontFamily: "'Outfit', sans-serif", letterSpacing: '-0.02em', lineHeight: 1.15, textAlign: 'center' }}>
+            <span className="rg-gradient-text">Start free. Optimize when ready.</span>
           </h2>
           <p style={{ color: '#748ab8', fontSize: '1rem', marginBottom: '3rem', textAlign: 'center' }}>
             Use your own API keys at no cost. Upgrade for smart routing, caching, and guaranteed savings.
@@ -552,7 +552,9 @@ export default function Home() {
         <div style={{ position: 'absolute', inset: 0, backgroundImage: 'url(/images/hero-market.jpg)', backgroundSize: 'cover', backgroundPosition: 'center', zIndex: 0 }} />
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(26,27,38,0.95) 0%, rgba(26,27,38,0.78) 50%, rgba(26,27,38,0.97) 100%)', zIndex: 1 }} />
         <div style={{ position: 'relative', zIndex: 2 }}>
-          <h2 style={{ fontSize: 'clamp(1.9rem, 3.8vw, 2.8rem)', fontWeight: 800, color: '#dde4fc', marginBottom: '0.75rem', fontFamily: "'Outfit', sans-serif", letterSpacing: '-0.02em', lineHeight: 1.15, textShadow: '0 2px 20px rgba(0,0,0,0.5)' }}>Browse the Skills Registry</h2>
+          <h2 style={{ fontSize: 'clamp(1.9rem, 3.8vw, 2.8rem)', fontWeight: 800, marginBottom: '0.75rem', fontFamily: "'Outfit', sans-serif", letterSpacing: '-0.02em', lineHeight: 1.15 }}>
+            <span className="rg-gradient-text">Browse the Skills Registry</span>
+          </h2>
           <p style={{ color: '#c8d2ec', marginBottom: '2rem', fontSize: '1rem' }}>{SKILL_PACKAGES.length} skills · {SKILLS_REGISTRY.length} actions · {RUNES.length} Runes</p>
           <Link href="/skills" style={{ padding: '0.75rem 2rem', background: 'rgba(187,154,247,0.15)', color: '#bb9af7', border: '1px solid rgba(187,154,247,0.4)', borderRadius: '8px', textDecoration: 'none', fontWeight: 600, fontFamily: "'Outfit', sans-serif", letterSpacing: '-0.01em', backdropFilter: 'blur(4px)' }}>
             View All Skills ›

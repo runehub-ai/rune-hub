@@ -818,6 +818,55 @@ a { text-underline-offset: 3px; }
   animation: rg-logo-halo 3s ease-out infinite;
 }
 
+/* ── Animated gradient text ────────────────────────────────── */
+@keyframes rg-shimmer-flow {
+  0%   { background-position: 0%   50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0%   50%; }
+}
+
+/* Purple → blue → teal → purple  (hero + most section titles) */
+.rg-gradient-text {
+  background: linear-gradient(
+    110deg,
+    #c9a8ff 0%,
+    #7aa2f7 28%,
+    #3dd5e8 50%,
+    #bb9af7 72%,
+    #c9a8ff 100%
+  );
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: rg-shimmer-flow 8s ease infinite;
+}
+
+/* Green → gold → teal  (earn / ecosystem section) */
+.rg-gradient-text-earn {
+  background: linear-gradient(
+    110deg,
+    #34d399 0%,
+    #a8d878 35%,
+    #ffd060 60%,
+    #34d399 100%
+  );
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: rg-shimmer-flow 8s ease infinite;
+}
+
+/* Subtle glow pulse for small section labels */
+@keyframes rg-label-glow {
+  0%, 100% { opacity: 0.75; filter: none; }
+  50%       { opacity: 1;    filter: drop-shadow(0 0 6px currentColor); }
+}
+.rg-section-label {
+  animation: rg-label-glow 5s ease-in-out infinite;
+}
+
 /* ── Rarity system ── */
 @keyframes rg-legendary-pulse {
   0%, 100% {
