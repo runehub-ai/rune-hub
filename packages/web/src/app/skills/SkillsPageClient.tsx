@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import Link from 'next/link'
 import type { SkillPackage, Skill, SkillCategory } from '@/lib/loader'
 import type { Rune } from '@/lib/loader'
@@ -53,10 +53,13 @@ export default function SkillsPageClient({ skillPackages, skillsRegistry, runes 
   const [search, setSearch]       = useState('')
 
   // ── Rune usage count per action ──────────────────────────────────────────
-  const runeUsageMap: Record<string, number> = {}
-  runes.forEach(r => r.nodes.forEach(n => {
-    runeUsageMap[n.id] = (runeUsageMap[n.id] || 0) + 1
-  }))
+  const runeUsageMap = useMemo(() => {
+    const map: Record<string, number> = {}
+    runes.forEach(r => r.nodes.forEach(n => {
+      map[n.id] = (map[n.id] || 0) + 1
+    }))
+    return map
+  }, [runes])
 
   // ── Filtered skill packages ──────────────────────────────────────────────
   const filteredPkgs = skillPackages.filter(p => {
