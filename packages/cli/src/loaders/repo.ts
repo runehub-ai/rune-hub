@@ -79,12 +79,18 @@ export function ensureRepoCache(): string {
     execSync(`git clone --depth=1 --filter=blob:none --sparse ${REPO_URL} ${CACHE_DIR}`, {
       stdio: "ignore",
     });
+  } catch (e) {
+    console.error("warning: git clone failed, data may be unavailable:", (e as Error).message);
+    return CACHE_DIR;
+  }
+
+  try {
     execSync("git sparse-checkout set skill-packages skills runes", {
       cwd: CACHE_DIR,
       stdio: "ignore",
     });
   } catch (e) {
-    console.error("warning: git clone failed, data may be unavailable:", (e as Error).message);
+    console.error("warning: git sparse-checkout failed, some data may be missing:", (e as Error).message);
   }
 
   return CACHE_DIR;

@@ -431,7 +431,7 @@ export async function loadRunes(): Promise<Rune[]> {
   return Promise.all(
     entries.filter(e => e.isDirectory()).map(async (entry) => {
       const raw = await fs.readFile(path.join(dir, entry.name, 'RUNE.json'), 'utf-8')
-      return JSON.parse(raw) as Rune[]
+      return JSON.parse(raw) as Rune
     })
   )
 }
