@@ -68,7 +68,9 @@ export function ensureRepoCache(): string {
         cwd: CACHE_DIR,
         stdio: "ignore",
       });
-    } catch {}
+    } catch (e) {
+      console.error("warning: git pull failed, cache may be stale:", (e as Error).message);
+    }
 
     return CACHE_DIR;
   }
@@ -81,7 +83,9 @@ export function ensureRepoCache(): string {
       cwd: CACHE_DIR,
       stdio: "ignore",
     });
-  } catch {}
+  } catch (e) {
+    console.error("warning: git clone failed, data may be unavailable:", (e as Error).message);
+  }
 
   return CACHE_DIR;
 }
@@ -104,7 +108,13 @@ export function loadSkillPackages(): SkillPackage[] {
       continue;
     }
     const fileContent = readFileSync(filePath, "utf8");
-    const data = JSON.parse(fileContent);
+    let data;
+    try {
+      data = JSON.parse(fileContent);
+    } catch (e) {
+      console.error(`warning: failed to parse ${filePath}:`, (e as Error).message);
+      continue;
+    }
     const id = typeof data.name === "string" ? data.name : "";
     if (id.length === 0) {
       continue;
@@ -150,7 +160,14 @@ export function loadRunes(): Rune[] {
     }
 
     const fileContent = readFileSync(filePath, "utf8");
-    runes.push(JSON.parse(fileContent) as Rune);
+    let rune;
+    try {
+      rune = JSON.parse(fileContent) as Rune;
+    } catch (e) {
+      console.error(`warning: failed to parse ${filePath}:`, (e as Error).message);
+      continue;
+    }
+    runes.push(rune);
   }
 
   return runes;
