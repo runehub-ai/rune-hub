@@ -6,7 +6,6 @@
   "category": "DevOps",
   "emoji": "🤝",
   "useCase": "Never write a standup again — let AI compile your commits, tickets, and messages into a standup post.",
-  "description": "Auto-generate daily standup updates from GitHub activity, Linear issues, and Slack messages.",
   "nodes": [
     {
       "id": "github-list-prs",

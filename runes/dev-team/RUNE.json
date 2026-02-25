@@ -6,7 +6,6 @@
   "category": "Engineering",
   "emoji": "🤖",
   "useCase": "\"Build a SaaS dashboard with Stripe billing\" → sub-agent picks boilerplate → builds → tests → deploys → sends live URL.",
-  "description": "Orchestrates Codex, Claude Code, and Cursor sub-agents with pre-loaded boilerplates for every project type. Reads errors, fixes bugs, redeploys automatically. Built for non-technical founders, indie hackers, and agencies.",
   "nodes": [
     {
       "id": "spec-input",

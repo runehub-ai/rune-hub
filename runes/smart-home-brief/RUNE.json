@@ -6,7 +6,6 @@
   "category": "IoT",
   "emoji": "🏠",
   "useCase": "Wake up to an AI-narrated briefing that covers your home status, weather, and schedule via ElevenLabs TTS.",
-  "description": "Create a spoken morning briefing from smart home sensors, weather, and calendar.",
   "nodes": [
     {
       "id": "homeassistant-states",

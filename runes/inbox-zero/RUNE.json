@@ -6,7 +6,6 @@
   "category": "Productivity",
   "emoji": "📨",
   "useCase": "Let AI classify your Gmail inbox, draft quick replies, and label everything so you hit inbox zero daily.",
-  "description": "Automatically triage, categorize, and draft replies for email overload.",
   "nodes": [
     {
       "id": "gmail-fetch",

@@ -6,7 +6,6 @@
   "category": "Customer Support",
   "emoji": "🧙",
   "useCase": "Triage Zendesk tickets automatically — classify urgency, draft responses, and escalate critical issues.",
-  "description": "Auto-classify and draft replies for customer support tickets using AI.",
   "nodes": [
     {
       "id": "zendesk-list-tickets",

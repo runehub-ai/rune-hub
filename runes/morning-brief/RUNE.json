@@ -6,7 +6,6 @@
   "category": "Productivity",
   "emoji": "🌅",
   "useCase": "Wake up to a 3-minute brief that already knows your schedule conflicts, blocked PRs, market moves, and relevant headlines — delivered to Slack, Telegram, and archived to Notion for future reference.",
-  "description": "Use when you want to wake up already informed — schedule conflicts, blocked PRs, headlines, and market moves synthesized into a 3-minute brief, delivered to Slack, Telegram, and Notion automatically.",
   "nodes": [
     {
       "id": "gcal-list-events",

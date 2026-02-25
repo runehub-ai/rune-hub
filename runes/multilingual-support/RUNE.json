@@ -6,7 +6,6 @@
   "category": "Customer Support",
   "emoji": "🈯",
   "useCase": "Auto-handle multilingual Zendesk tickets with detect, draft, and back-translate flow.",
-  "description": "Translate tickets, draft AI responses, and send back localized replies.",
   "nodes": [
     {
       "id": "zendesk-get-ticket",

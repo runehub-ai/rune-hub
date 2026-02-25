@@ -6,7 +6,6 @@
   "category": "Legal",
   "emoji": "✍️",
   "useCase": "Extract and summarize contract terms after DocuSign status updates.",
-  "description": "Extract key terms from docusign statuses and publish legal log entries.",
   "nodes": [
     {
       "id": "docusign-status",

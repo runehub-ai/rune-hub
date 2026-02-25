@@ -6,7 +6,6 @@
   "category": "Sales",
   "emoji": "🤝",
   "useCase": "Capture leads from LinkedIn and push enriched Salesforce records plus SendGrid draft messages.",
-  "description": "Create Salesforce leads from LinkedIn profiles and personalize outreach with Claude.",
   "nodes": [
     {
       "id": "linkedin-profile",

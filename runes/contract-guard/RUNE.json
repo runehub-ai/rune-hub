@@ -6,7 +6,6 @@
   "category": "Legal",
   "emoji": "⚖️",
   "useCase": "Upload a PDF contract, get AI analysis of risky clauses and obligations, then send via DocuSign if approved.",
-  "description": "Parse contracts, extract key clauses, flag risks, and prepare for signing.",
   "nodes": [
     {
       "id": "pdf-parse",

@@ -6,7 +6,6 @@
   "category": "Research",
   "emoji": "🔬",
   "useCase": "Research any topic thoroughly with sources from the web, arXiv, and Wikipedia, then get a structured report.",
-  "description": "Use when you need to go deep on any topic fast — web, arXiv, and semantic search synthesized into a structured report in under 60 seconds.",
   "nodes": [
     {
       "id": "user-input",

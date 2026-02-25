@@ -6,7 +6,6 @@
   "category": "DevOps",
   "emoji": "🚨",
   "useCase": "Automate incident triage from Sentry into PagerDuty and Slack with Claude analysis.",
-  "description": "Detect Sentry errors, create PagerDuty alerts, and summarize context in Slack.",
   "nodes": [
     {
       "id": "sentry-get-issues",

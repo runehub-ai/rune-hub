@@ -6,7 +6,6 @@
   "category": "Research",
   "emoji": "🧪",
   "useCase": "Pull papers by topic and produce digest entries in Notion with Slack alerts.",
-  "description": "Combine arXiv and Semantic Scholar into concise AI-generated summaries.",
   "nodes": [
     {
       "id": "arxiv-search",

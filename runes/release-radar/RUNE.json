@@ -6,7 +6,6 @@
   "category": "DevOps",
   "emoji": "📡",
   "useCase": "Stay on top of dependency updates and framework releases with auto-generated changelog summaries in Slack.",
-  "description": "Monitor GitHub releases for tracked repositories and notify the team with changelogs.",
   "nodes": [
     {
       "id": "github-list-releases",

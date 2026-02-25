@@ -6,7 +6,6 @@
   "category": "Documentation",
   "emoji": "📚",
   "useCase": "Point at a GitHub repo, scan the codebase, and auto-generate a README and API documentation.",
-  "description": "Auto-generate documentation from a GitHub repository by scanning code and comments.",
   "nodes": [
     {
       "id": "github-scan-repo",

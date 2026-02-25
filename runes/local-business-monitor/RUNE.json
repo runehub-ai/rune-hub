@@ -6,7 +6,6 @@
   "category": "Marketing",
   "emoji": "🏙️",
   "useCase": "Capture local sentiment from Google reviews and summarize trends for teams.",
-  "description": "Analyze place reviews for sentiment and deliver summaries to Slack and Notion.",
   "nodes": [
     {
       "id": "places-reviews",

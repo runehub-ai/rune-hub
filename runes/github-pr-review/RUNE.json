@@ -6,7 +6,6 @@
   "category": "DevOps",
   "emoji": "🧪",
   "useCase": "Convert manual PR reviews into consistent AI-assisted quality checks.",
-  "description": "Run Claude over PRs, post AI review feedback, and notify via Slack.",
   "nodes": [
     {
       "id": "github-pr-read",

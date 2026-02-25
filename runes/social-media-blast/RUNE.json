@@ -6,7 +6,6 @@
   "category": "Marketing",
   "emoji": "🚀",
   "useCase": "Draft campaign copy with Claude then publish to Instagram, LinkedIn, and Twitter.",
-  "description": "Generate social posts with Claude and publish across multiple channels.",
   "nodes": [
     {
       "id": "claude-draft",

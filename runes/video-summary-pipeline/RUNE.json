@@ -6,7 +6,6 @@
   "category": "Media",
   "emoji": "🎬",
   "useCase": "Transcribe Loom videos with Whisper, summarize with Claude, then share in Slack and Notion.",
-  "description": "Turn Loom recordings into concise summaries and distribute them internally.",
   "nodes": [
     {
       "id": "loom-get-video",

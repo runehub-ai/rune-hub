@@ -6,7 +6,6 @@
   "category": "Finance",
   "emoji": "🐺",
   "useCase": "Get real-time alerts on crypto price movements, whale transactions, and DeFi yield opportunities.",
-  "description": "Use when you need real-time crypto intelligence — price moves, whale transactions, and DeFi yield shifts delivered as alerts the moment they happen.",
   "nodes": [
     {
       "id": "coingecko-price",

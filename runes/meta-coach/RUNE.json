@@ -6,7 +6,6 @@
   "category": "Gaming",
   "emoji": "🎮",
   "useCase": "Pull your Steam or Riot Games stats, get AI-powered strategy advice, and share tips to Discord.",
-  "description": "Analyze gaming performance stats and generate strategy improvement tips.",
   "nodes": [
     {
       "id": "steam-player-stats",

@@ -6,7 +6,6 @@
   "category": "Data",
   "emoji": "⚙️",
   "useCase": "Run SQL extraction, transform insights with Claude, then report completion in Slack.",
-  "description": "Query PostgreSQL, summarize transformation logic, and push cleaned data summaries to Sheets.",
   "nodes": [
     {
       "id": "pg-query",

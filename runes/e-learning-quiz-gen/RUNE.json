@@ -6,7 +6,6 @@
   "category": "Education",
   "emoji": "🧩",
   "useCase": "Search a topic, draft quiz content with Claude, share in Discord, and log in Airtable.",
-  "description": "Generate quizzes from topic research and track generated items.",
   "nodes": [
     {
       "id": "brave-search",

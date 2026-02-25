@@ -6,7 +6,6 @@
   "category": "Marketing",
   "emoji": "📡",
   "useCase": "Track what people are saying about your brand across social media and get a daily sentiment report.",
-  "description": "Monitor brand mentions and sentiment across Twitter, Reddit, and news sources.",
   "nodes": [
     {
       "id": "twitter-search",

@@ -6,7 +6,6 @@
   "category": "DevOps",
   "emoji": "💰",
   "useCase": "Poll Lambda, summarize cost trends with Claude, and post results to Slack and Sheets.",
-  "description": "Compile Lambda invocation data and generate a weekly cost report.",
   "nodes": [
     {
       "id": "lambda-invoke",

@@ -6,7 +6,6 @@
   "category": "Analytics",
   "emoji": "📉",
   "useCase": "Score churn risk from Amplitude events and flag leads in Salesforce and Intercom.",
-  "description": "Predict customer churn likelihood from usage events and update CRM flags.",
   "nodes": [
     {
       "id": "amplitude-events",

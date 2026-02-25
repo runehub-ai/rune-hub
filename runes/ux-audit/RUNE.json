@@ -6,7 +6,6 @@
   "category": "Design",
   "emoji": "🎨",
   "useCase": "Screenshot any website, get GPT-4o Vision analysis for accessibility and UX issues, with a report saved to Notion.",
-  "description": "Capture screenshots of web pages, analyze UX and accessibility with AI vision, and report findings.",
   "nodes": [
     {
       "id": "screenshot-capture",

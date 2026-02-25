@@ -6,7 +6,6 @@
   "category": "Sales",
   "emoji": "🏡",
   "useCase": "Generate market analysis from place data, then trigger DocuSign and Wise handoff actions.",
-  "description": "Use location intelligence for deal analysis and route documentation actions.",
   "nodes": [
     {
       "id": "gmaps-places",

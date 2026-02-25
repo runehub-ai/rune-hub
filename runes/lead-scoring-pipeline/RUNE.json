@@ -6,7 +6,6 @@
   "category": "Sales",
   "emoji": "🎯",
   "useCase": "Improve pipeline quality by auto-scoring leads and flagging top leads in Slack.",
-  "description": "Fetch HubSpot leads, score with AI, and sync score updates into Salesforce.",
   "nodes": [
     {
       "id": "hubspot-fetch",

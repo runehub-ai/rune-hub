@@ -6,7 +6,6 @@
   "category": "Localization",
   "emoji": "🌍",
   "useCase": "Run parallel translations through DeepL and Google then aggregate in Sheets for editors.",
-  "description": "Translate and normalize content across translation engines, then dispatch for delivery.",
   "nodes": [
     {
       "id": "brave-search",

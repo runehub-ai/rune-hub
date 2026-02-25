@@ -6,7 +6,6 @@
   "category": "Marketing",
   "emoji": "📈",
   "useCase": "Wake up to: \"3 backlinks acquired. 12 keywords hit page 1. 4 articles published. Weekly report attached.\"",
-  "description": "Runs full-cycle SEO autonomously: keyword clustering, programmatic content, direct CMS publishing, personalized outreach emails, and performance tracking via Search Console. Built for SEO agencies and affiliate marketers who know SEO is a game of volume and consistency.",
   "nodes": [
     {
       "id": "semrush-api",

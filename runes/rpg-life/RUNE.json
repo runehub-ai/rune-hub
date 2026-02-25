@@ -6,7 +6,6 @@
   "category": "Productivity",
   "emoji": "🎮",
   "useCase": "\"Done with gym\" → +30 Strength XP. Hit Level 20 Intelligence after a 6-month streak. Real life with a progress bar.",
-  "description": "Gamifies productivity with 5 life stats (Intelligence, Strength, Discipline, Social, Creativity). Daily quests, XP rewards, streak tracking, and a character dashboard. Insane viral potential — people screenshot their character sheets.",
   "nodes": [
     {
       "id": "task-input",

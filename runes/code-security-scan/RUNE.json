@@ -6,7 +6,6 @@
   "category": "Security",
   "emoji": "🧯",
   "useCase": "Analyze GitHub push events with Claude and create Sentry alerts plus Slack notices.",
-  "description": "Scan push events for security issues and create alerts automatically.",
   "nodes": [
     {
       "id": "github-push-event",

@@ -6,7 +6,6 @@
   "category": "Content",
   "emoji": "✍️",
   "useCase": "Wake up to a complete content calendar: 14 posts, 2 newsletters, 3 scripts — all in your voice. Review and publish.",
-  "description": "Monitors X, Reddit, and RSS for trending topics in your niche, generates content in a custom brand voice profile, creates visuals, and queues everything across platforms. Built for creators spending 10+ hours/week on production.",
   "nodes": [
     {
       "id": "rss-scraper",

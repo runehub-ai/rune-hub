@@ -6,7 +6,6 @@
   "category": "Finance",
   "emoji": "🧾",
   "useCase": "Detect billing mismatches and notify teams automatically in Slack.",
-  "description": "Match Stripe webhook events with QuickBooks and flag anomalies with AI.",
   "nodes": [
     {
       "id": "stripe-webhook",

@@ -6,7 +6,6 @@
   "category": "Content",
   "emoji": "🎙️",
   "useCase": "Fetch podcast episodes, transcribe with Whisper, then draft blog content with Claude.",
-  "description": "Convert podcast episodes into drafted blog posts.",
   "nodes": [
     {
       "id": "spotify-search",

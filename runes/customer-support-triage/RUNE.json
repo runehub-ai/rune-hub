@@ -6,7 +6,6 @@
   "category": "Customer Support",
   "emoji": "🎧",
   "useCase": "Automatically route Zendesk tickets based on intent, with Slack or email follow-up.",
-  "description": "Classify Zendesk tickets with Claude and route responses to Slack and email.",
   "nodes": [
     {
       "id": "zendesk-get-ticket",

@@ -6,7 +6,6 @@
   "category": "Security",
   "emoji": "🔐",
   "useCase": "Run Snyk, SonarQube, and VirusTotal scans and get a single prioritized security report with remediation advice.",
-  "description": "Scan code for vulnerabilities across multiple security tools and generate a unified security report.",
   "nodes": [
     {
       "id": "snyk-scan",

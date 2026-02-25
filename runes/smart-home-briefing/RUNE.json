@@ -6,7 +6,6 @@
   "category": "IoT",
   "emoji": "🏠",
   "useCase": "Aggregate Home Assistant and weather signals into a concise briefing.",
-  "description": "Create morning summaries from home and weather inputs and send by Telegram.",
   "nodes": [
     {
       "id": "home-assistant-state",

@@ -6,7 +6,6 @@
   "category": "Personal",
   "emoji": "🔄",
   "useCase": "Check in daily, maintain streaks, and get personalized AI reflections on your progress in a Notion journal.",
-  "description": "Track daily habits with streak counting and AI-generated reflections.",
   "nodes": [
     {
       "id": "user-input",

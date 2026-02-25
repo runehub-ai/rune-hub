@@ -6,7 +6,6 @@
   "category": "Research",
   "emoji": "🧠",
   "useCase": "Generate a research digest from news headlines and papers in one Notion page.",
-  "description": "Pull research from news and academic sources, synthesize with AI, and save in Notion.",
   "nodes": [
     {
       "id": "news-top-headlines",

@@ -6,7 +6,6 @@
   "category": "Competitive Intel",
   "emoji": "🕵️",
   "useCase": "Crawl competitor websites, track their Twitter, monitor Product Hunt launches, and get AI-generated battlecards.",
-  "description": "Use when you need to know what competitors are building, saying, and launching — before you see it in the news. Auto-generated battlecards, always fresh.",
   "nodes": [
     {
       "id": "firecrawl-scrape",

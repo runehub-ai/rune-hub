@@ -6,7 +6,6 @@
   "category": "Media",
   "emoji": "🎙️",
   "useCase": "Fetch a podcast episode from RSS, transcribe with Whisper, generate show notes, and draft on Substack.",
-  "description": "Transcribe podcast episodes and generate structured show notes for publishing.",
   "nodes": [
     {
       "id": "podcast-rss-fetch",

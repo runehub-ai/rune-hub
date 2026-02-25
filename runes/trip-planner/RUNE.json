@@ -6,7 +6,6 @@
   "category": "Travel",
   "emoji": "✈️",
   "useCase": "Enter a destination and dates, get flight options from Skyscanner, hotels from Booking.com, and a full AI itinerary.",
-  "description": "Plan a complete trip itinerary with flights, hotels, and local attractions.",
   "nodes": [
     {
       "id": "user-input",

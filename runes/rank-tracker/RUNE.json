@@ -6,7 +6,6 @@
   "category": "SEO",
   "emoji": "📈",
   "useCase": "Combine SEMrush ranking data with Ahrefs backlink analysis to find content gaps and SEO opportunities.",
-  "description": "Monitor SEO rankings and backlinks, identify content gaps, and generate improvement reports.",
   "nodes": [
     {
       "id": "semrush-fetch",

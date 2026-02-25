@@ -6,7 +6,6 @@
   "category": "Health",
   "emoji": "💪",
   "useCase": "Snap a photo of your lunch. 10 seconds later: calories counted, macros tracked, dinner plan adjusted, groceries ordered if needed.",
-  "description": "Vision model reads food photos, tracks macros against goals, generates weekly meal plans, orders groceries via delivery API, syncs Apple Health data. Choose your coach persona: supportive mentor or savage roaster. People quit apps — they don't quit their coach.",
   "nodes": [
     {
       "id": "vision-food",

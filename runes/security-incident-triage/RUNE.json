@@ -6,7 +6,6 @@
   "category": "Security",
   "emoji": "🛡️",
   "useCase": "Use Datadog and Sentry context to risk-score incidents and trigger PagerDuty/Slack.",
-  "description": "Combine monitoring signals and escalate critical issues automatically.",
   "nodes": [
     {
       "id": "datadog-query-metric",

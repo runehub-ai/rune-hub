@@ -6,7 +6,6 @@
   "category": "Sales",
   "emoji": "💼",
   "useCase": "Find leads on Apollo, enrich with Clearbit, AI-score for fit, and auto-create deals in HubSpot CRM.",
-  "description": "Source leads, enrich with company data, score with AI, and push qualified leads to CRM.",
   "nodes": [
     {
       "id": "apollo-search",

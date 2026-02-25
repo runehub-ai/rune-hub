@@ -6,7 +6,6 @@
   "category": "HR",
   "emoji": "🎉",
   "useCase": "Onboard greenhouse hires by setting up Gusto payroll, Slack, calendar, and documentation.",
-  "description": "Trigger payroll setup, Slack notifications, calendar events, and handoff notes for new hires.",
   "nodes": [
     {
       "id": "greenhouse-candidate",

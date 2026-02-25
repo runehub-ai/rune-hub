@@ -6,7 +6,6 @@
   "category": "E-Commerce",
   "emoji": "🦅",
   "useCase": "Track competitor pricing daily, compare against your Shopify products, and get alerts when prices shift.",
-  "description": "Monitor competitor prices against your Shopify catalog and alert on significant changes.",
   "nodes": [
     {
       "id": "shopify-list-products",

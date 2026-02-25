@@ -6,7 +6,6 @@
   "category": "Content",
   "emoji": "📝",
   "useCase": "Turn a simple topic into a fully researched, SEO-optimized blog post ready for publishing on WordPress or Ghost.",
-  "description": "Use when you want to turn a rough topic idea into a fully researched, SEO-optimized blog post — without writing a single word yourself.",
   "nodes": [
     {
       "id": "user-input",

@@ -6,7 +6,6 @@
   "category": "E-Commerce",
   "emoji": "🛍️",
   "useCase": "Automatically validate inventory, charge through PayPal, confirm by email, and log to Notion.",
-  "description": "Handle new Shopify orders through inventory checks, charging, and confirmation notifications.",
   "nodes": [
     {
       "id": "shopify-order",

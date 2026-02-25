@@ -6,7 +6,6 @@
   "category": "Analytics",
   "emoji": "🚦",
   "useCase": "Automatically detect traffic spikes or drops in GA4, get AI explanations, and receive Slack alerts.",
-  "description": "Detect anomalies in Google Analytics traffic and explain them with AI.",
   "nodes": [
     {
       "id": "ga4-fetch",

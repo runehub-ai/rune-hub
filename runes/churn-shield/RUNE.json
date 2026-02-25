@@ -6,7 +6,6 @@
   "category": "Customer Success",
   "emoji": "🛡️",
   "useCase": "Combine Intercom engagement events with Stripe MRR data, predict churn risk, and flag at-risk accounts in CRM.",
-  "description": "Predict customer churn by combining support interactions with billing data.",
   "nodes": [
     {
       "id": "intercom-fetch-events",

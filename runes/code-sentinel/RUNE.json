@@ -6,7 +6,6 @@
   "category": "DevOps",
   "emoji": "🛡️",
   "useCase": "Get instant AI-powered code reviews on every GitHub PR with actionable feedback posted as comments.",
-  "description": "Use when you want AI code review on every GitHub PR — bugs, security holes, and style issues caught and posted as comments automatically.",
   "nodes": [
     {
       "id": "github-list-prs",

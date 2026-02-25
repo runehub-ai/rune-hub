@@ -6,7 +6,6 @@
   "category": "Marketing",
   "emoji": "📡",
   "useCase": "Collect social mentions from multiple sources, score sentiment with Claude, then store to PostHog.",
-  "description": "Track Twitter/X and Reddit signals and save sentiment analysis to PostHog and Slack.",
   "nodes": [
     {
       "id": "twitter-x-search",

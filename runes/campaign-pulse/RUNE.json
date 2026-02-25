@@ -6,7 +6,6 @@
   "category": "Marketing",
   "emoji": "📣",
   "useCase": "Pull Google Ads and Meta Ads data together, get AI analysis of what is working, and export optimization tips.",
-  "description": "Aggregate ad performance from Google and Meta, analyze with AI, and generate optimization recommendations.",
   "nodes": [
     {
       "id": "google-ads-fetch",

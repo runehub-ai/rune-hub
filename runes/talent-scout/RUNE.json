@@ -6,7 +6,6 @@
   "category": "HR",
   "emoji": "🔎",
   "useCase": "Scrape LinkedIn profiles, parse resumes with AI, rank candidates by fit, and push top picks to HubSpot.",
-  "description": "Source, enrich, and rank candidates from LinkedIn profiles for open positions.",
   "nodes": [
     {
       "id": "linkedin-scrape",

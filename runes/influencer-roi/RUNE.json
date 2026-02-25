@@ -6,7 +6,6 @@
   "category": "Marketing",
   "emoji": "📈",
   "useCase": "Analyze Instagram insights with Claude and push outcomes into HubSpot.",
-  "description": "Measure influencer campaign performance and sync lead updates.",
   "nodes": [
     {
       "id": "instagram-insights",

@@ -6,7 +6,6 @@
   "category": "Marketing",
   "emoji": "⭐",
   "useCase": "Collect app reviews from multiple sources, summarize sentiment, and notify Slack/Notion.",
-  "description": "Track reviews across Google Places and Yelp and produce sentiment insights.",
   "nodes": [
     {
       "id": "places-reviews",
