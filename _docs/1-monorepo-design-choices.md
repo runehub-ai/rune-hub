@@ -6,7 +6,7 @@ rune-hub is a monorepo with the following structure:
 
 ```
 rune-hub/
-├── package.json                        # npm workspaces root
+├── package.json                        # bun workspaces root
 ├── skill-packages/                     # Skill Packages (service bundles, JSON)
 │   ├── gmail/SKILL.json
 │   ├── slack/SKILL.json
@@ -97,6 +97,7 @@ list. They contain no prose and no documentation body. Skills, on the other hand
 are actual skill documents following the [Agent Skills spec](https://agentskills.io/specification)
 format, where the Markdown body can contain usage docs, parameters, examples, and
 setup instructions.
+
 **Reasoning**:
 - Skill packages are **pure data** — `JSON.parse` is simpler and faster than YAML
   frontmatter parsing. No `gray-matter` dependency needed for packages.
@@ -122,11 +123,11 @@ setup instructions.
 is the existing `Rune` TypeScript interface from the web frontend.
 
 **Context**: Runes are AI orchestration pipelines — directed acyclic graphs of
-skill nodes and edges. The web frontend already has a well-defined TypeScript
-interface for this:
+skill nodes and edges. The web frontend defines the canonical TypeScript
+interface:
 
 ```typescript
-// packages/web/src/data/runes.ts (existing)
+// packages/web/src/lib/loader.ts
 interface SkillNode {
   id: string          // references a skill id (e.g. "gmail-fetch")
   label: string
@@ -180,7 +181,7 @@ GitHub repo to an OS cache directory and reads from the cached clone.
 | **Load time** | Build time (`next build`) or dev server start | CLI invocation (`rune-hub skills`) |
 
 **Reasoning for web = local filesystem**:
-- The web app is always built from the monorepo — either `npm run dev` locally
+- The web app is always built from the monorepo — either `bun run dev` locally
   or Vercel cloning the repo for production builds.
 - `./skill-packages`, `./skills`, and `./runes` are in the same repo, so
   `fs.readdir` + `fs.readFile` just works. No network requests, no caching
@@ -303,6 +304,7 @@ related skills. Stored as JSON since it's pure structured data with no prose.
 
 **Key field**: `skills` is an array of skill ids that this package bundles.
 **Categories**: `ai` | `communication` | `productivity` | `dev` | `data` | `finance` | `marketing` | `iot` | `media` | `utility`
+
 ---
 
 ## Skills: `./skills/{name}/SKILL.md`
@@ -314,17 +316,16 @@ A skill is a single atomic operation — what rune nodes reference and execute.
 ```yaml
 ---
 name: gmail-fetch
-description: Retrieve emails matching query filters from the Gmail API.
-label: Fetch Emails
-category: api
-icon: mail
+description: "Fetch emails from a Gmail inbox using label or query filters."
+label: "Gmail Fetch Emails"
+category: input
+icon: "📧"
 package: gmail
 ---
 
 # gmail-fetch
 
-Retrieve emails matching query filters from the Gmail API.
-Supports query parameters for date range, sender, labels, and full-text search.
+Fetch emails from a Gmail inbox using label or query filters.
 ```
 
 **Key fields**:
@@ -341,11 +342,11 @@ skill-packages/                 skills/
 │   └── SKILL.json              │   └── SKILL.md
 ├── claude/                     ├── gmail-label/
 │   └── SKILL.json              │   └── SKILL.md
-└── ... (130+ packages)         ├── slack-post/
+└── ...                         ├── slack-post/
                                 │   └── SKILL.md
                                 ├── claude-summarize/
                                 │   └── SKILL.md
-                                └── ... (220+ skills)
+                                └── ...
 ```
 
 ---
@@ -355,33 +356,28 @@ skill-packages/                 skills/
 Each rune is a JSON file following the existing `Rune` TypeScript interface from
 the web frontend (see [D2](#d2-runes-as-graph-data-json-not-markdown)).
 
-Rune nodes reference **skill ids** — entries from `./skills/`, not packages:
+Rune nodes reference **skill ids** — entries from `./skills/`, not packages.
+Example (truncated — see `runes/morning-brief/RUNE.json` for full version):
 
 ```json
 {
   "id": "rune-morning-brief",
   "slug": "morning-brief",
   "name": "Morning Brief",
-  "purpose": "Wake up to a 3-minute brief with schedule conflicts, blocked PRs, and headlines.",
+  "purpose": "...",
   "category": "Productivity",
   "emoji": "🌅",
-  "useCase": "Aggregates overnight emails, calendar events, and news into a concise morning briefing.",
+  "useCase": "...",
   "nodes": [
     { "id": "gcal-list-events",  "label": "Google Calendar",  "category": "input"  },
     { "id": "gmail-fetch",       "label": "Gmail Inbox",       "category": "input"  },
-    { "id": "github-issues",     "label": "GitHub Issues",     "category": "input"  },
     { "id": "claude-triage",     "label": "Claude Triage",     "category": "llm"    },
-    { "id": "brave-search",      "label": "Brave News Search", "category": "api"    },
-    { "id": "claude-compose",    "label": "Claude Compose",    "category": "llm"    },
-    { "id": "slack-post",        "label": "Slack Post",        "category": "output" }
+    "..."
   ],
   "edges": [
     { "source": "gcal-list-events", "target": "claude-triage",  "label": "schedule"   },
     { "source": "gmail-fetch",      "target": "claude-triage",  "label": "emails"     },
-    { "source": "github-issues",    "target": "claude-triage",  "label": "dev tasks"  },
-    { "source": "claude-triage",    "target": "claude-compose", "label": "priorities" },
-    { "source": "brave-search",     "target": "claude-compose", "label": "headlines"  },
-    { "source": "claude-compose",   "target": "slack-post",     "label": "brief"      }
+    "..."
   ]
 }
 ```
@@ -393,7 +389,8 @@ Rune nodes reference **skill ids** — entries from `./skills/`, not packages:
 ### Web (`packages/web`) — Local filesystem
 
 ```typescript
-// packages/web/src/lib/loader.ts
+// packages/web/src/lib/loader.ts (simplified — see actual file for full implementation)
+import { existsSync } from 'fs'
 import fs from 'fs/promises'
 import path from 'path'
 import matter from 'gray-matter'  // only needed for skills (SKILL.md)
@@ -402,46 +399,63 @@ export async function loadSkillPackages(): Promise<SkillPackage[]> {
   const root = getMonorepoRoot()
   const dir = path.join(root, 'skill-packages')
   const entries = await fs.readdir(dir, { withFileTypes: true })
-  return Promise.all(
+  const packages = await Promise.all(
     entries.filter(e => e.isDirectory()).map(async (entry) => {
-      const raw = await fs.readFile(path.join(dir, entry.name, 'SKILL.json'), 'utf-8')
+      const raw = await fs.readFile(path.join(dir, entry.name, 'SKILL.json'), 'utf8')
       const data = JSON.parse(raw)
-      return parseSkillPackage(data)
+      return {
+        id: data.name,
+        name: data.displayName,
+        // ... maps remaining SKILL.json fields to SkillPackage interface
+      } as SkillPackage
     })
   )
+  return packages
 }
 
-export async function loadSkills(): Promise<Skill[]> {
+export async function loadSkills(preloadedPackages?: SkillPackage[]): Promise<Skill[]> {
   const root = getMonorepoRoot()
   const dir = path.join(root, 'skills')
   const entries = await fs.readdir(dir, { withFileTypes: true })
-  return Promise.all(
+  const packages = preloadedPackages ?? await loadSkillPackages()
+  const skills = await Promise.all(
     entries.filter(e => e.isDirectory()).map(async (entry) => {
-      const raw = await fs.readFile(path.join(dir, entry.name, 'SKILL.md'), 'utf-8')
-      const { data, content } = matter(raw)
-      return parseSkill(data, content)
+      const raw = await fs.readFile(path.join(dir, entry.name, 'SKILL.md'), 'utf8')
+      const { data } = matter(raw)
+      return {
+        id: data.name,
+        label: data.label,
+        category: data.category,
+        // ... maps remaining frontmatter fields to Skill interface
+      } as Skill
     })
   )
+  return skills
 }
 
 export async function loadRunes(): Promise<Rune[]> {
   const root = getMonorepoRoot()
   const dir = path.join(root, 'runes')
   const entries = await fs.readdir(dir, { withFileTypes: true })
-  return Promise.all(
+  const runes = await Promise.all(
     entries.filter(e => e.isDirectory()).map(async (entry) => {
-      const raw = await fs.readFile(path.join(dir, entry.name, 'RUNE.json'), 'utf-8')
+      const raw = await fs.readFile(path.join(dir, entry.name, 'RUNE.json'), 'utf8')
       return JSON.parse(raw) as Rune
     })
   )
+  return runes.map(rune => ({
+    ...rune,
+    description: rune.description ?? rune.purpose,
+  }))
 }
 ```
 
 ### CLI (`packages/cli`) — Git clone to OS cache
 
 ```typescript
-// packages/cli/src/loaders/repo.ts
+// packages/cli/src/loaders/repo.ts (simplified — see actual file for full implementation)
 import { execSync } from 'child_process'
+import { existsSync, mkdirSync } from 'fs'
 import os from 'os'
 import path from 'path'
 
@@ -451,54 +465,78 @@ const CACHE_DIR = path.join(
   'rune-hub', 'repo'
 )
 
-export async function ensureRepoCache(): Promise<string> {
-  if (await exists(path.join(CACHE_DIR, '.git'))) {
-    execSync('git pull --ff-only', { cwd: CACHE_DIR, stdio: 'ignore' })
-  } else {
+export function ensureRepoCache(): string {
+  // For local development, RUNE_HUB_DATA_DIR overrides to read from local repo
+  if (process.env.RUNE_HUB_DATA_DIR) {
+    return process.env.RUNE_HUB_DATA_DIR
+  }
+
+  mkdirSync(path.dirname(CACHE_DIR), { recursive: true })
+
+  if (existsSync(path.join(CACHE_DIR, '.git'))) {
+    try {
+      execSync('git pull --ff-only', { cwd: CACHE_DIR, stdio: 'ignore' })
+    } catch (e) {
+      console.error('warning: git pull failed, cache may be stale:', (e as Error).message)
+    }
+    return CACHE_DIR
+  }
+
+  try {
     execSync(
       `git clone --depth=1 --filter=blob:none --sparse ${REPO_URL} ${CACHE_DIR}`,
       { stdio: 'ignore' }
     )
+  } catch (e) {
+    console.error('warning: git clone failed, data may be unavailable:', (e as Error).message)
+    return CACHE_DIR
+  }
+
+  try {
     execSync('git sparse-checkout set skill-packages skills runes', {
       cwd: CACHE_DIR, stdio: 'ignore'
     })
+  } catch (e) {
+    console.error('warning: git sparse-checkout failed, some data may be missing:', (e as Error).message)
   }
+
   return CACHE_DIR
 }
 
-// Then: same loadSkillPackages/loadSkills/loadRunes reading from CACHE_DIR
+// Then: loadSkillPackages() and loadRunes() read JSON from CACHE_DIR
 ```
 
 ```
 First run:   git clone --sparse → ~/.cache/rune-hub/repo/
 Next runs:   git pull --ff-only (fast, delta only)
 Offline:     works from cached clone
---refresh:   rm -rf cache + fresh clone
+Local dev:   RUNE_HUB_DATA_DIR=../.. bun x tsx src/index.ts (skips git entirely)
 ```
 
 ---
 
-## Migration from Current Hardcoded Data
+## Migration from Hardcoded Data (completed)
 
-Currently `packages/web/src/data/skills-registry.ts` has 100+ skill packages
-and 200+ actions hardcoded as TypeScript arrays, and `runes.ts` has 65 runes.
+The original `packages/web/src/data/skills-registry.ts` and `runes.ts` contained
+all skill packages, actions, and runes as hardcoded TypeScript arrays. These have
+been fully migrated to file-based data and the source files deleted.
 
-### Steps
+### Steps (all completed)
 
-1. **Generate `./skill-packages/*/SKILL.json`** from `SkillPackage` entries
-2. **Generate `./skills/*/SKILL.md`** from `Action` entries (one per action)
-3. **Generate `./runes/*/RUNE.json`** from `Rune` entries
-4. **Create web loader** using `JSON.parse` (packages, runes) + `gray-matter` (skills)
-5. **Update web pages** — replace static imports with loader calls
-6. **Update CLI** — replace symlink import with cache-based loader
-7. **Delete `skills-registry.ts`** and **`runes.ts`**
-8. **Remove CLI → web symlink** (`packages/cli/src/data`)
+1. **Generated `./skill-packages/*/SKILL.json`** from `SkillPackage` entries
+2. **Generated `./skills/*/SKILL.md`** from `Action` entries (one per action)
+3. **Generated `./runes/*/RUNE.json`** from `Rune` entries
+4. **Created web loader** (`packages/web/src/lib/loader.ts`) using `JSON.parse` (packages, runes) + `gray-matter` (skills)
+5. **Updated web pages** — replaced static imports with loader calls
+6. **Updated CLI** — replaced symlink import with cache-based loader
+7. **Deleted `skills-registry.ts`** and **`runes.ts`**
+8. **Removed CLI → web symlink** (`packages/cli/src/data`)
 
 ---
 
 ## Migration Path (Three Phases)
 
-### Phase 1: Monorepo (current target)
+### Phase 1: Monorepo (current)
 - Skill packages, skills, and runes are plain files in monorepo root
 - Web reads local filesystem; CLI clones from GitHub
 - Like `anthropics/skills` format — simple, git-native, PR-friendly
@@ -525,4 +563,4 @@ and 200+ actions hardcoded as TypeScript arrays, and `runes.ts` has 65 runes.
 - [`runehub-ai/skills`](https://github.com/runehub-ai/skills) — Future external registry (Phase 2)
 - [`openclaw/clawhub`](https://github.com/openclaw/clawhub) — ClawHub registry (Phase 3 reference)
 - [OpenClaw Skills Docs](https://docs.openclaw.ai/skills) — OpenClaw's runtime loading model
- [`runehub-ai/rune-hub`](https://github.com/runehub-ai/rune-hub) — CLI clone source
+- [`runehub-ai/rune-hub`](https://github.com/runehub-ai/rune-hub) — CLI clone source
