@@ -397,25 +397,19 @@ Rune nodes reference **skill ids** — entries from `./skills/`, not packages:
 import fs from 'fs/promises'
 import path from 'path'
 import matter from 'gray-matter'  // only needed for skills (SKILL.md)
+
 export async function loadSkillPackages(): Promise<SkillPackage[]> {
-  // Skill packages are JSON — no gray-matter needed
-  const raw = await fs.readFile(path.join(dir, entry.name, 'SKILL.json'), 'utf-8')
-  const data = JSON.parse(raw)
-  return parseSkillPackage(data)
+  const root = getMonorepoRoot()
+  const dir = path.join(root, 'skill-packages')
+  const entries = await fs.readdir(dir, { withFileTypes: true })
+  return Promise.all(
+    entries.filter(e => e.isDirectory()).map(async (entry) => {
+      const raw = await fs.readFile(path.join(dir, entry.name, 'SKILL.json'), 'utf-8')
+      const data = JSON.parse(raw)
+      return parseSkillPackage(data)
+    })
+  )
 }
-
-export async function loadSkills(): Promise<Skill[]> {
-  // Skills use SKILL.md — gray-matter parses frontmatter
-  const raw = await fs.readFile(path.join(dir, entry.name, 'SKILL.md'), 'utf-8')
-  const { data } = matter(raw)
-  return parseSkill(data)
-}
-
-export async function loadRunes(): Promise<Rune[]> {
-  const raw = await fs.readFile(path.join(dir, entry.name, 'RUNE.json'), 'utf-8')
-  return JSON.parse(raw) as Rune
-}
-```
 
 export async function loadSkills(): Promise<Skill[]> {
   const root = getMonorepoRoot()
@@ -437,7 +431,7 @@ export async function loadRunes(): Promise<Rune[]> {
   return Promise.all(
     entries.filter(e => e.isDirectory()).map(async (entry) => {
       const raw = await fs.readFile(path.join(dir, entry.name, 'RUNE.json'), 'utf-8')
-      return JSON.parse(raw) as Rune
+      return JSON.parse(raw) as Rune[]
     })
   )
 }
@@ -494,12 +488,11 @@ and 200+ actions hardcoded as TypeScript arrays, and `runes.ts` has 65 runes.
 1. **Generate `./skill-packages/*/SKILL.json`** from `SkillPackage` entries
 2. **Generate `./skills/*/SKILL.md`** from `Action` entries (one per action)
 3. **Generate `./runes/*/RUNE.json`** from `Rune` entries
-4. **Create web loader** using `gray-matter` + `JSON.parse`
 4. **Create web loader** using `JSON.parse` (packages, runes) + `gray-matter` (skills)
-6. **Update web pages** — replace static imports with loader calls
-7. **Update CLI** — replace symlink import with cache-based loader
-8. **Delete `skills-registry.ts`** and **`runes.ts`**
-9. **Remove CLI → web symlink** (`packages/cli/src/data`)
+5. **Update web pages** — replace static imports with loader calls
+6. **Update CLI** — replace symlink import with cache-based loader
+7. **Delete `skills-registry.ts`** and **`runes.ts`**
+8. **Remove CLI → web symlink** (`packages/cli/src/data`)
 
 ---
 
